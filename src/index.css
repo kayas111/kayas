@@ -1,0 +1,453 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+a{
+  text-decoration:none;
+}
+.hovereffect:hover{
+  color:red;
+  
+  
+}
+
+.nav-link{
+text-decoration: underline;
+}
+.backgroundColorHovereffect:hover{
+  background-color:rgb(0, 4, 255);
+   
+}
+
+.backgroundColorHoverEffect3:hover{
+  background-color:rgb(255, 187, 0);
+   
+}
+
+
+.backgroundColorHoverEffectGreen:hover{
+  background-color:green;
+  
+  
+}
+.AdComponentDiv{
+  padding-bottom:5px;border-radius:3px;
+  box-shadow:0px -4px 8px black;
+}
+ .articleContainer{
+padding:5px;
+border-radius:5px;
+box-shadow: 0px 0px 6px black;
+ }
+
+
+.hoverEffectUnderline:hover{
+  text-decoration:underline;
+  color:red;
+  
+  
+}
+.hovereffect2:hover{
+  color:grey;
+  
+  
+}
+
+
+
+.caption-four{
+  color:rgb(255, 255, 255);
+ 
+}
+.caption-one{
+  color:#000000; 
+}
+.caption-two{
+  color:#FFEA00; 
+}
+.caption-three{
+  color:#0A00CD;
+}
+
+.carousel-caption{
+  border:0px solid red; 
+height:100%;
+
+font-size:20px;
+
+}
+
+.carousel-control-next{
+  width:30px;
+border:0px;
+}
+.carousel-control-prev{
+border:0px solid green;
+
+  width:30px;
+}
+
+
+
+
+
+
+
+.App {
+  text-align: center;
+}
+.navigatione{
+  background:green;
+  height:300px;
+}
+navbar-brand1{
+  color:rgb(255, 255, 255)!important;
+font-size:30px;
+
+}
+.bg-black{
+
+  background:black !important;
+      
+  }
+nav-link1{
+    font-size:15px;
+        color:rgba(255, 255, 255, 0.801);
+        
+        
+    }
+
+.aud{
+  opacity:0;
+}
+.carousel{
+  background:rgb(0, 0, 0);
+ 
+ 
+  
+}
+.basenave{
+  background:black;
+  color:white;
+  padding:20px;
+  
+}
+.carmsgcolor{
+  color:rgb(255, 255, 255);
+  font-size:20px;
+  border:0px solid black;
+  font-weight:bold;
+
+  
+  
+  
+}
+.carmsg{
+  
+  font-size:30px;
+  border:0px solid black;
+
+  opacity:0.9;
+  border-radius:10px;
+  
+}
+.generale{
+  
+  padding:3px;
+  font-size:17px;
+  color:rgb(0, 0, 0);
+  
+  
+  
+}
+
+.genPadTop{
+  padding-top:20px;
+}
+.gen1{
+  text-align:left;
+  color:rgb(167, 164, 164);
+ 
+}
+.generaleH{
+
+font-size:18px;
+color:green;
+text-align:center;
+font-weight:bold;
+
+}
+.generaleH1{
+
+  font-size:18px;
+  color:rgb(255, 123, 0);
+  text-align:left;
+  font-weight:bold;
+  
+  }
+.nega{
+  width:100%;
+  background:green; 
+  color:white;
+  text-align:center;
+  padding:8px;
+  font-family: charm;
+  
+  }
+  
+.gencols{
+  border-right:0px solid green;
+  padding-bottom:20px;
+  text-align:center;
+ 
+}
+.adscols{
+  border-right:2px solid green;
+  border-bottom:2px solid gray;
+  padding-bottom:50px;
+
+  height:400px;
+}
+.bod{
+  border:0px solid red;
+  padding-bottom:8px;
+  
+}
+.body{
+  font-size:14px;
+}
+.itemse{
+  background:url("./pages/imgs/snacks.jpg") fixed no-repeat;
+  background-size:cover;
+  padding:5px;
+ 
+} 
+.btn1{
+  padding:7px;
+  border-radius:20px;
+}
+
+.item{
+  
+height:310px;
+
+border-left:0px solid green;
+border-radius:10px;
+
+box-shadow: 5px 8px  15px black;
+padding:3px;
+}
+.followersCategory{
+  box-shadow: 2px 2px  5px black;
+  border-radius: 8px;
+}
+
+.itemhide{
+  width:100%;
+height:310px;
+
+border-left:0px solid green;
+border-radius:10px;
+
+box-shadow: 5px 8px  15px black;
+padding:3px;
+}
+
+.photohide{
+ width:100%;
+  height:55%; 
+  background:white;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
+
+  overflow:hidden;
+  text-align:center;
+   
+}
+
+.photo{
+  
+   height:55%; 
+   background:white;
+   border-top-right-radius: 10px;
+   border-top-left-radius: 10px;
+ border:0px solid red;
+ padding:10px;
+ 
+   overflow:hidden;
+ 
+    
+ }
+
+.infor{
+  width:100%;
+     height:38%;
+ background:white;
+ background-size:cover;
+   
+   border-bottom-right-radius: 10px;
+   border-bottom-left-radius: 10px;
+   opacity:0.8;
+   padding:5px;
+ 
+ }
+ .item-id{
+  text-align:left;
+  color:black;
+font-size:15px;
+font-weight:bold;
+  
+  }
+  
+  
+  .item-price{
+   font-size:16px;
+  color:orange;
+  font-size:18px;
+  padding-top:0px;
+  font-weight:bold;
+  }
+  
+  .item-desc{
+      
+  color:rgb(102, 102, 102);
+  font-size: 10px;
+  }
+  
+  
+  .item-cont{
+      width:100%;
+    padding: 4px;
+      background:green;
+      
+     border-radius: 20px;
+      color:white;
+  text-align:center;
+      float:left;
+      font-size: 11px;
+
+  
+  }
+  
+  form{
+    padding:8px;
+    box-shadow: 0px 0px 3px black;
+    background-color:rgb(252, 252, 252);
+    border:1px solid black;
+    border-radius: 5px;
+    
+  }
+  .form-control{
+    border:1px solid grey;
+  }
+  .formInputLabel{
+        font-size:13px;
+        
+  }
+ .formLabel{
+  color:orange;
+  background:black;text-align:center;font-size:14px;padding:8px;
+ }
+.form-submit-btn{
+background-color: green;
+text-align: center;
+color: white;
+padding:3px;
+}
+ .followingsNavItem{
+  padding:5px;
+  color:"green"
+  
+ }
+
+.test{
+  color:#5a5a5a
+}
+.button1{
+  background-color:green;
+  padding:4px;
+  font-size: 12px;
+  color: white;
+  border-radius: 3px;
+  text-align: center;
+  
+}
+.button2{
+background-color:rgb(110, 0, 55); 
+  padding:4px;
+  font-size: 13px;
+  color: white;
+  border-radius: 3px;
+  
+}
+.pubArticleListItemContainer{
+  
+  padding:5px;
+}
+.pubArticleListItemHeadline{
+ font-size: 16px;
+ font-weight:500;
+ padding-bottom: 5px;
+}
+
+.pubArticleListItemInstitution{
+  color:rgb(245, 159, 0);
+  font-size:10px;
+  
+  font-weight: 500;
+  
+}
+.pubArticleListItemViewsAndVisits{
+  font-size: 10px;
+    color:rgb(0, 94, 0);
+}
+
+.toastAlert1{
+  background-color:green;
+  color: white;
+  padding-top: 30px;
+  
+height: 12%;
+font-size: 15px;
+position:fixed;
+border-radius: 0px 0px 5px 5px;
+top:0%;
+left: 0%;
+right: 0%;
+text-align:center;
+}
+
+.toastAlert2{
+  background-color:rgb(226, 0, 0);
+  padding-top: 30px;
+  
+  color: white;
+height: 12%;
+font-size: 12px;
+position:fixed;
+top:0%;
+left: 0%;
+right: 0%;
+text-align:center;
+}
+.label1{
+  font-size:19px;
+  font-weight: 500;
+}
+.label2{
+  padding-bottom: 5px;
+}

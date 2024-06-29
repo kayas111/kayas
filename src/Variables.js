@@ -1,0 +1,1 @@
+export const kayasDomainUrl='https://kayas-fe53159a9e3e.herokuapp.com'
