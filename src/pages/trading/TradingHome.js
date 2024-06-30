@@ -1,18 +1,17 @@
-/*imgtag <div class="row"><div class="col-md-4"></div><div class="col-md-4"> <img src={client101s} class=" d-block w-100" alt="Loading an image here...."  />
-<div style={{textAlign:"center",color:"red",fontWeight:"bold"}}></div></div><div class="col-md-4"></div></div>
-*/
+
 import React, {useEffect,useState} from 'react'
 import { useParams} from 'react-router-dom'
 import {Itemsele} from '../Home';
-import { ClientBusinesses } from '../ClientBusinesses';
+
 import trade1 from '../imgs/trade1.png'
 import trader1s from '../imgs/trader1s.jpg'
 import trader1s1 from '../imgs/trader1s1.jpg'
-
+import { useCookies } from 'react-cookie';
 import trader2s from '../imgs/trader2s.jpg'
 
 
 import trader4 from '../imgs/trader4.jpg'
+import { ToastAlert } from '../Functions';
 
 
  
@@ -51,16 +50,15 @@ return(
 
 export function TradingAccount(){
   let componentParams=useParams()
-  //Adding recommender property to componentParams
-  componentParams.recommender=componentParams.trader
+   componentParams.recommender=componentParams.trader
   let [updateTrigger,setUpdateTrigger]=useState(0)
   const[recommendationsNumb,setRecommendationsNumb]=useState('')
-  const[traderName,setTraderName]=useState('')
   const[traderContact,setTraderContact]=useState('')
   const[traderAccBal,setTraderAccBal]=useState('')
+  const[traderCashOutBal,setTraderCashOutBal]=useState('')
   const[traderNotice,setTraderNotice]=useState('')
   const[traderNotifyStatus,setTraderNotifyStatus]=useState('')
-  
+  const [cookies,setCookie,removeCookie]=useCookies(['user'])
   
   const[allowPeopleToSendFreeSmsValue,setAllowPeopleToSendFreeSmsValue]=useState('')
   const[freeSmsNoticeValue,setFreeSmsNoticeValue]=useState('')
@@ -77,11 +75,11 @@ function UpdateTraderDetails(operationObj){
 }).then(res=>res.json()).then(resp=>{
 
 if(resp.success===1){
-window.alert('Succesful')
+ToastAlert('toastAlert1','Successful',3000)
 setUpdateTrigger(updateTrigger+=1)
 
 }else{
-  window.alert('Not successful')
+  ToastAlert('toastAlert2','not successful',3000)
 }
 
 
@@ -92,146 +90,100 @@ setUpdateTrigger(updateTrigger+=1)
 }
 
   useEffect(()=>{
-    fetch(`/getTradingDetails/${componentParams.trader}`).then(res=>res.json()).then((resp)=>{
+    if(cookies.user===undefined){
+ToastAlert('toastAlert2','Not logged in',3000)
+window.location.href='/pages/about'
 
-      if(resp.length===0){
-        setTraderName('<div style="color:red">You are not registered with Kayas</div>')
-        setTraderAccBal(0)
-        
-      }else{
-        let traderDetailsObj=resp[0]
-        console.log(traderDetailsObj)
-
-
-
-        setTraderName(traderDetailsObj.name)
-        setTraderAccBal(traderDetailsObj.accBal)
-        setTraderContact(traderDetailsObj.contact)
+    }else{
       
-
-        if(traderDetailsObj.freeSmsObj.allowFreeSmsSending===1){
-          setAllowPeopleToSendFreeSmsValue('Yes')
+      fetch(`/getTradingDetails/${cookies.user.contact}`).then(res=>res.json()).then((resp)=>{
+  
+        if(resp.length===0){
+          
+          setTraderAccBal(0)
+          
         }else{
-          setAllowPeopleToSendFreeSmsValue('No')
-        }
-       setFreeSmsNoticeValue(traderDetailsObj.freeSmsObj.freeSmsNotice)
-
-      }
-
-
-  }
-      
-
-  )  
-
-  fetch(`/recommendations/${componentParams.trader}`).then(res=>res.json()).then(res=>{
-     
-    setRecommendationsNumb(res.length)
-
-  }) 
-  fetch(`/requestsThroughRecommender/${componentParams.trader}`).then(res=>res.json()).then(res=>{
-     
-    setRequestsThroughRecommenderNumb(`${res.length} orders pending`)
-
-  })
-  
-  fetch(`/collection_controls`).then(res=>res.json()).then(res=>{
-     
-    setTraderNotice(res[0].traderNotice)
-
-  })
- 
-
-  },[])
-
-  useEffect(()=>{
-  
-    fetch(`/getTradingDetails/${parseInt(componentParams.trader)}`).then(res=>res.json()).then(resp=>{
-  
-      let traderDetailsObj=resp[0]
-     
-      if(traderDetailsObj.freeSmsObj.allowFreeSmsSending===1){
-        setAllowPeopleToSendFreeSmsValue('Yes')
-      }else{
-        setAllowPeopleToSendFreeSmsValue('No')
-      }
- setFreeSmsNoticeValue(traderDetailsObj.freeSmsObj.freeSmsNotice)
- document.getElementById('traderSettingsForm').freeSmsNoticeMessage.value=''  
-   
-      
-      
-            })
-            
-  },[updateTrigger])
-
-
-
-  /*
-  <div class="col-sm-6 col-md-6"style={{padding:"30px"}}>  
-<form id="accBalTopUpForm">
-    <div class="mb-3">
-    <div style={{fontSize:"15px",color:"green",fontWeight:"bold"}}>TOP UP ACCOUNT BALANCE</div>
-    <textArea rows="5" type="text" class="form-control" autoComplete="off" name="topUpAmount" placeholder='Enter message to notify Kayas. Enter contact of client for follow up. ' ></textArea>
-  </div>
-  <div style={{fontSize:"12px"}} dangerouslySetInnerHTML={{__html:accBalTopUpStatus}}/>
-    <div style={{borderRadius:"18px"}} type="text" class="btn btn-success hovereffect" onClick={()=>{
-      if((Array.from(document.getElementById('accBalTopUpForm').topUpAmount.value)).length<4){
-        setAccBalTopUpStatus('<div style="color:red;">Top up amount is less......</div>')
-      }else{
-        setAccBalTopUpStatus('<div style="color:green;">Requesting.....</div>')
-        fetch('/submitMessage',{
-          method:"post",
-          headers:{'Content-type':'application/json'},
-          body:JSON.stringify({name:traderName,contact:traderContact,serviceType:document.getElementById('traderNoticeForm').msg.value,recommender:traderContact})
-      }).then(res=>res.json()).then((resp)=>{
+// document.getElementById('traderSettingsForm').freeSmsNoticeMessage.value='' 
+          let traderDetailsObj=resp[0]
+          
+          setTraderAccBal(traderDetailsObj.accBal)
+          setTraderCashOutBal(traderDetailsObj.cashOutBal)
+          setTraderContact(traderDetailsObj.contact)
+        
     
+          if(traderDetailsObj.freeSmsObj.allowFreeSmsSending===1){
+            setAllowPeopleToSendFreeSmsValue('Yes')
+          }else{
+            setAllowPeopleToSendFreeSmsValue('No')
+          }
+     setFreeSmsNoticeValue(traderDetailsObj.freeSmsObj.freeSmsNotice)
+  
+        }
+  
+  
+    }
+        
+  
+    )  
+  
+    fetch(`/recommendations/${componentParams.trader}`).then(res=>res.json()).then(res=>{
+       
+      setRecommendationsNumb(res.length)
+  
+    }) 
+    fetch(`/requestsThroughRecommender/${componentParams.trader}`).then(res=>res.json()).then(res=>{
+       
+      setRequestsThroughRecommenderNumb(`${res.length} orders pending`)
+  
+    })
+    
+    fetch(`/collection_controls`).then(res=>res.json()).then(res=>{
+       
+      setTraderNotice(res[0].traderNotice)
+  
+    })
+    
+     
+    
+  
+    }
 
 
-      })
+},[])
 
 
+  
 
-      }
-    }}><span class="fa fa-money"></span> Top up</div>
-    </form>
-    </div>
-  */
- // const[trader,setTrader]
-
-//<p></p><a href="https://chat.whatsapp.com/BU6aMsNR6jL5x11rcWc9HZ"><button style={{borderRadius:"18px"}} type="text" class="btn btn-success hovereffect"><span class="fa fa-whatsapp"></span> Join Group</button></a>
 return(
 <div>
-<div style={{padding:"5px"}}>
-<div style={{fontSize:"25px",color:"green"}} dangerouslySetInnerHTML={{__html:traderName}}/>
 
-<div style={{fontSize:"11px"}}>{recommendationsNumb} referrals, {requestsThroughRecommenderNumb}</div>
-<div style={{fontSize:"15px"}}>Account balance: {traderAccBal}</div>
-<div style={{color:"red",paddingTop:"10px"}}>{traderNotice}</div>
-
-
-</div>
 <div class="row">
-<div class="col-md-3"></div>
-<div class="col-sm-12 col-md-6"style={{padding:"25px"}}>  
 
+<div class="col-md-6" style={{padding:"18px"}}>  
+<div style={{padding:"5px",background:"black"}}>
+<div style={{color:"orange",padding:"4px"}}>Account balance: <span style={{fontSize:"20px"}}>{traderAccBal} shs</span></div>
+<div style={{color:"white",padding:"4px"}}>Payment from Kayas: <span style={{fontSize:"20px"}}>{traderCashOutBal} shs</span></div>
+</div>
+
+<div style={{paddingTop:"10px"}}>{traderNotice}</div><br></br>
 <form id="traderNoticeForm">
-<div style={{paddingBottom:"8px"}}><div class="formLabel" >Notify Kayas</div></div>
+<div style={{paddingBottom:"8px"}}><div class="formLabel" >Send Kayas a message</div></div>
     <div class="mb-3">
     
-    <textArea rows="5" type="text" class="form-control" autoComplete="off" name="msg" placeholder='Enter message to notify Kayas. Include neccessary contacts if there is need.' ></textArea>
+    <textarea rows="5" type="text" class="form-control" autoComplete="off" name="msg" placeholder='Enter message to notify Kayas. Include neccessary contacts if there is need.' ></textarea>
   </div>
   <div style={{fontSize:"12px"}} dangerouslySetInnerHTML={{__html:traderNotifyStatus}}/>
-    <div style={{borderRadius:"18px"}} type="text" class="btn btn-success hovereffect" onClick={()=>{
-      if((Array.from(document.getElementById('traderNoticeForm').msg.value)).length<4){
-        setTraderNotifyStatus('<div style="color:red;">Enter correct message......</div>')
+    <div type="text" class="button1" onClick={()=>{
+      if((Array.from(document.getElementById('traderNoticeForm').msg.value.trim())).length<1){
+        ToastAlert('toastAlert2','Enter a message',3000)
       }else{
-        setTraderNotifyStatus('<div style="color:green;">Notifying.....</div>')
+        ToastAlert('toastAlert1','Sending......',3000)
         fetch('/submitMessage',{
           method:"post",
           headers:{'Content-type':'application/json'},
-          body:JSON.stringify({name:traderName,contact:traderContact,serviceType:document.getElementById('traderNoticeForm').msg.value,recommender:traderContact})
+          body:JSON.stringify({name:cookies.user.name,contact:traderContact,serviceType:document.getElementById('traderNoticeForm').msg.value,recommender:traderContact})
       }).then(res=>res.json()).then((resp)=>{
-        setTraderNotifyStatus('<div style="color:green;">Succesfully sent</div>')
+        ToastAlert('toastAlert1','Sent',3000)
         document.getElementById('traderNoticeForm').msg.value=""
 
       })
@@ -239,79 +191,25 @@ return(
 
 
       }
-    }}><span class="fa fa-envelope"></span> Notify Kayas</div>
+    }}><span class="fa fa-envelope"></span> send</div>
     </form>
     </div>
-    <div class="col-md-3"></div>
-</div>
-
-
-
-<div class="row">
-<div class="col-md-3"></div>
-<div class="col-sm-12 col-md-6"style={{padding:"25px"}}>  
+    <div style={{padding:"18px"}} class="col-md-6">
+     
 
 <form id="traderSettingsForm">
 <div style={{paddingBottom:"8px"}}><div class="formLabel" >Settings</div></div>
     <div class="mb-3">
     <div style={{padding:"5px"}}>People can send free SMS through your account: <span style={{color:"red"}}>{allowPeopleToSendFreeSmsValue}</span> | <span  style={{color:"green"}} onClick={()=>{
-
-     let pin=window.prompt('Enter your PIN')
-if(pin===null){
-window.alert('nothn')
-}else{
-  if(Array.from(pin).length<5){
-    window.alert('Enter a PIN of 5 digits')
-         }else{
-          fetch('/verifyUser',{
-            method:"post",
-            headers:{'Content-type':'application/json'},
-            body:JSON.stringify({
-    contact:parseInt(componentParams.trader),
-    pin:pin.trim()
-            }) 
-        }).then(res=>res.json()).then((resp)=>{
-          
-            if(resp.registered===false){
-              window.alert("You are not registered with Kayas, please register to proceed!")
-           
-    
-            } else if(resp.registered===true){
-              
-             
-              if(resp.pin===true){
-                
+                   
     if(allowPeopleToSendFreeSmsValue==='Yes'){
-      UpdateTraderDetails({method:"updateAsKayaser",argsObj:{traderContact:parseInt(componentParams.trader),fieldToUpdate:'allowFreeSmsSending',updateValue:0}})
+      UpdateTraderDetails({method:"updateAsKayaser",argsObj:{traderContact:parseInt(cookies.user.contact),fieldToUpdate:'allowFreeSmsSending',updateValue:0}})
     }else{
-      UpdateTraderDetails({method:"updateAsKayaser",argsObj:{traderContact:parseInt(componentParams.trader),fieldToUpdate:'allowFreeSmsSending',updateValue:1}})
+      UpdateTraderDetails({method:"updateAsKayaser",argsObj:{traderContact:parseInt(cookies.user.contact),fieldToUpdate:'allowFreeSmsSending',updateValue:1}})
     }
     
     
-              }else{
-    
-                window.alert("Enter a correct PIN")
-    
-    
-              }
-    
-            } 
-             else{
-              window.alert("An error has occured. Please try again")
-              
-               }
-           
-        }
-            
-    
-        )  
-    
-    
-    
-         }
-    
-    
-}
+             
   
     }}>Change</span>
   
@@ -320,62 +218,8 @@ window.alert('nothn')
     </div>
     <div style={{padding:"5px",paddingBottom:"8px"}}>Current Free SMS notice: <span style={{color:"red"}}>{freeSmsNoticeValue}</span> | <span  style={{color:"green"}} onClick={()=>{
 
-let pin=window.prompt('Enter your PIN')
-if(pin===null){
-;
-}else{
-if(Array.from(pin).length<5){
-window.alert('Enter a PIN of 5 digits')
-    }else{
-     fetch('/verifyUser',{
-       method:"post",
-       headers:{'Content-type':'application/json'},
-       body:JSON.stringify({
-contact:parseInt(componentParams.trader),
-pin:pin.trim()
-       }) 
-   }).then(res=>res.json()).then((resp)=>{
-     
-       if(resp.registered===false){
-         window.alert("You are not registered with Kayas, please register to proceed!")
-      
 
-       } else if(resp.registered===true){
-         
-        
-         if(resp.pin===true){
-
-
- UpdateTraderDetails({method:"updateAsKayaser",argsObj:{traderContact:parseInt(componentParams.trader),fieldToUpdate:'freeSmsNotice',updateValue:document.getElementById('traderSettingsForm').freeSmsNoticeMessage.value.trim()}})
-
-
-
-         }else{
-
-           window.alert("Enter a correct PIN")
-
-
-         }
-
-       } 
-        else{
-         window.alert("An error has occured. Please try again")
-         
-          }
-      
-   }
-       
-
-   )  
-
-
-
-    }
-
-
-}
-
-
+UpdateTraderDetails({method:"updateAsKayaser",argsObj:{traderContact:parseInt(cookies.user.contact),fieldToUpdate:'freeSmsNotice',updateValue:document.getElementById('traderSettingsForm').freeSmsNoticeMessage.value.trim()}})
 
 
 
@@ -385,7 +229,7 @@ pin:pin.trim()
 
 
 </div>
-<textArea rows="3" type="text" class="form-control" autoComplete="off" name="freeSmsNoticeMessage" placeholder='Type your new notice message here'></textArea>
+<textarea rows="3" type="text" class="form-control" autoComplete="off" name="freeSmsNoticeMessage" placeholder='Type your new notice message here'></textarea>
 
 
 
@@ -394,8 +238,12 @@ pin:pin.trim()
   </div>
   
     </form>
+    
+
+
+
+
     </div>
-    <div class="col-md-3"></div>
 </div>
 
 
@@ -404,11 +252,12 @@ pin:pin.trim()
 
 
 
+
+
+
+
 <div>
-<div style={{paddingLeft:"5px",fontSize:"25px",textAlign:"center",paddingTop:"30px"}}>
-  <span style={{paddingLeft:"20px",paddingRight:"20px",borderRadius:"22px",borderTop:"1px solid green"}}>Want to advertise?</span>
-  </div>
-<ClientBusinesses/>
+
 </div>
 
 </div>
@@ -438,10 +287,10 @@ export function Trader(props){
       setOpinionsNumb(res.length)
       res.forEach(opinion=>{
      if(props.showCustomerContact==="on"){
-      data+='<div>'+opinion.name+" "+opinion.contact+"</div><div>Trading ID: "+opinion.tradingId+" ("+opinion.traderName+")</div><hr></hr>"
+      data+='<div>'+opinion.name+" "+opinion.contact+"</div><div>Trading ID: "+opinion.tradingId+" ("+opinion.cookies.user.name+")</div><hr></hr>"
      }
        else{
-        data+='<div>'+opinion.name+"</div><div>Trading ID: "+opinion.tradingId+" ("+opinion.traderName+")</div><hr></hr>"
+        data+='<div>'+opinion.name+"</div><div>Trading ID: "+opinion.tradingId+" ("+opinion.cookies.user.name+")</div><hr></hr>"
        }
       
       })

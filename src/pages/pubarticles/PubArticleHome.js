@@ -2,7 +2,7 @@ import { VerifyRegistrationAndPin,ToastAlert } from '../Functions';
 import firebase from 'firebase/compat/app';
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import 'firebase/compat/storage';
-import axios from 'axios'
+
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import React, {useEffect,useState,useContext,useReducer} from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -319,16 +319,17 @@ export function CreateArticle(){
     <div style={{paddingBottom:"8px"}}><div class="formLabel">Create article</div></div>
        <div class="mb-3">
      <div class="formInputLabel">Create headline</div>
-     <textArea rows="3" type="text" class="form-control" autoComplete="off" name="articleHeadline1"></textArea>
+     <textarea rows="3" type="text" class="form-control" autoComplete="off" name="articleHeadline1"></textarea>
    
    <br></br>
    <div class="formInputLabel">Add photo <span style={{fontSize:"12px"}}> <input type="file" id="pubArticleImageInputElement" name="file" onChange={(event)=>{
   let file=document.querySelector('#pubArticleImageInputElement').files[0]
-  if(file.type==='image/png'||file.type==='image/jpg'||file.type==='image/jpeg'||file.type==='image/gif'||file.type==='image/webp'){
+  if(file.type==='image/png'||file.type==='image/jpg'||file.type==='image/jpeg'||file.type==='image/gif'||file.type==='image/webp'||file.type==='image/avif'){
     setImagePreview(URL.createObjectURL(file))
   }else{
-    window.alert('Image type not supported. Choose another')
+        
     window.location.href='/pages/pubarticles/createarticle'
+    ToastAlert('toastAlert2','Image type not supported. Change image',3000)
   }
   
  
@@ -444,6 +445,7 @@ setStatus(`<div style='color:green;'>Creating, please wait.....</div>`)
       document.getElementById("articleCreateForm").pin.value=""
 if(imageFile===undefined){
   window.location.href=`/pages/pubarticles/article/${res.id}`
+  ToastAlert('toastAlert1','Successful. Please wait....',3000)
   }else{
 
     let value=0;
@@ -464,11 +466,15 @@ if(imageFile===undefined){
     orderBy:'generation',limitTo:1
    }).then(resp=>{
    let imageDownLoadUrl=resp;
-    axios.post('/addPubArticleImageUrlToArticle',{contact:parseInt(responseObject.contact),articleId:responseObject.id,imageDownLoadUrl:imageDownLoadUrl}).then(resp=>{
-      setStatus(`<div style='color:green;'>Image saved</div>`) 
-      ToastAlert('toastAlert1','Successful. Please wait....',3000)
     
+    fetch('/addPubArticleImageUrlToArticle',{
+      method:"post",
+      headers:{'Content-type':'application/json'},
+      body:JSON.stringify({contact:parseInt(responseObject.contact),articleId:responseObject.id,imageDownLoadUrl:imageDownLoadUrl})
+  }).then(resp=>{
+      setStatus(`<div style='color:green;'>Image saved</div>`) 
       window.location.href=`/pages/pubarticles/article/${res.id}`
+      ToastAlert('toastAlert1','Successful. Please wait....',3000)
    })
    
            
@@ -542,6 +548,7 @@ export function PubArticleComp(){//clientcomponent
       const[opinionsNumb,setOpinionsNumb]=useState('')
       const[articleInstitution,setArticleInstitution]=useState('')
       const[articleDoc,setArticleDoc]=useState('')
+      const [details,setDetails]=useState()
       const[authorArticles,setAuthorArticles]=useState(<div style={{paddingLeft:"15px",fontSize:"20px",color:"green",textAlign:"center"}}>
       More stories loading.......
       </div>)
@@ -624,6 +631,10 @@ export function PubArticleComp(){//clientcomponent
                 </div></div>
                 
                 )})))
+
+
+
+
               }
               
             })
@@ -643,19 +654,13 @@ export function PubArticleComp(){//clientcomponent
          return(
              
             <div>
-                <div class="row">
-                  <div class="col-md-1"></div>
-                  <div class="col-md-10">
-                  <ArticlesNav articleAuthorContact={articleAuthorContact} articleId={articleParams.id}/>
-                  </div>
-                  <div class="col-md-1"></div>
-                  </div>   
-                         
+                                       
                      
             <div class="row">
-                  <div class="col-md-1"></div>
+                  <div class="col-md-2"></div>
                   
-                  <div  class="col-md-10">
+                  <div  class="col-md-8">
+                  <ArticlesNav articleAuthorContact={articleAuthorContact} articleId={articleParams.id}/>
                     <div style={{padding:"6px"}}>
                   <div class="articleContainer">
                   <div style={{fontSize:"20px",color:"black",paddingBottom:"15px",fontWeight:"500"}}>{articleHeadline1}</div>
@@ -821,7 +826,7 @@ ToastAlert('toastAlert1','Successful',3000)
 </div>
                   
                   </div>
-                  <div class="col-md-1"></div>
+                  <div class="col-md-2"></div>
                   
 
                   </div>  

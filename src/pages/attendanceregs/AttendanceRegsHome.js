@@ -148,7 +148,7 @@ export function EditRegister(){
    <div class="mb-3">
    <div class="row" style={{paddingBottom:"3px"}}><div class="col-6"><div style={{paddingBottom:"8px"}}><div class="formLabel">Register title</div></div></div><div style={{textAlign:"right"}}class="col-6"><div class="btn btn-danger btn-sm"
     onClick={()=>{document.getElementById("registerEditForm").registerTitle.value=''}}>Clear Title</div></div></div>
-   <textArea rows="2" type="text" class="form-control" autoComplete="off" name="registerTitle" placeholder='Type the New title here'></textArea>
+   <textarea rows="2" type="text" class="form-control" autoComplete="off" name="registerTitle" placeholder='Type the New title here'></textarea>
   <br></br>
  
   <input type="hidden" class="form-control" autoComplete="off" name="contact"defaultValue={componentParams.registrarContact}></input>
@@ -263,7 +263,7 @@ export function CreateAttendanceRegister(){
       
        <div class="mb-3">
         <div class="formInputLable">Name of register</div>
-       <textArea rows="2" type="text" class="form-control" autoComplete="off" name="attendanceRegisterTitle" ></textArea>
+       <textarea rows="2" type="text" class="form-control" autoComplete="off" name="attendanceRegisterTitle" ></textarea>
      
      <br></br>
      <div class="formInputLable">Contact</div>
@@ -586,9 +586,8 @@ pin:document.getElementById("setAttendeeRegisterMessageForm").pin.value,
              
             <div>
                    <div style={{fontSize:"10px",color:"grey",opacity:"0.5",textAlign:"left",paddingLeft:"5px"}}> </div>
-            <div style={{fontSize:"25px"}}>{registerTitle}</div>
-            
-            <div style={{fontSize:"14px",color:"green",paddingLeft:"5px",textDecoration:"underline"}}>Register ID: {registerParams.id} Created by: {registrarName} 0{registrarContact}<br></br>{institution} </div>
+            <div style={{fontSize:"20px",padding:"3px",fontWeight:"500"}}>{registerTitle}</div>
+                        <div style={{fontSize:"12px",color:"green",paddingLeft:"5px",textDecoration:"underline"}}>Register ID: {registerParams.id} Created by: {registrarName} 0{registrarContact}<br></br>{institution} </div>
            
           
           <div class="row">
@@ -603,7 +602,7 @@ pin:document.getElementById("setAttendeeRegisterMessageForm").pin.value,
     
     <div class="mb-3">
     <div class="formInputLabel">Name or description (optional)</div>
-    <textArea row="2" type="text" class="form-control" autoComplete="off" name="name" ></textArea><br></br>
+    <textarea row="2" type="text" class="form-control" autoComplete="off" name="name" ></textarea><br></br>
     <div class="formInputLabel">Contact</div>
 <input type="text" class="form-control" autoComplete="off" name="contact"></input>
   </div>
@@ -805,11 +804,11 @@ if(res.success===1){
     <div class="mb-3">
 <input type="hidden" class="form-control" autoComplete="off" name="contact" defaultValue={registrarContact} ></input>
 <div class="formInputLabel">Enter message</div>
-<textArea rows="5" type="text" class="form-control" autoComplete="off" name="smsmessage" onChange={()=>{
+<textarea rows="5" type="text" class="form-control" autoComplete="off" name="smsmessage" onChange={()=>{
   setCharLength(Array.from(document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value.trim()).length)
   setNoOfSms(NoOfSmsCalculator(Array.from(document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value.trim()).length))
   setSmsCost(NoOfSmsCalculator(Array.from(document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value.trim()).length)*smsUnitCost*messageesNumb)
-}} ></textArea>
+}} ></textarea>
 <div style={{fontSize:"10px",paddingTop:"5px",paddingBottom:"5px"}}>1 SMS={charactersPerSms} characters. <span style={{color:"red",fontSize:"15px"}}>{charLength} </span> characters typed = <span style={{color:"red",fontSize:"15px"}}>{noOfSms}</span> SMS, Rate: {smsUnitCost}/= per SMS </div>
 <div >Cost for {messageesNumb} contacts: <span style={{color:"red"}}>{smsCost}</span> </div>
 

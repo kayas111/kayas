@@ -1,6 +1,6 @@
 import React, {useEffect,useState} from 'react'
 import { ToastAlert } from './Functions';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import it1 from './imgs/it1.jpg';
 import it2 from './imgs/it2.jpg';
 

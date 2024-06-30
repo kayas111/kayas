@@ -1,7 +1,7 @@
 
 
 import React,{useEffect,useState,useContext,createContext, useReducer} from 'react'
-
+import {useCookies} from 'react-cookie'
 import {KyuOpinionPolls,OpinionPoll1,AcholiStudentsUnionPoll} from './pages/VoterOpinionPolls/VoterOpinionPollsHome';
 import {Itemsele,NotFound,RegistrationPage,RecommendationForm,MessageForm,OrderForm,AdminRegistrationPage,HookupRegistrationPage, Messager, SendFreeSms} from './pages/Home';
 import { AllArticles, CreateArticle,AssessMyArticles, MyArticles, PubArticleComp,ShareMyArticles, PubArticleCompHome } from './pages/pubarticles/PubArticleHome';
@@ -9,7 +9,7 @@ import { AttendanceRegisterComp,CreateAttendanceRegister, EditRegister, MyRegist
 
 import {FollowersHome,FollowingComp} from './pages/Followers'
 import About from './pages/About';
-
+import { VerifyRegistrationAndPin } from './pages/Functions';
 import Links from './pages/Links';
 import Maintenance from './pages/Maintenance';  
 import {BidsHome,ViewOffer} from './pages/bids/BidsHome';
@@ -33,17 +33,28 @@ import Updates from './pages/Updates';
 import './App.css';
 import  './index.css';
 import {BrowserRouter,Route, Switch} from 'react-router-dom';
-
+import { setCookieOptionsObj,AppContext,user} from './Variables';
+import { ToastAlert } from './pages/Functions';
 
 export function App() {
   const [hookupNumb,setHookupNumb]=useState('')
   const [kayasersNumb,setKayasersNumb]=useState('')
-  
+  const [cookies,setCookie,removeCookie]=useCookies(['user'])
   const [articlesNumb,setArticlesNumb]=useState('')
+  const [userName,setUserName]=useState('')
+  const [loginButtonText,setLoginButtonText]=useState('')
+
   const [reqNumb,setReqNumb]=useState('')
   
-  useEffect(()=>{
-   
+useEffect(()=>{
+  if(cookies.user===undefined){
+    setUserName('Not logged in')
+    setLoginButtonText('Log in')
+  }else{
+  setUserName(cookies.user.name)
+  setLoginButtonText('Log out')
+}
+
     fetch('/collection_requests_number').then(res=>res.json()).then(res=>{
       setReqNumb(res.length)
         })
@@ -61,171 +72,179 @@ export function App() {
       setArticlesNumb(res.length)
       })
       
+  //  window.addEventListener('visibilitychange',()=>{
+  //   setTimeout(()=>{
+  //     removeCookie("user",setCookieOptionsObj)
+  //   },8000)
     
+  //   ToastAlert('toastAlert2','Leaving page',3000)
+  //  })
+
+   
   },[])
 
-
-
-   let s={color:"white"}
-   
-
-
-  return (
-    <BrowserRouter><div>
-
+   return (
+    <BrowserRouter >
+    <div>
+    <AppContext.Provider id="App"  value={{user:cookies.user}}>
 <div class="navigation"> 
        
-        <nav  class=" navbar-expand-sm navbar-light bg-black" >
+        <nav  class="navbar-expand-sm navbar-light bg-black" >
      <div class="container-fluid">
       <div  class="row">
-        
-      <div class="col-12" style={{textAlign:"center"}}>
+        <div class="col-12" style={{textAlign:"center"}}>
       <div class='row'>
-<div class='col-4 col-md-5'></div>
+<div style={{color:"grey",textAlign:"left",fontSize:"10px"}} class='col-4 col-md-5'>{reqNumb}</div>
 <div class='col-4 col-md-2'><img src={logo} class="d-block w-100" alt="..."  /></div>
-<div class='col-4 col-md-5'>
-
-<div><span style={{color:"#1C1C1C",fontSize:"8px"}}>  - </span></div>
+<div style={{color:"grey",textAlign:"right",fontSize:"10px"}} class='col-4 col-md-5'>{kayasersNumb}
 </div>
-
+</div>
       </div>
-      </div>
-       <div style={{textAlign:"center"}}><span style={{color:"orange",fontSize:"11px"}}> {kayasersNumb} - It takes nothing to know - {reqNumb}</span></div>
-       
-      
-
-
-
-       </div>
-    
-
-
-
-     </div>
+       <div style={{textAlign:"center",paddingBottom:"5px",fontSize:"11px",color:"white"}}>Always Keep It Kayas</div>
+        </div>
+        </div>
    </nav>
-   
-   
-
-
- 
-   <nav style={{paddingLeft:"10px"}} class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button  style={{color:"yellow"}} class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span> Menu
-      </button> 
-
-      <div class="navbar-collapse justify-content-md-center collapse" id="navbarsExample08" >
-        <ul style={{display:"flex",flexWrap:"wrap"}} class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" style={s} href="/pages/pubarticles/allarticles"><span class="hovereffect">Trending stories ({articlesNumb})  </span></a>
-          </li>
-         
-          <li class="nav-item">
-          <a class="nav-link" style={s} href="/pages/pubarticles/createarticle"><span class="hovereffect">Create Article</span></a>
-          </li>
-          <li class="nav-item">
-  <a class="nav-link" style={s} href="/pages/register"><span class="hovereffect">Register </span></a>
-          </li>
-          <li class="nav-item">
-          <a class="nav-link" style={s} href="/pages/attendanceregs/createattendanceregister"><span class="hovereffect">Bulk SMS/Quicker phone calls</span></a>
-          </li>
-        <li class="nav-item active">
-          <a class="nav-link" style={s} href="/pages/message"><span class="hovereffect">Send message</span></a>
-          </li>
-          <li class="nav-item">
-          <a  class="nav-link" style={s} href="/advertise/items/0703852178"><span class="hovereffect">Buy items</span></a>
-          </li>
-        
-         
-          
-          <li class="nav-item">
-   <a class="nav-link" style={s} href="/pages/followershome"><span class="hovereffect">Get urgent information when offline</span></a> 
-
-
-          </li>
-          <li class="nav-item">
-   <a class="nav-link" style={s} href="/pages/clientbusinesses/0703852178"><span class="hovereffect">More</span></a>
-          </li>
-         
-        
-         
-          <li class="nav-item">
-          <a class="nav-link" style={s} href="#" onClick={()=>{
-           let contact=window.prompt('Enter your contact')
-
-         if(contact!=null){
-if(Array.from(contact).length<10 || Array.from(contact).length>10){
-  window.alert('Enter 10 digits contact')
-}else{
-
-  fetch('/verifyUser',{
-    method:"post",
-    headers:{'Content-type':'application/json'},
-    body:JSON.stringify({
-contact:contact,
-pin:'11111'
-    }) 
-}).then(res=>res.json()).then((resp)=>{
-    if(resp.registered===false){
-     window.alert("You are not registered with Kayas, please register to proceed!")
-   
-
-    } else if(resp.registered===true){
      
-      window.location.href=`/pages/trading/tradingaccount/${resp.details.contact}`
-
-    } 
-     else{
-     window.alert("An error has occured. Please try again")
-      
-       }
    
+  <div style={{paddingLeft:"5px"}} class ="bg-dark">
+  <div class="row" style={{color:"orange",padding:"6px"}}><div class="col-9">{userName}</div><div style={{textAlign:"center"}} class="col-3" onClick={()=>{
+if(cookies.user===undefined){
+  let contact=window.prompt('Enter your contact'),pin;
+if(contact===null){;}else{
+pin=window.prompt('Enter your PIN')
+if(pin===null){;}else{
+
+  VerifyRegistrationAndPin(contact.trim(),pin.trim()).then(resp=>{
+
+if(resp.registered===false){
+  ToastAlert('toastAlert2','Not registered. Tap menu to register',3000)
+}else
+
+    if(resp.pin===false){
+      
+      ToastAlert('toastAlert2','Incorrect PIN',3000)
+    }else{
+      let user={name:resp.details.name,contact:resp.details.contact,role:'user'}
+      setCookie('user',user,setCookieOptionsObj)
+    ToastAlert('toastAlert1','Logged in',3000)
+
+    }
+  })
+
+  
 }
+}
+
+
+
+
+}else{
+  removeCookie("user",setCookieOptionsObj)
+  ToastAlert('toastAlert1','Logged out',3000)
+}
+
+
+
+}}>{loginButtonText}</div></div>
+  <nav  class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+<button  style={{color:"yellow"}} class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span> Menu
+</button> 
+
+<div class="navbar-collapse justify-content-md-left collapse" id="navbarsExample08" >
+  <ul style={{display:"flex",flexWrap:"wrap"}} class="navbar-nav">
+  <li class="nav-item">
+    <a class="nav-link" href="/pages/pubarticles/allarticles"><span class="hovereffect">Trending stories ({articlesNumb})  </span></a>
+    </li>
+   
+    <li class="nav-item">
+    <a class="nav-link"  href="/pages/pubarticles/createarticle"><span class="hovereffect">Create Article</span></a>
+    </li>
+    <li class="nav-item">
+<a class="nav-link" href="/pages/register"><span class="hovereffect">Register </span></a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="/pages/attendanceregs/createattendanceregister"><span class="hovereffect">Bulk SMS/Quicker phone calls</span></a>
+    </li>
+  <li class="nav-item active">
+    <a class="nav-link" href="/pages/message"><span class="hovereffect">Send message</span></a>
+    </li>
+    <li class="nav-item">
+    <a  class="nav-link" href="/advertise/items/0703852178"><span class="hovereffect">Buy items</span></a>
+    </li>
+  
+   
+    
+    <li class="nav-item">
+<a class="nav-link" href="/pages/followershome"><span class="hovereffect">Get urgent information when offline</span></a> 
+
+
+    </li>
+
+
+    <li class="nav-item">
+
+
+
+    </li>
+
+
+    <li class="nav-item">
+<a class="nav-link" href="/pages/clientbusinesses/0703852178"><span class="hovereffect">More</span></a>
+    </li>
+   
+  
+   
+    <li class="nav-item">
+    <a class="nav-link"  href="#" onClick={()=>{
+  if(cookies.user===undefined){
+    ToastAlert('toastAlert2','You are not logged in',3000)
+    
+    
+    } else {
+    window.location.href=`/pages/accountdetails`
+    ToastAlert('toastAlert1','Openning account....',3000)
+    
+    } 
     
 
-) 
+    
+    }} ><span class="hovereffect">Account</span></a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="/pages/about"><span class="hovereffect">About</span></a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link"  href="/advertise/client1/0703852178"><span class="hovereffect">Loans</span></a> 
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="/pages/brocode"><span class="hovereffect">Who is Kayas?</span></a> 
+    </li>
 
-}
-
-         }else{
-;
-         }
-
-
- 
-          
-          }} ><span class="hovereffect">Account</span></a>
-          </li>
-          <li class="nav-item">
-          <a class="nav-link" style={s} href="/pages/about"><span class="hovereffect">About</span></a>
-          </li>
-          <li class="nav-item">
-          <a class="nav-link" style={s} href="/advertise/client1/0703852178"><span class="hovereffect">Loans</span></a> 
-          </li>
-          <li class="nav-item">
-          <a class="nav-link" style={s} href="/pages/brocode"><span class="hovereffect">Who is Kayas?</span></a> 
-          </li>
-     
-         
-        
-          <li class="nav-item">
-          <a class="nav-link"  style={s} href="/pages/quotes"><span class="hovereffect">Quotes</span></a>
-          </li>
-         
-
-          
-          <li class="nav-item">
-   <a class="nav-link" style={s} href="/pages/hookup/hookuphome"><span class="hovereffect">{hookupNumb} Hookups</span></a>
-
-          </li>
-          <li class="nav-item">
-    <a class="nav-link" style={s} href="#"><span class="hovereffect">Links</span></a> 
-      </li>
    
-        
-          
-        </ul>
-      </div>
-    </nav>
+  
+    <li class="nav-item">
+    <a class="nav-link" href="/pages/quotes"><span class="hovereffect">Quotes</span></a>
+    </li>
+   
+
+    
+    <li class="nav-item">
+<a class="nav-link" href="/pages/hookup/hookuphome"><span class="hovereffect">{hookupNumb} Hookups</span></a>
+
+    </li>
+    <li class="nav-item">
+<a class="nav-link" href="#"><span class="hovereffect">Links</span></a> 
+</li>
+
+  
+    
+  </ul>
+</div>
+</nav>
+
+  </div>
 
         </div>
       
@@ -277,10 +296,7 @@ pin:'11111'
       <Route path="/pages/updates" component={Updates}/>
       <Route path="/pages/maintenance" component={Maintenance}/>
       <Route path="/pages/bids/getlink" component={ViewOffer}/>
-      
-
-
-      <Route path="/pages/trading/tradingaccount/:trader" exact component={TradingAccount}/>
+      <Route path="/pages/accountdetails" exact component={TradingAccount}/>
       <Route path="/pages/trading/tradinghome" component={TradingHome}/>
    
       <Route path="/pages/bids/bidshome" component={BidsHome}/>
@@ -324,19 +340,10 @@ pin:'11111'
       <Route path="" component={NotFound}/>
       
    </Switch>
-
-
-
-        
-    
-
     <Basenavele />
-
-   
-
-    </div>
-    
-    
+    </AppContext.Provider>
+ </div>
+  
   
     </BrowserRouter>
     
@@ -347,7 +354,7 @@ pin:'11111'
 
 
 export function Basenavele(){ 
-  //setTimeout(Chmic,20000);
+  
   const [egoSmsAccBal,setEgoSmsAccBal]=useState('')
   const [tradersTotalCredit,setTradersTotalCredit]=useState('')
   const [smsService,setSmsService]=useState('loading......')
@@ -392,9 +399,6 @@ export function Basenavele(){
      
   );
 }
-//Array of emails
-
-//Array of emails
 
 export default App;
 
