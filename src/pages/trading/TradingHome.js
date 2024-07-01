@@ -103,7 +103,7 @@ window.location.href='/pages/about'
           setTraderAccBal(0)
           
         }else{
-// document.getElementById('traderSettingsForm').freeSmsNoticeMessage.value='' 
+
           let traderDetailsObj=resp[0]
           
           setTraderAccBal(traderDetailsObj.accBal)
@@ -149,7 +149,7 @@ window.location.href='/pages/about'
     }
 
 
-},[])
+},[updateTrigger])
 
 
   
