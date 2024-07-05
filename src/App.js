@@ -94,13 +94,13 @@ useEffect(()=>{
       <div  class="row">
         <div class="col-12" style={{textAlign:"center"}}>
       <div class='row'>
-<div style={{color:"grey",textAlign:"left",fontSize:"7px",opacity:"0.6"}} class='col-4 col-md-5'>{reqNumb}</div>
+<div style={{color:"grey",textAlign:"left",fontSize:"7px",opacity:"0.4"}} class='col-4 col-md-5'>{reqNumb}</div>
 <div class='col-4 col-md-2'><img src={logo} class="d-block w-100" alt="..."  /></div>
-<div style={{color:"grey",textAlign:"right",fontSize:"7px",opacity:"0.6"}} class='col-4 col-md-5'>{kayasersNumb}
+<div style={{color:"grey",textAlign:"right",fontSize:"7px",opacity:"0.4"}} class='col-4 col-md-5'>{kayasersNumb}
 </div>
 </div>
       </div>
-       <div style={{textAlign:"center",paddingBottom:"5px",fontSize:"11px",color:"white"}}>Always Keep It Kayas</div>
+       <div style={{textAlign:"center",paddingBottom:"5px",fontSize:"11px",color:"white"}}>Always Keep It Kayas.</div>
         </div>
         </div>
    </nav>

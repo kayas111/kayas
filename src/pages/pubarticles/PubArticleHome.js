@@ -310,13 +310,16 @@ export function CreateArticle(){
 
 
     return (<div>
-           <ArticlesNav/>
+           
 
-      
-         <div style={{padding:"10px"}}>
+      <div className ="row">
+<div class='col-md-3'></div>
+<div class='col-md-6'>
+<ArticlesNav/>
+  <div style={{padding:"8px"}}>
     <form method="post" id="articleCreateForm" action="#">
 
-    <div style={{paddingBottom:"8px"}}><div class="formLabel">Create article</div></div>
+    <div style={{paddingBottom:"8px"}}><div class="formLabel">Create article.</div></div>
        <div class="mb-3">
      <div class="formInputLabel">Create headline</div>
      <textarea rows="3" type="text" class="form-control" autoComplete="off" name="articleHeadline1"></textarea>
@@ -527,8 +530,19 @@ if(imageFile===undefined){
     
      </form>
      </div>
-<div style={{paddingTop:"30px"}}></div>
+     
+     
+     
+     <div style={{paddingTop:"30px"}}></div>
      <MyArticles />
+     
+     </div>
+<div class='col-md-3'></div>
+
+
+      </div>
+         
+
     
   
      </div>)

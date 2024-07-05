@@ -147,15 +147,27 @@ window.location.href='/pages/about'
 return(
 <div>
 
-<div class="row">
+<div class="row" style={{padding:"10px"}}>
 
-<div class="col-md-6" style={{padding:"18px"}}>  
+<div class="col-md-6" style={{padding:"5px"}}>  
 <div style={{padding:"5px",background:"black"}}>
 <div style={{color:"orange",padding:"4px"}}>Account balance: <span style={{fontSize:"20px"}}>{traderAccBal} shs</span></div>
 <div style={{color:"white",padding:"4px"}}>Payment from Kayas: <span style={{fontSize:"20px"}}>{traderCashOutBal} shs</span></div>
 </div>
 
-<div style={{paddingTop:"10px"}}>{traderNotice}</div><br></br>
+<div style={{paddingTop:"10px"}}>{traderNotice}</div><p></p>
+<div className='label1'>How Kayas pays you</div>
+    <div>
+<ol>
+  <li>Each article you create is 150 shs.</li>
+  <li>Everytime you share your article, you get paid a certain percentage but the more people you share to, the more the percentage.</li>
+<li>To create an article, <span style={{color:"green",fontSize:"20px"}} onClick={()=>{
+  window.location.href='/pages/pubarticles/createarticle'
+  ToastAlert('toastAlert1','Please wait.....',3000)
+}}>tap here</span></li>
+</ol>
+    </div>
+
 <form id="traderNoticeForm">
 <div style={{paddingBottom:"8px"}}><div class="formLabel" >Send Kayas a message</div></div>
     <div class="mb-3">
@@ -184,7 +196,8 @@ return(
     }}><span class="fa fa-envelope"></span> send</div>
     </form>
     </div>
-    <div style={{padding:"18px"}} class="col-md-6">
+   
+    <div style={{padding:"5px"}} class="col-md-6">
      
 
 <form id="traderSettingsForm">
