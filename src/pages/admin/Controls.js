@@ -8,7 +8,7 @@ export function ControlsNav(){
   const [reqNumb,setReqNumb]=useState('')
   const [ordersNumb,setOrdersNumb]=useState('')
   const [monitoredOpinionsNumb,setMonitoredOpinionsNumb]=useState('')
-  const [hookUpsNumb,setHookUpsNumb]=useState('')
+  
   const [recomNumb,setRecomNumb]=useState('')
   const [tradersNumb,setTradersNumb]=useState('')
   const [kayasersNumb,setKayasersNumb]=useState('')
@@ -28,10 +28,7 @@ export function ControlsNav(){
       
           setMonitoredOpinionsNumb(res.length)
         })
-        fetch('/collection_hookups_number').then(res=>res.json()).then(res=>{
-      
-          setHookUpsNumb(res.length)
-        })
+       
         fetch('/collection_controls').then(res=>res.json()).then(res=>{
       
           setVisits(res[0].noOfVisits)
@@ -71,7 +68,7 @@ return(
      <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/kayasers"><span class="hovereffect"> Kayasers {kayasersNumb} </span></a> 
       <br></br>
       <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/clientsmonitor"><span class="hovereffect"> Monitored-Opinions{monitoredOpinionsNumb}</span></a> 
-      <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/showhookups"><span class="hovereffect"> Hookups {hookUpsNumb}</span></a> 
+      
      <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/attendeeregisters"><span class="hovereffect"> Registers {attendeeRegistersNumb}</span></a> <br></br>
      <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/articlesmonitor"><span class="hovereffect">Monitored-Articles {monitoredArticlesNumb}</span></a>
      <a  style={{color:"white",paddingRight:"9px"}} href="#"><span class="hovereffect"> Visits {visits}</span></a>
@@ -92,7 +89,7 @@ export function ControlsHome(){
     
   const [reqNumb,setReqNumb]=useState('')
   const [ordersNumb,setOrdersNumb]=useState('')
-  const [hookUpsNumb,setHookUpsNumb]=useState('')
+  
   const [recomNumb,setRecomNumb]=useState('')
   const [tradersNumb,setTradersNumb]=useState('')
   const [kayasersNumb,setKayasersNumb]=useState('')
@@ -114,10 +111,7 @@ export function ControlsHome(){
   let classCols='col-md-3'
  
       useEffect(()=>{
-        fetch('/collection_hookups_number').then(res=>res.json()).then(res=>{
-      
-          setHookUpsNumb(res.length)
-        })
+        
         fetch('/collection_controls').then(res=>res.json()).then(res=>{
       
           setVisits(res[0].noOfVisits)
@@ -757,54 +751,6 @@ fetch('/collection_controls_biddingMsg',{
   );
 }
 
-
-
-export function ShowHookUps(){
-
-  let data=""
-  
-  const [hookUpsNumb,setHookUpsNumb]=useState('')
-  const [hookUps,setHookUps]=useState('')
- 
-      useEffect(()=>{
-        
-           
-      fetch('/collection_hookups_hookups').then(res=>res.json()).then(res=>{
-        setHookUpsNumb(res.length)
-                      res.forEach(hookup=>{
-                      
-                        data+="<div>"+hookup.name+"-"+hookup.campus+"-"+hookup.contact+"<div style='font-family:charm;'>"+hookup.msg+"</div></div><hr></hr>"
-                      
-                      })
-                      
-                      setHookUps(data);
-                        })     
-
-      },[])
-
-
-
-
-
-  
-  return(
-    <div>
-    <div style={{color:"red",fontSize:"25px",padding:"5px",textAlign:"center"}}>{hookUpsNumb} Hook Ups</div>
- <ControlsNav/>
-     <div style={{padding:"10px"}}>
-     
-     <div style={{padding:"5px",textAlign:"center"}}><div dangerouslySetInnerHTML={{__html:hookUps}}/></div>
-
-    </div>
-  
-  
-    </div>
-  )
-  
-  
-  
-  }
-  
 
   
 export function Kayasers(){

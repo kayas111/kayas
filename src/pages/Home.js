@@ -94,7 +94,7 @@ export function Home(){
 
 return(
     <div><p></p>
-    <BusinessClientAdComponent businessName="Freshers' trusted online shopping website-Kayas" id='items' />
+    
  
     <Itemsele componentParams={componentParams} />
     
@@ -463,288 +463,6 @@ pin:'11111'
 
 
 
-export function SendFreeSms(props){
-let componentParams=useParams(),maxCharLength=130,freeSmsUnitCost=50
-let [newMaxCharLength,SetNewMaxCharLength]=useState(maxCharLength)
-let [notice,setNotice]=useState('')
-let [updateTrigger,setUpdateTrigger]=useState(0)
-let [noOfSmsAvailable,setNoOfSmsAvailable]=useState(0)
-let [noOfFreeSmsUsers,setNoOfFreeSmsUsers]=useState('')
-  
-  let [sponsorContact,setSponsorContact]=useState('')
-  let [allowPeopleToSendFreeSmsValue,setAllowPeopleToSendFreeSmsValue]=useState('')
-  let [charLength,setCharLength]=useState('0')
- 
-  let [sendFreeSmsStatus,setSendFreeSmsStatus]=useState('')
-
-
-
-
-
-useEffect(()=>{
-  
-if(parseInt(componentParams.sponsor)===NaN){
-  setNotice("<div style='color:red;font-size:25px'>This account does not exist</div>")
-
-}else{
-  fetch('/verifyUser',{
-    method:"post",
-    headers:{'Content-type':'application/json'},
-    body:JSON.stringify({
-contact:parseInt(componentParams.sponsor),
-pin:'11111'
-    }) 
-}).then(res=>res.json()).then((resp)=>{
-  
-    if(resp.registered===false){
-      setNotice("<div style='color:red;font-size:25px'>This account does not exist</div>")
-   
-    } else if(resp.registered===true){
-      fetch(`/getTradingDetails/${parseInt(componentParams.sponsor)}`).then(res=>res.json()).then(resp=>{
-
-let traderDetailsObj=resp[0]
-//console.log(traderDetailsObj)
-setNotice(traderDetailsObj.freeSmsObj.freeSmsNotice)
-setNoOfSmsAvailable(traderDetailsObj.accBal/freeSmsUnitCost)
-setSponsorContact(traderDetailsObj.contact)
- setNoOfFreeSmsUsers(traderDetailsObj.freeSmsObj.freeSmsUsers.length)
-if(traderDetailsObj.freeSmsObj.allowFreeSmsSending===1){
-  setAllowPeopleToSendFreeSmsValue('Yes')
-}else{
-  setAllowPeopleToSendFreeSmsValue('No')
-}
-
-
-
-
-      })
-      
-    } 
-     else{
-     ;
-      
-       }
-   
-}
-    
-
-)  
-
-
-}
-
-},[])
-
-useEffect(()=>{
-  
-  fetch(`/getTradingDetails/${parseInt(componentParams.sponsor)}`).then(res=>res.json()).then(resp=>{
-
-    let traderDetailsObj=resp[0]
-    
-    
-    setNoOfSmsAvailable(traderDetailsObj.accBal/freeSmsUnitCost)
-    
-    
-          })
-          
-},[updateTrigger])
-
-
-
-
-
-
-  return (<div style={{padding:"5px"}}>
-    <div class="row">
-<div class="col-md-3"></div>
-<div class="col-md-6">
-
-
-<div style={{padding:"10px"}}>  
- <form id="sendFreeSmsForm" >
- <div style={{paddingBottom:"8px"}}><div class="formLabel" >Send Free SMS
- <div style={{paddingTop:"0px",fontSize:"10px"}}> <span style={{fontSize:"15px"}}>{noOfFreeSmsUsers}</span> people have sent SMS through this, you too can send. </div>
- 
- </div></div>
-    
- <div style={{color:"red",padding:"5px",fontSize:"17px"}} dangerouslySetInnerHTML={{__html:notice}}></div>
- 
-    
-  
-    <div style={{padding:"5px",paddingTop:"15px"}}>No. of SMS left: <span style={{color:"red"}}>{noOfSmsAvailable}</span></div>
-   
-   
-     
-    
-    <div class="mb-3">
-<input type="text" class="form-control" autoComplete="off" name="receipient" placeholder='To: Enter contact to send to (10 digits)' ></input> <br></br>
-<input type="text" class="form-control" autoComplete="off" name="sender" placeholder='From: Enter your contact (10 digits)' ></input><br></br>
-<input type="text" class="form-control" autoComplete="off" name="name" placeholder='Enter your first name e.g Charles' onChange={
-()=>{
-  SetNewMaxCharLength(maxCharLength-Array.from(document.getElementById("sendFreeSmsForm").name.value.trim()).length)
-}
-} ></input>
-<br></br>
-<div style={{textAlign:"right"}} class="col-12">
-    <div  class="btn btn-warning btn-sm"
-      onClick={()=>{document.getElementById("sendFreeSmsForm").smsMessage.value=''}}>Clear message</div>
-      
-    </div>
-<div style={{padding:"3px"}}><span style={{color:"red"}}>{charLength}</span> out of {newMaxCharLength} characters maximum</div>
-
-
-
-<textArea rows="5" type="text" class="form-control" autoComplete="off" name="smsMessage" placeholder='Type SMS here. Your name and contact will automatically be added to the message' onChange={()=>{
-  setCharLength(Array.from(document.getElementById("sendFreeSmsForm").smsMessage.value.trim()).length)
-  
-  
-}} ></textArea>
-
-
- 
-     </div>
-     <div style={{fontSize:"12px"}}>
-
-   </div>
-    <div style={{padding:"10px",fontSize:"15px",textAlign:"center"}} dangerouslySetInnerHTML={{__html:sendFreeSmsStatus}}/>
-   
-    <div class="row">
-     
-<div class="row col-12">
-<div class="col-6">
-<div style={{textAlign:"center"}}>Allowed to send SMS?</div>
-<div style={{color:"red",textAlign:"center",fontSize:"18px"}} dangerouslySetInnerHTML={{__html:allowPeopleToSendFreeSmsValue}}></div>
-</div>
-  <div class="col-6"> <div style={{borderRadius:"18px"}} onClick={()=>{
-
-if(Array.from(document.getElementById('sendFreeSmsForm').receipient.value.trim()).length<10||Array.from(document.getElementById('sendFreeSmsForm').receipient.value.trim()).length>10){
-  setSendFreeSmsStatus("<div style='color:red;'>Enter 10 digits for receipient's contact ......</div>")
-  
-
-} else if(Array.from(document.getElementById('sendFreeSmsForm').sender.value.trim()).length<10||Array.from(document.getElementById('sendFreeSmsForm').sender.value.trim()).length>10){
-  setSendFreeSmsStatus("<div style='color:red;'>Enter 10 digits for sender's contact......</div>")
-  
-
-}
-else if(Array.from(document.getElementById('sendFreeSmsForm').name.value.trim()).length<2){
-  setSendFreeSmsStatus("<div style='color:red;'>Please enter your name......</div>")
-  
-
-}
-
-else if(Array.from(document.getElementById('sendFreeSmsForm').smsMessage.value.trim()).length<1){
-  setSendFreeSmsStatus("<div style='color:red;'>Enter a message..........</div>")
-  
-
-}
-else if(Array.from(document.getElementById('sendFreeSmsForm').smsMessage.value.trim()).length>newMaxCharLength){
-
-
-  setSendFreeSmsStatus(`<div style='color:red;'>Your message is longer than ${newMaxCharLength} characters, please reduce ......</div>`)
-  
-
-}
-
-else if(noOfSmsAvailable<0){
-
-  setSendFreeSmsStatus(`<div style='color:red;'>No SMS left. Contact 0${parseInt(componentParams.sponsor)} to top up more SMS</div>`)
-  
-
-}
-else if(allowPeopleToSendFreeSmsValue==='No'){
-
-  setSendFreeSmsStatus(`<div style='color:red;'>Not allowed to send free SMS. Contact 0${parseInt(componentParams.sponsor)} to permit you</div>`)
-  
-
-}
-
-else {
-  setSendFreeSmsStatus(`<div style='color:green;'>Sending........</div>`)
- 
-  fetch('/verifyUser',{
-    method:"post",
-    headers:{'Content-type':'application/json'},
-    body:JSON.stringify({
-contact:sponsorContact,
-pin:'11111',
-    }) 
-}).then(res=>res.json()).then((resp)=>{
-         
-    if(resp.registered===false){
-     
-      setSendFreeSmsStatus(`<div style='color:red;'>This account does not exist.</div>`)
-    }
-     else{
-      let payLoad={method:"sendFreeSmsMessage",argsObj:{sponsor:sponsorContact,number:'256'+parseInt(document.getElementById('sendFreeSmsForm').receipient.value.trim()),senderName:document.getElementById('sendFreeSmsForm').name.value.trim(),senderContact:parseInt(document.getElementById('sendFreeSmsForm').sender.value.trim()),senderid:'0'+parseInt(document.getElementById('sendFreeSmsForm').sender.value.trim()),message:document.getElementById('sendFreeSmsForm').smsMessage.value.trim()+` (${document.getElementById('sendFreeSmsForm').name.value.trim()} 0${parseInt(document.getElementById('sendFreeSmsForm').sender.value.trim())}) #SMS by Kayas`}}
-   
-    
-      fetch('/sendSmsMessage',{
-        method:"post",
-        headers:{'Content-type':'application/json'},
-        body:JSON.stringify(payLoad) 
-    }).then(res=>res.json()).then((resp)=>{
-
-if(resp.success===1){
-  setSendFreeSmsStatus(`<div style='color:green;'>Message sent <span class='fa fa-check'></span> to ${document.getElementById('sendFreeSmsForm').receipient.value} </div>`)
-setUpdateTrigger(updateTrigger+=1)
-document.getElementById('sendFreeSmsForm').receipient.value=''
-
-
-}else{
-  setSendFreeSmsStatus(`<div style='color:red;'>Error must have occured!</div>`)
-}
-
-    })
-
-      }
-   
-}
-    
-
-)
-
-
-
-}
-
-
-
-    }}type="text" class="btn btn-sm btn-success hovereffect">Send SMS</div></div>
-   
-
-</div>
-
-</div>
-
-
-    </form>
-    
-    </div>
-    
-
-
-
-
-
-
-
-</div>
-<div class="col-md-3"></div>
-
-    </div>
-
-
-<div style={{paddingTop:"40px"}}>
-  
-<About/>
-</div>
-
-
-
-
-
-  </div>)
-}
 
 
  export function BusinessClientAdComponent(props){
@@ -783,12 +501,12 @@ export function NotFound(){
 <div class='row'>
   <div class='col-md-2'></div>
   <div class='col-md-8'>
-<MessageForm/>
+Page not found
 
   </div>
   <div class='col-md-2'></div>
 </div>
-<ClientBusinesses/>
+
   </div>)
 }
 
@@ -968,629 +686,157 @@ const[status,setStatus]=useState('')
   
    </div>)
 }
-export function RegistrationPage(){
-  //<RegistrationForm registrationFee="35,000/=" actionUrl="/collection_kayasers_register"/>
-  return(<div>
-    <FreeRegistrationForm/>
-  </div>)
-}
-export function AdminRegistrationForm(props){
+
+
+//   export function FreeRegistrationForm(props){
   
 
-  const[status,setStatus]=useState('')
-  
-  
-    return (<div><div style={{padding:"30px"}}>  
-    <div style={{color:"green", fontSize:"15px",fontWeight:"bold"}}>ADMIN REGISTRATION FORM </div>
-    <form method="post" id="registrationForm" action={props.actionUrl}>
-     <div class="mb-3">
-     <input type="text" class="form-control" autoComplete="off" name="name" placeholder='Your Name e.g. Charles Kahuma' required></input>
-   <br></br>
-   <input type="text" class="form-control" autoComplete="off" name="stdNo" placeholder='Student Number e.g. 1900717809' maxLength={10} minLength={10} required></input><br></br>
-     <input type="text" class="form-control" autoComplete="off" name="contact" placeholder='WhatsApp Contact e.g 0703852178' maxLength={10} minLength={10} required></input>
-   <br></br> 
-   
-   <div style={{fontSize:"12px",color:"green",textAlign:"center"}}>You will receive some quick sale updates through your E-mail</div>
-   <input type="text" class="form-control" autoComplete="off" name="email"  placeholder='Your E-mail address' required></input>
-  
-   <br></br>
-     <input type="text" class="form-control" autoComplete="off" name="pin"  placeholder='Create your PIN e.g. 12345 (5 digits)' maxLength={5} minLength={5} required></input>
-     <br></br>
+//     const[status,setStatus]=useState('')
     
-   <input type="text" class="form-control" autoComplete="off" name="adminRegCode"  placeholder='Enter Admin Registration Code'  required></input>
-  
-   
-   
-     </div>
-     <div style={{fontSize:"12px",color:"green",textAlign:"center"}}>Make sure you have saved the Kayas Business Number 0703852178 before registering.</div>
-     <div style={{color:"red",fontSize:"20px"}}>{status}<p></p></div>
-     <button style={{borderRadius:"18px"}} type="submit" onClick={
-       ()=>{
-         document.getElementById("registrationForm").addEventListener("submit",(submit)=>{
-          
-            
-             setStatus("Please wait as we try to register you .....")
-          
-         
-         })
-       }
-     } class="btn btn-success hovereffect"><span class="fa fa-user-circle"></span> Register</button><p></p>
     
-     </form></div>
-    
-     </div>)
-  }
-  
-  export function FreeRegistrationForm(props){
-  
+//       return (<div>
+//         <div class='row'>
+//           <div class='col-md-3'></div>
+//           <div class='col-md-6'>
 
-    const[status,setStatus]=useState('')
-    
-    
-      return (<div>
-        <div class='row'>
-          <div class='col-md-3'></div>
-          <div class='col-md-6'>
+//           <div style={{padding:"10px"}}>  
+//       <form method="post" id="freeRegistrationForm">
+//       <div style={{paddingBottom:"8px"}}><div class="formLabel">Register</div></div>
 
-          <div style={{padding:"10px"}}>  
-      <form method="post" id="freeRegistrationForm">
-      <div style={{paddingBottom:"8px"}}><div class="formLabel">Register</div></div>
-
-       <div class="mb-3">
-       <div class="formInputLabel">Your name</div>
-       <input type="text" class="form-control" autoComplete="off" name="name"  ></input>
-     <br></br>
-     <div class="formInputLabel">Institution/brand/organization</div>
-     <textArea rows="2" type="text" class="form-control" autoComplete="off" name="institution"  ></textArea>
-     <br></br><div class="formInputLabel">WhatsApp contact</div>
-     <input type="text" class="form-control" autoComplete="off" name="contact" ></input>
-     <br></br> 
+//        <div class="mb-3">
+//        <div class="formInputLabel">Your name</div>
+//        <input type="text" class="form-control" autoComplete="off" name="name"  ></input>
+//      <br></br>
+//      <div class="formInputLabel">Institution/brand/organization</div>
+//      <textArea rows="2" type="text" class="form-control" autoComplete="off" name="institution"  ></textArea>
+//      <br></br><div class="formInputLabel">WhatsApp contact</div>
+//      <input type="text" class="form-control" autoComplete="off" name="contact" ></input>
+//      <br></br> 
      
-     <div class="formInputLabel">Email</div>
-     <input type="text" class="form-control" autoComplete="off" name="email" ></input>
+//      <div class="formInputLabel">Email</div>
+//      <input type="text" class="form-control" autoComplete="off" name="email" ></input>
     
-     <br></br>
-     <div class="formInputLabel">PIN e.g. 12345</div>
-       <input type="text" class="form-control" autoComplete="off" name="pin" ></input>
+//      <br></br>
+//      <div class="formInputLabel">PIN e.g. 12345</div>
+//        <input type="text" class="form-control" autoComplete="off" name="pin" ></input>
     
-       </div>
-        <div style={{fontSize:"17px"}} dangerouslySetInnerHTML={{__html:status}}/>
-       <div onClick={
-        ()=>{
+//        </div>
+//         <div style={{fontSize:"17px"}} dangerouslySetInnerHTML={{__html:status}}/>
+//        <div onClick={
+//         ()=>{
     
 
-          if(Array.from(document.getElementById("freeRegistrationForm").name.value).length<2){
+//           if(Array.from(document.getElementById("freeRegistrationForm").name.value).length<2){
  
- ToastAlert('toastAlert2','Enter a correct name',3000)
+//  ToastAlert('toastAlert2','Enter a correct name',3000)
  
- }else if(Array.from(document.getElementById("freeRegistrationForm").institution.value).length<11)
- {
+//  }else if(Array.from(document.getElementById("freeRegistrationForm").institution.value).length<11)
+//  {
     
-    ToastAlert('toastAlert2','Enter a valid institution name',3000)
- }
- else if(Array.from(document.getElementById("freeRegistrationForm").contact.value).length<10||Array.from(document.getElementById("freeRegistrationForm").contact.value).length>10)
-          {
-            ToastAlert('toastAlert2','Enter correct contact format e.g 0703852178',3000)
-          }else if(Array.from(document.getElementById("freeRegistrationForm").email.value).length<11)
-          {
+//     ToastAlert('toastAlert2','Enter a valid institution name',3000)
+//  }
+//  else if(Array.from(document.getElementById("freeRegistrationForm").contact.value).length<10||Array.from(document.getElementById("freeRegistrationForm").contact.value).length>10)
+//           {
+//             ToastAlert('toastAlert2','Enter correct contact format e.g 0703852178',3000)
+//           }else if(Array.from(document.getElementById("freeRegistrationForm").email.value).length<11)
+//           {
              
-             ToastAlert('toastAlert2','Enter correct email address',3000)
-          }
-          else if(Array.from(document.getElementById("freeRegistrationForm").pin.value).length<5||Array.from(document.getElementById("freeRegistrationForm").pin.value).length>5)
-          {
-            ToastAlert('toastAlert2','Create 5 digits PIN e.g. 12345',3000)
-          }
- else{
+//              ToastAlert('toastAlert2','Enter correct email address',3000)
+//           }
+//           else if(Array.from(document.getElementById("freeRegistrationForm").pin.value).length<5||Array.from(document.getElementById("freeRegistrationForm").pin.value).length>5)
+//           {
+//             ToastAlert('toastAlert2','Create 5 digits PIN e.g. 12345',3000)
+//           }
+//  else{
   
-  ToastAlert('toastAlert1','Please wait ......',3000)
+//   ToastAlert('toastAlert1','Please wait ......',3000)
     
-     fetch('/verifyUser',{
-         method:"post",
-         headers:{'Content-type':'application/json'},
-         body:JSON.stringify({
- contact:document.getElementById("freeRegistrationForm").contact.value,
- pin:document.getElementById("freeRegistrationForm").pin.value
-         }) 
-     }).then(res=>res.json()).then((resp)=>{
-         if(resp.registered===false){
-          fetch('/collection_kayasers_registerFree',{
-         method:"post",
-         headers:{'Content-type':'application/json'},
-         body:JSON.stringify({
-          name:document.getElementById("freeRegistrationForm").name.value.trim(),
-          institution:document.getElementById("freeRegistrationForm").institution.value.trim(),
-          contact:document.getElementById("freeRegistrationForm").contact.value.trim(),
-          email:document.getElementById("freeRegistrationForm").email.value.trim(),
-          pin:document.getElementById("freeRegistrationForm").pin.value.trim()
+//      fetch('/verifyUser',{
+//          method:"post",
+//          headers:{'Content-type':'application/json'},
+//          body:JSON.stringify({
+//  contact:document.getElementById("freeRegistrationForm").contact.value,
+//  pin:document.getElementById("freeRegistrationForm").pin.value
+//          }) 
+//      }).then(res=>res.json()).then((resp)=>{
+//          if(resp.registered===false){
+//           fetch('/collection_kayasers_registerFree',{
+//          method:"post",
+//          headers:{'Content-type':'application/json'},
+//          body:JSON.stringify({
+//           name:document.getElementById("freeRegistrationForm").name.value.trim(),
+//           institution:document.getElementById("freeRegistrationForm").institution.value.trim(),
+//           contact:document.getElementById("freeRegistrationForm").contact.value.trim(),
+//           email:document.getElementById("freeRegistrationForm").email.value.trim(),
+//           pin:document.getElementById("freeRegistrationForm").pin.value.trim()
  
-         })
-     }) .then(resp=>{
+//          })
+//      }) .then(resp=>{
          
      
-         return resp.json()}).then(res=>{
+//          return resp.json()}).then(res=>{
           
-       let kayaserDetailsObj=res
-       ToastAlert('toastAlert1',`Successfully registered as ${kayaserDetailsObj.name}`,3000)
+//        let kayaserDetailsObj=res
+//        ToastAlert('toastAlert1',`Successfully registered as ${kayaserDetailsObj.name}`,3000)
        
-       document.getElementById("freeRegistrationForm").name.value=""
-       document.getElementById("freeRegistrationForm").institution.value=""
+//        document.getElementById("freeRegistrationForm").name.value=""
+//        document.getElementById("freeRegistrationForm").institution.value=""
      
-     document.getElementById("freeRegistrationForm").contact.value=""
-         document.getElementById("freeRegistrationForm").email.value=""
-       document.getElementById("freeRegistrationForm").pin.value=""
-       fetch(`/getTradingDetails/${kayaserDetailsObj.contact}`).then(res=>res.json()).then(resp=>{
-let traderDetailsObj=resp[0]
+//      document.getElementById("freeRegistrationForm").contact.value=""
+//          document.getElementById("freeRegistrationForm").email.value=""
+//        document.getElementById("freeRegistrationForm").pin.value=""
+//        fetch(`/getTradingDetails/${kayaserDetailsObj.contact}`).then(res=>res.json()).then(resp=>{
+// let traderDetailsObj=resp[0]
 
 
-setStatus(`<div style='color:green;'>You have registered succesfully as ${traderDetailsObj.name}. <span style='color:red;'>Thank you.</span></div>`)
+// setStatus(`<div style='color:green;'>You have registered succesfully as ${traderDetailsObj.name}. <span style='color:red;'>Thank you.</span></div>`)
 
-       })
+//        })
         
         
         
         
-            })
+//             })
         
         
 
-         } else if(resp.registered===true){
-          setStatus("<div style='color:red;'>You already registered with Kayas. You don't need to register again</div>")
-      } 
-          else{
-            setStatus("<div style='color:red;'>We appologize, an error has occured as you tried to register. Please try again</div>")
+//          } else if(resp.registered===true){
+//           setStatus("<div style='color:red;'>You already registered with Kayas. You don't need to register again</div>")
+//       } 
+//           else{
+//             setStatus("<div style='color:red;'>We appologize, an error has occured as you tried to register. Please try again</div>")
            
-            }
+//             }
         
-     }
+//      }
          
  
-     )
+//      )
    
    
- }
-        } 
+//  }
+//         } 
 
-       } class="form-submit-btn backgroundColorHovereffect"><span class="fa fa-user-circle"></span> Register</div><p></p>
+//        } class="form-submit-btn backgroundColorHovereffect"><span class="fa fa-user-circle"></span> Register</div><p></p>
       
-       </form></div>
+//        </form></div>
 
 
-          </div>
-          <div class='col-md-3'></div>
-        </div>
+//           </div>
+//           <div class='col-md-3'></div>
+//         </div>
        
       
-       </div>)
-    }
+//        </div>)
+//     }
     
-export function AdminRegistrationPage(){
-  return(<div>
-    <AdminRegistrationForm actionUrl="/collection_kayasers_registerThrouhAdmin"/>
-  </div>)
-}
+
 export function HookupRegistrationPage(){
   return(<div>
     <RegistrationForm registrationFee="10,000/=" actionUrl="/collection_kayasers_registerToHookup"/>
   </div>)
 }
 
-export function Messager(){
-let data='',whatsAppMessengerText1=`*Good morning*, hope you are *fine*%0A%0A*From:* Aswa Stephen Thomas❗%0A*To:* You%0A*Thru*: Kayas%0A%0A*Aswa T-shirts at 10,000/= Register yourself for one here below if you dont mind:*%0A%0A
-Tap this link to register:%0A
-https://kayas-mak.herokuapp.com/pages/attendanceregs/783989317/3%0A*Lets Keep It Kayas. I will always update you*`
-  const[status,setStatus]=useState('')
-  const[mukContactsNumb,setMukContactsNumb]=useState('')
-  const[mukEducationNumb,setMukEducationNumb]=useState('')
-  const[mubsContactsNumb,setMubsContactsNumb]=useState('')
-  const[nduContactsNumb,setNduContactsNumb]=useState('')
-  const[status2,setStatus2]=useState('')
-  const[messageesNumb,setMessageesNumb]=useState('')
-  const[messagees,setMessagees]=useState('')
-  const[messagerIntroStatementSetStatus,setMessagerIntroStatementSetStatus]=useState('')
-  const[messagerIntroStatement,setMessagerIntroStatement]=useState('')
-  const[clearanceStatus,setClearanceStatus]=useState('')
-  const[pushToAttendanceRegisterStatus,setPushToAttendanceRegisterStatus]=useState('')
-  useEffect(()=>{
-    
-    fetch(`/universityContacts`).then(res=>res.json()).then(resp=>{
-   
-      setMukContactsNumb(resp[0].messagees.length)
-      setNduContactsNumb(resp[1].messagees.length)
-      setMubsContactsNumb(resp[2].messagees.length)
-      setMukEducationNumb(resp[3].messagees.length)
-      })
-   
-    fetch(`/messagees`).then(res=>res.json()).then(res=>{
-      setMessageesNumb(res.messagees.length)
-      let num=1;
-       // res.reverse()
-if(res.messagees.length===0){
-  ;
-}else{
-  if(res.messagees[0].name===undefined){
-    res.messagees.forEach(messagee=>{
-      data+=`<div class='col-4 col-sm-4 col-md-2'><span ><a style='color:black;' href='https://api.whatsapp.com/send?phone=256${messagee}&text=${res.introStatement}'><span class='hovereffect'>${num}:${messagee}</span></a><hr></hr></div>`
-     num++;
-     })
-  }else{
-  
-    res.messagees.forEach(messagee=>{
-           data+=`<div class='col-4 col-sm-4 col-md-2'><span ><a style='color:black;' href='https://api.whatsapp.com/send?phone=256${messagee.contact}&text=${messagee.name}, ${res.introStatement}'><div>${num}. ${messagee.name}</div><div><span class='hovereffect'>0${messagee.contact}</span></div></a><hr></hr></div>`
-          num++;
-          })
-         
-  
-  }
-  
-}
-
-
-
-
-        
-        setMessagees(data)
-      })
-      
-    
-    },[])
-
-  return (<div>
-    <div style={{color:"red",textAlign:"center",fontSize:"25px"}}>Kayas Messager</div>
-    <div style={{color:"red",textAlign:"center",fontSize:"15px"}}>Supports top up</div>
-    <div style={{color:"grey",fontSize:"10px",padding:"5px"}}>{mukContactsNumb} mukContacts, {mukEducationNumb} mukEducation, {nduContactsNumb} nduContacts, {mubsContactsNumb} mubsContacts  </div>
-   <div class='row'>
-   <div class='col-md-6'style={{padding:"30px"}}>  
-    
-    
-   <form id="messengingForm" >
-   <div style={{color:"green",fontWeight:"bold",textAlign:"center", fontSize:"15px"}}>Add messagee</div>
-   <div style={{padding:"5px",fontSize:"15px"}} dangerouslySetInnerHTML={{__html:status}}/>
-    <div class="mb-3">
-<input type="text" class="form-control" autoComplete="off" name="contact" placeholder='Enter WhatsApp Contact e.g 703852178' ></input>
- 
-    </div>
- 
-    <div style={{borderRadius:"18px"}} onClick={()=>{
-
-if(Array.from(document.getElementById('messengingForm').contact.value).length<9||Array.from(document.getElementById('messengingForm').contact.value).length>9){
-setStatus("<div style='color:red;'>Enter 9 digits ......</div>")
-document.getElementById('messengingForm').contact.value=""
-}
-else{
-  setStatus("<div style='color:red;'>Adding......</div>")
-  fetch('/addToMessagingQueue',{
-    method:"post",
-    headers:{"Content-type":"application/json"},
-    body:JSON.stringify({contact:document.getElementById('messengingForm').contact.value})
-  }).then(res=>res.json()).then(res=>{
- if(res.presence===1){
-    setStatus(`<div style='color:red;'>That contact: ${document.getElementById('messengingForm').contact.value} is already in the list....</div>`)
-    document.getElementById('messengingForm').contact.value=""
-  }else{
-    setMessageesNumb(messageesNumb+1)
-    setStatus(`<div style='color:green;'>Successfully added ${document.getElementById('messengingForm').contact.value}</div>`)
-    document.getElementById('messengingForm').contact.value=""
-  }
-
-    
-  })
-}
-
-
-    }}type="text" class="btn btn-success hovereffect"><span class="fa fa-user-circle"></span> Add</div>
-    </form>
-    
-    </div>
-    <div class='col-md-6'style={{padding:"30px"}}>  
-    
-    <div style={{padding:"5px",fontSize:"20px"}} dangerouslySetInnerHTML={{__html:status2}}/>
-   <form id="removeMessagee" >
-   <div style={{color:"green",fontWeight:"bold",textAlign:"center", fontSize:"15px"}}>Remove messagee</div>
-    <div class="mb-3">
-<input type="text" class="form-control" autoComplete="off" name="contact" placeholder='Enter WhatsApp Contact e.g 703852178' ></input>
-    </div>
- 
-    <div style={{borderRadius:"18px"}} onClick={()=>{
-
-if(Array.from(document.getElementById('removeMessagee').contact.value).length<9||Array.from(document.getElementById('removeMessagee').contact.value).length>9){
-setStatus2("<div style='color:red;'>Enter 9 digits ......</div>")
-document.getElementById('messengingForm').contact.value=""
-}else{
-  setStatus2("<div style='color:red;'>Removing......</div>")
-  fetch('/removeMessageeInMessager',{
-    method:"post",
-    headers:{"Content-type":"application/json"},
-    body:JSON.stringify({contact:parseInt(document.getElementById('removeMessagee').contact.value)})
-  }).then(res=>res.json()).then(res=>{
-  if(res.presence===0){
-    setStatus2(`<div style='color:red;'>That contact: ${document.getElementById('removeMessagee').contact.value} is not in the list....</div>`)
-    document.getElementById('removeMessagee').contact.value=""
-  }else{
-    
-    setStatus2(`<div style='color:green;'>Successfully removed ${document.getElementById('removeMessagee').contact.value}</div>`)
-    document.getElementById('removeMessagee').contact.value=""
-  }
-  
-    
-  })
-}
-
-
-    }}type="text" class="btn btn-success hovereffect"><span class="fa fa-user-circle"></span> Remove</div>
-    </form>
-    
-    </div>
-    <div class='col-md-6'style={{padding:"30px"}}>  
-    
-    
-   <form id="setMessagerIntroStatementForm" >
-   <div style={{color:"green",fontWeight:"bold",textAlign:"center", fontSize:"15px"}}>Set intro Statement</div>
-    <div class="mb-3">
-<textArea rows="3" type="text" class="form-control" autoComplete="off" name="messagerIntroStatement" placeholder='Enter statement' ></textArea>
-    </div>
-    <div style={{padding:"5px",fontSize:"15px"}} dangerouslySetInnerHTML={{__html:messagerIntroStatementSetStatus}}/>
-    <div type="text" class="btn btn-success hovereffect" onClick={()=>{
-      setMessagerIntroStatementSetStatus("<div style='color:green;'>Setting.............</div>")
-      fetch('/setMessagerIntroStatement',{
-        method:"post",
-        headers:{"Content-type":"application/json"},
-        body:JSON.stringify({statement:document.getElementById('setMessagerIntroStatementForm').messagerIntroStatement.value})
-      }).then(res=>res.json()).then(resp=>{
-        setMessagerIntroStatementSetStatus(resp[0])
-      })
-    }}>Set</div>
-    </form>
-    
-    </div>
-    <div class='col-md-6'style={{padding:"30px"}}>  
-    
-    
-   <form id="pushToAttendanceregisterForm" >
-   <div style={{color:"green",fontWeight:"bold",textAlign:"center", fontSize:"15px"}}>Push to Attendance Register</div>
-    <div class="mb-3">
-<textArea rows="1" type="text" class="form-control" autoComplete="off" name="contact" placeholder="Enter Registrar's Contact" ></textArea>
-<br></br>
-<textArea rows="1" type="text" class="form-control" autoComplete="off" name="registerId" placeholder='Enter Register ID' ></textArea>
-
-<br></br>
-<textArea rows="1" type="text" class="form-control" autoComplete="off" name="property" placeholder='Enter property e.g Year of entry' ></textArea>
-
-<br></br>
-<textArea rows="1" type="text" class="form-control" autoComplete="off" name="propertyValue" placeholder='Property value' ></textArea>
-
-    </div>
-    <div style={{padding:"5px",fontSize:"15px"}} dangerouslySetInnerHTML={{__html:pushToAttendanceRegisterStatus}}/>
-    <div class="row">
-      <div class="col-6">
-    <div  type="text" class="btn btn-success hovereffect" onClick={()=>{
-      setPushToAttendanceRegisterStatus("<div style='color:green;'>Pushing.............</div>")
-      fetch('/pushToAttendanceRegister',{
-        method:"post",
-        headers:{"Content-type":"application/json"},
-        body:JSON.stringify({registrarContact:parseInt(document.getElementById('pushToAttendanceregisterForm').contact.value),registerId:parseInt(document.getElementById('pushToAttendanceregisterForm').registerId.value)})
-      }).then(res=>res.json()).then(resp=>{
-        setPushToAttendanceRegisterStatus(resp[0])
-      })
-    }}>Push</div> 
-    </div>
-    <div class="col-6">
-    <div type="text" class="btn btn-success hovereffect" onClick={()=>{
-
-      
-      let arrayStringToJoin=[],joinedArrayString,flag=0
-      document.getElementById('pushToAttendanceregisterForm').property.value.trim().split(' ').forEach(string=>{
-       if(flag===0){
-        arrayStringToJoin.push(string)
-       }else{
-        arrayStringToJoin.push(string.replace(string.charAt(0),string.charAt(0).toUpperCase()))
-       }
-        
-        flag++
-        
-        
-        
-      })
-
-      joinedArrayString=arrayStringToJoin.join('')
-      console.log(joinedArrayString)
-
-      setPushToAttendanceRegisterStatus("<div style='color:green;'>Categorizing.........</div>")
-      fetch('/categorizeMessagerContacts',{
-        method:"post",
-        headers:{"Content-type":"application/json"},
-        body:JSON.stringify({property:joinedArrayString,propertyValue:document.getElementById('pushToAttendanceregisterForm').propertyValue.value.trim()})
-      }).then(res=>res.json()).then(resp=>{
-        setPushToAttendanceRegisterStatus(resp[0])
-        document.getElementById('pushToAttendanceregisterForm').property.value=""
-        document.getElementById('pushToAttendanceregisterForm').propertyValue.value=""
-
-      })
-    }}>Add property</div>
-    </div>
-    </div>
-    </form>
-    
-    </div>
-
-    <div class='col-md-6'style={{padding:"30px"}}>  
-    
-    
-   <form id="clearanceForm" >
-   <div style={{color:"green",fontWeight:"bold",textAlign:"center", fontSize:"15px"}}>Clear All messagees</div>
-    <div class="mb-3">
-<input type="text" class="form-control" autoComplete="off" name="categoryId" placeholder='Enter category ID to top up' ></input>
-    </div>
-    <div style={{padding:"5px",fontSize:"15px"}} dangerouslySetInnerHTML={{__html:clearanceStatus}}/>
-    <div style={{borderRadius:"18px"}} onClick={()=>{
-
-  setClearanceStatus("<div style='color:red;'>Clearing......</div>")
-  fetch('/deleteMessageesList',{
-    method:"post",
-    headers:{"Content-type":"application/json"},
-    body:JSON.stringify({categoryId:document.getElementById('clearanceForm').categoryId.value})
-  }).then(res=>res.json()).then(res=>{
- if(res.category===0){
-  setClearanceStatus("<div style='color:red;'>Institution category doesn't exist...</div>")
- }else if(res.category===1){
-  setClearanceStatus("<div style='color:green;'>Succesfull</div>")
-  document.getElementById('clearanceForm').categoryId.value=""
- }else{
-  setClearanceStatus("<div style='color:green;'>Error must have happened. Confirm</div>")
-  
- }
-  })
-
-    }}type="text" class="btn btn-success hovereffect">Clear messagees</div>
-    </form>
-    
-    </div>
-
-
-
-   </div>
-  
-    
-    <hr></hr>
-   <div class="row"> 
-    
-    <div style={{padding:"5px",color:"red",textAlign:"center"}}><span style={{color:"red", fontSize:"20px"}}>{messageesNumb} messagees in the list</span></div> 
-
-   </div>
-    <p></p><div class="row" style={{fontSize:"17px",textAlign:"center"}} dangerouslySetInnerHTML={{__html:messagees}}/> 
-
-
-
-  </div>)
-}
-export function RecommendationForm(){
-  return (
-    <div>
-<div style={{padding:"30px"}}>  
-    <div style={{color:"green",fontWeight:"bold", fontSize:"24px"}}>ADD CHILD/RECOMMEND</div>
-    <div style={{fontFamily:"charm",color:"grey",textAlign:"center"}}>Recommend a friend. Enter your contact, the contact you want to recommend and the pin you created during registration with Kayas.</div>
-    <br></br><form method="post" action="/collection_recommendations_recommendation">
-    <div class="mb-3">
-  
-    <input type="text" class="form-control" autoComplete="off" name="recommender" placeholder='Your WhatsApp Contact e.g 0703852178' maxLength={10} minLength={10} required></input>
-  <br></br>
-  <div style={{fontSize:"12px",color:"green",textAlign:"center"}}>Enter the WhatsApp number of your friend you wish to recommend below:</div>
-  <input type="text"  class="form-control" autoComplete="off" name="recommendee" placeholder='Whom To Recommend e.g 0703852178' maxLength={10} minLength={10} required></input>
-  <br></br>
-  
-  
-    <input type="text" class="form-control" autoComplete="off" name="pin" placeholder='Enter Your PIN' maxLength={5} minLength={5} required></input>
-    </div>
-    
-    <button style={{borderRadius:"18px"}} type="text" class="btn btn-success hovereffect"><span class="fa fa-user-circle"></span> Recommend/Add child</button>
-    </form>
-    
-    </div>
-   
-    </div>
-  )
-}
-export function OrderForm(){
-  return(
-    <div style={{padding:"30px"}}>  
-    <div style={{color:"green",fontWeight:"bold", fontSize:"24px"}}>ORDER</div>
-    
-    <br></br><form method="post" action="/collection_orders_order">
-    <div class="mb-3">
-    <input type="text" class="form-control" autoComplete="off" name="name" placeholder='Your name'  required></input>
-  <br></br>
-    <input type="text" class="form-control" autoComplete="off" name="contact" placeholder='Your WhatsApp Contact e.g 0703852178' maxLength={10} minLength={10} required></input>
-  <br></br>
- 
-  
-  <textArea rows="5"type="text"  class="form-control" autoComplete="off" name="msg" placeholder='Describe Your Request e.g. need a Loan or Sell item or Purchase item, etc' required></textArea>
- 
-  <div style={{fontFamily:"",color:"green",textAlign:""}}>Incase you don't know the trading ID and code, contact the student who sent this message to you.</div>
-  <input type="text"  class="form-control" autoComplete="off" name="tradingId" placeholder='Enter Trading ID' maxLength={10} minLength={10} required></input>
-  <br></br>
-  
-  
-    <input type="text" class="form-control" autoComplete="off" name="tradingCode" placeholder='Enter trading code' maxLength={4} minLength={4} required></input>
-    </div>
-    
-    <button style={{borderRadius:"18px"}} type="text" class="btn btn-success hovereffect"><span class="fa fa-envelope"></span> Order</button>
-    </form></div>
-  )
-}
-
-export function MessageForm(props){
-  const [advertiserContact,setAdvertiserContact]=useState('')
-  const [sendNotice,setSendNotice]=useState('Please wait.....')
-  let componentParams=useParams()
-  
-  useEffect(()=>{
-    if(componentParams.recommender===undefined){
-      setAdvertiserContact('0703852178')
-      setSendNotice('Send message')
-      
-    }else{
-      setAdvertiserContact(componentParams.recommender)
-      setSendNotice('Send message')
-    }
-  })
-  
-
-  const [requestStatus,setRequestStatus]=useState('')
-
-  return (
-    <div style={{padding:"20px"}}>  
-    <form id='requestForm' >
-    <div style={{paddingBottom:"8px"}}><div class="formLabel">Send message</div></div>
-
-    <div class="mb-3">
-      <div class="formInputLabel">Name</div>
-    <input type="text" class="form-control" autoComplete="off" name="name" ></input>
-  <br></br>
-  <div class="formInputLabel">Contact</div>
-    <input type="text" class="form-control" autoComplete="off" name="contact"></input>
-  <br></br>
-  <div class="formInputLabel">Type your request/inquiry</div>
-  <textArea rows="5"type="text" list="serviceTypes" class="form-control" autoComplete="off" name="serviceType"></textArea>
- 
-    </div>
-    <div style={{fontSize:"17px"}} dangerouslySetInnerHTML={{__html:requestStatus}}/>
-    <div style={{borderRadius:"18px"}} class="btn btn-success hovereffect" onClick={()=>{
-if(Array.from(document.getElementById('requestForm').name.value).length<2){
-  setRequestStatus('<div style="color:red;">Enter correct name.......</div>')
-}
-else if(Array.from(document.getElementById('requestForm').contact.value).length<10 || Array.from(document.getElementById('requestForm').contact.value).length>10){
-  setRequestStatus('<div style="color:red;">Enter contact of 10 digits.......</div>')
-
-} else if(Array.from(document.getElementById('requestForm').serviceType.value).length<3){
-  setRequestStatus('<div style="color:red;">Enter correct message/order request.......</div>')
-}
-
-else{
-  setRequestStatus('<div style="color:green;">Sending..............</div>')
-
-fetch('/submitMessage',{
-  method:"post",
-  headers:{'content-type':'application/json'},
-  body:JSON.stringify({name:document.getElementById('requestForm').name.value,contact:parseInt(document.getElementById('requestForm').contact.value),serviceType:document.getElementById('requestForm').serviceType.value,recommender:parseInt(advertiserContact)})
-}).then(resp=>resp.json()).then(resp=>{
-  setRequestStatus('<div style="color:green;">Successful <span class="fa fa-check"></span> Thank you.</div>')
-  document.getElementById('requestForm').name.value=""
-  document.getElementById('requestForm').contact.value=""
-  document.getElementById('requestForm').serviceType.value=""
-
-})
-
-
-
-
-}
-
-    }}><span class="fa fa-envelope"></span> {sendNotice}</div>
-    </form>
-   
-    
-    </div>
-  )
-}
 
 
   export function Alert(){

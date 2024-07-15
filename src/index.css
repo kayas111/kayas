@@ -227,6 +227,16 @@ font-weight:bold;
   padding-bottom:8px;
   
 }
+
+
+.SuspenseContainer{
+font-size: 30px;
+padding-top:250px;
+background-color: black;
+text-align: center;
+padding-bottom:500px;
+color: white;
+}
 .body{
   font-size:14px;
 }
