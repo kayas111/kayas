@@ -30,15 +30,15 @@ export function AllArticles(){
        window.location.href=`/pages/pubarticles/article/${articleObject.id}`
      }}><div class="pubArticleListItemContainer">
        
-    <div style={{border:"1px solid #d4d4d4",padding:"3px"}}>
-    <div class="backgroundColorHoverEffect3"><div class="pubArticleListItemInstitution">{articleObject.institution}</div>
+    <div class ="pubArticleListItemContainer2 backgroundColorHoverEffect3">
+    <div class="pubArticleListItemInstitution">{articleObject.institution}</div>
      <div class="pubArticleListItemHeadline">{articleObject.headline1}</div>
      <div class="pubArticleListItemViewsAndVisits">
                    <div>{articleObject.visits} views, {articleObject.pubArticleOpinions.length} comments, Article {articleObject.id}</div>
                    <div>Created by {articleObject.author} 0{articleObject.contact}</div>
                    </div>
  
-     </div>
+     
     </div>
      </div></div>
      

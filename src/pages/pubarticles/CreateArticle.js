@@ -86,7 +86,7 @@ export function CreateArticle(){
      
      <div style={{fontSize:"12px",paddingTop:"10px"}} dangerouslySetInnerHTML={{__html:status}}/>
      <progress value={progressBarValue} max="100"  style={{width:"100%",color:"red"}}/>
-     <div style={{borderRadius:"5px"}}  onClick={
+     <div   onClick={
      
        ()=>{
       
@@ -252,12 +252,14 @@ if(imageFile===undefined){
      
      
      
-     <div style={{paddingTop:"30px"}}></div>
-     <MyArticles />
+     
+     
      
      </div>
 <div class='col-md-3'></div>
-
+<div class='col-md-3'></div>
+<div class="col-md-6"><MyArticles /></div>
+<div class='col-md-3'></div>
 
       </div>
          

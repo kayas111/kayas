@@ -19,12 +19,13 @@ import './App.css';
 import  './index.css';
 import {BrowserRouter,Route, Switch} from 'react-router-dom';
 import { setCookieOptionsObj,AppContext,user} from './Variables';
+
 import { ToastAlert } from './pages/Functions';
 
 import {NotFound} from './pages/Home';
 
 
-import {ControlsHome,Kayasers,Requests,Recommendations,Orders,ClientsMonitor, ArticlesMonitor,TradersCare, KayaserCare,RegisterCare, AttendeeRegisters, SmsNotificationsCare} from './pages/admin/Controls';
+import {RegisterCare, AttendeeRegisters, SmsNotificationsCare} from './pages/admin/Controls';
 
 
 
@@ -53,17 +54,13 @@ const MyRegisters=React.lazy(()=>import('./pages/attendanceregs/MyRegisters'));
 
 
 
-// const ControlsHome=React.lazy(()=>import('./pages/admin/Controls'));
+const ControlsHome=React.lazy(()=>import('./pages/admin/ControlsHome'));
 
-// const Kayasers=React.lazy(()=>import('./pages/admin/Controls'));
-// const Requests=React.lazy(()=>import('./pages/admin/Controls'));
-// const Recommendations=React.lazy(()=>import('./pages/admin/Controls'));
-
-// const Orders=React.lazy(()=>import('./pages/admin/Controls'));
-// const ClientsMonitor=React.lazy(()=>import('./pages/admin/Controls'));
-// const ArticlesMonitor=React.lazy(()=>import('./pages/admin/Controls'));
-// const TradersCare=React.lazy(()=>import('./pages/admin/Controls'));
-// const KayaserCare=React.lazy(()=>import('./pages/admin/Controls'));
+const Kayasers=React.lazy(()=>import('./pages/admin/Kayasers'));
+const Requests=React.lazy(()=>import('./pages/admin/Requests'));
+const ArticlesMonitor=React.lazy(()=>import('./pages/admin/ArticlesMonitor'));
+const TradersCare=React.lazy(()=>import('./pages/admin/TradersCare'));
+const KayaserCare=React.lazy(()=>import('./pages/admin/KayaserCare'));
 //const RegisterCare=React.lazy(()=>import('./pages/admin/Controls'));
 //const AttendeeRegisters=React.lazy(()=>import('./pages/admin/Controls'));
 //const SmsNotificationsCare=React.lazy(()=>import('./pages/admin/Controls'));
@@ -73,6 +70,9 @@ const MyRegisters=React.lazy(()=>import('./pages/attendanceregs/MyRegisters'));
 
 
 export function App() {
+
+ 
+
   
   const [kayasersNumb,setKayasersNumb]=useState('')
   const [cookies,setCookie,removeCookie]=useCookies(['user'])
@@ -86,8 +86,9 @@ useEffect(()=>{
   if(cookies.user===undefined){
     setUserName('Not logged in')
     setLoginButtonText('Log in')
+    
   }else{
-  setUserName(cookies.user.name)
+  setUserName('Logged in')
   setLoginButtonText('Log out')
 }
 
@@ -121,11 +122,8 @@ useEffect(()=>{
     <BrowserRouter >
   <Suspense fallback={
   <div class="SuspenseContainer">
-       
-   <div><span style={{fontSize:"50px",padding:"8px"}} class="spinner-border" role="status"></span></div>
-   <div> Loading Kayas.....</div>
-    
-    
+      <div><span style={{fontSize:"8px"}} class="spinner-border" role="status"></span></div>
+   <div>Kayas</div> 
     </div>
 }> 
 <div class="navigation"> 
@@ -135,90 +133,55 @@ useEffect(()=>{
      <div  class="row">
        <div class="col-12" style={{textAlign:"center"}}>
      <div class='row'>
-<div style={{color:"grey",textAlign:"left",fontSize:"7px",opacity:"0.4"}} class='col-4 col-md-5'>{reqNumb}</div>
-<div class='col-4 col-md-2'><img src={logo} class="d-block w-100" alt="..."  /></div>
-<div style={{color:"grey",textAlign:"right",fontSize:"7px",opacity:"0.4"}} class='col-4 col-md-5'>{kayasersNumb}
+<div style={{color:"grey",textAlign:"left",fontSize:"7px",opacity:"0.6"}} class='col-3 col-md-5'>{reqNumb}</div>
+<div class='col-6 col-md-2'><img src={logo} class="d-block w-100" alt="..."  /></div>
+<div style={{color:"grey",textAlign:"right",fontSize:"7px",opacity:"0.6"}} class='col-3 col-md-5'>{kayasersNumb}
 </div>
 </div>
      </div>
-      <div style={{textAlign:"center",paddingBottom:"5px",fontSize:"11px",color:"white"}}>Always Keep It Kayas</div>
+      
        </div>
        </div>
   </nav>
     
   
  <div style={{paddingLeft:"5px"}} class ="bg-dark">
- <div class="row" style={{color:"orange",padding:"6px"}}><div class="col-9">{userName}</div><div style={{textAlign:"center"}} class="col-3" onClick={()=>{
-if(cookies.user===undefined){
- let contact=window.prompt('Enter your contact'),pin;
-if(contact===null){;}else{
-pin=window.prompt('Enter your PIN')
-if(pin===null){;}else{
+ <div class="row" style={{color:"orange",padding:"6px"}}>
+ <div class="col-6 col-sm-6 col-md-10" >
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
- VerifyRegistrationAndPin(contact.trim(),pin.trim()).then(resp=>{
-
-if(resp.registered===false){
- ToastAlert('toastAlert2','Not registered. Tap menu to register',3000)
-}else
-
-   if(resp.pin===false){
-     
-     ToastAlert('toastAlert2','Incorrect PIN',3000)
-   }else{
-     let user={name:resp.details.name,contact:resp.details.contact,role:'user'}
-     setCookie('user',user,setCookieOptionsObj)
-   ToastAlert('toastAlert1','Logged in',3000)
-
-   }
- })
-
- 
-}
-}
-
-
-
-
-}else{
- removeCookie("user",setCookieOptionsObj)
- ToastAlert('toastAlert1','Logged out',3000)
-}
-
-
-
-}}>{loginButtonText}</div></div>
- <nav  class="navbar navbar-expand-lg navbar-dark bg-dark">
-
-<button  style={{color:"yellow"}} class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+<button  style={{color:"orange",fontSize:"15px"}} class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
  <span class="navbar-toggler-icon"></span> Menu
 </button> 
 
-<div class="navbar-collapse justify-content-md-left collapse" id="navbarsExample08" >
- <ul style={{display:"flex",flexWrap:"wrap"}} class="navbar-nav">
+<div  class="navbar-collapse justify-content-md-right collapse navB" id="navbarsExample08" >
+
+ <ul  class="navbar-nav" style={{display:"flex",flexWrap:"wrap"}}>
+
  <li class="nav-item">
-   <a class="nav-link" href="/pages/pubarticles/allarticles"><span class="hovereffect">Trending stories ({articlesNumb})  </span></a>
+   <a class="hovereffect nav-link" href="/pages/pubarticles/allarticles"><span class="hovereffect">Trending stories ({articlesNumb})  </span></a>
    </li>
   
    <li class="nav-item">
-   <a class="nav-link"  href="/pages/pubarticles/createarticle"><span class="hovereffect">Create Article</span></a>
+   <a class="hovereffect nav-link"  href="/pages/pubarticles/createarticle"><span class="hovereffect">Create Article</span></a>
    </li>
    <li class="nav-item">
-<a class="nav-link" href="/pages/register"><span class="hovereffect">Register </span></a>
+<a class="hovereffect nav-link" href="/pages/register"><span class="hovereffect">Register </span></a>
    </li>
    <li class="nav-item">
-   <a class="nav-link" href="/pages/attendanceregs/createattendanceregister"><span class="hovereffect">Bulk SMS/Fast phone calls</span></a>
+   <a class="hovereffect nav-link" href="/pages/attendanceregs/createattendanceregister"><span class="hovereffect">Bulk SMS/Fast phone calls</span></a>
    </li>
  <li class="nav-item active">
-   <a class="nav-link" href="/pages/message"><span class="hovereffect">Send message</span></a>
+   <a class="hovereffect nav-link" href="/pages/message"><span class="hovereffect">Send message</span></a>
    </li>
    <li class="nav-item">
-   <a  class="nav-link" href="/advertise/items/0703852178"><span class="hovereffect">Buy items</span></a>
+   <a  class="hovereffect nav-link" href="/advertise/items/0703852178"><span class="hovereffect">Buy items</span></a>
    </li>
  
   
    
    <li class="nav-item">
-<a class="nav-link" href="/pages/followershome"><span class="hovereffect">Get urgent information when offline</span></a> 
+<a class="hovereffect nav-link" href="/pages/followershome"><span class="hovereffect">Get urgent information when offline</span></a> 
 
 
    </li>
@@ -232,13 +195,13 @@ if(resp.registered===false){
 
 
    <li class="nav-item">
-<a class="nav-link" href="/pages/clientbusinesses/0703852178"><span class="hovereffect">More</span></a>
+<a class="hovereffect nav-link" href="/pages/clientbusinesses/0703852178"><span class="hovereffect">More</span></a>
    </li>
   
  
   
    <li class="nav-item">
-   <a class="nav-link"  href="#" onClick={()=>{
+   <a class="hovereffect nav-link"  href="#" onClick={()=>{
  if(cookies.user===undefined){
    ToastAlert('toastAlert2','You are not logged in',3000)
    
@@ -254,32 +217,85 @@ if(resp.registered===false){
    }} ><span class="hovereffect">Account</span></a>
    </li>
    <li class="nav-item">
-   <a class="nav-link" href="/pages/about"><span class="hovereffect">About</span></a>
+   <a class="hovereffect nav-link" href="/pages/about"><span class="hovereffect">About</span></a>
    </li>
    <li class="nav-item">
-   <a class="nav-link"  href="/advertise/client1/0703852178"><span class="hovereffect">Loans</span></a> 
+   <a class="hovereffect nav-link"  href="#"><span class="hovereffect">Loans</span></a> 
    </li>
    <li class="nav-item">
-   <a class="nav-link" href="/pages/brocode"><span class="hovereffect">Who is Kayas?</span></a> 
+   <a class="hovereffect nav-link" href="/pages/brocode"><span class="hovereffect">Who is Kayas?</span></a> 
    </li>
 
   
  
    <li class="nav-item">
-   <a class="nav-link" href="/pages/quotes"><span class="hovereffect">Quotes</span></a>
+   <a class="hovereffect nav-link" href="/pages/quotes"><span class="hovereffect">Quotes</span></a>
    </li>
 
    <li class="nav-item">
-<a class="nav-link" href="#"><span class="hovereffect">Links</span></a> 
+<a class="hovereffect nav-link" href="#"><span class="hovereffect">Links</span></a> 
 </li>
 
  
    
  </ul>
+
+
 </div>
 </nav>
+</div>
+ 
+<div style={{textAlign:"right",paddingTop:"10px"}}  class="col-6 col-sm-6 col-md-2">
+  
+  <div style={{paddingRight:"10px"}} onClick={()=> {if(cookies.user===undefined){
+     let contact=window.prompt('Enter your contact'),pin;
+    if(contact===null){;}else{
+    pin=window.prompt('Enter your PIN')
+    if(pin===null){;}else{
+    
+     VerifyRegistrationAndPin(contact.trim(),pin.trim()).then(resp=>{
+    
+    if(resp.registered===false){
+     ToastAlert('toastAlert2','Not registered. Tap menu to register',3000)
+    }else
+    
+       if(resp.pin===false){
+         
+         ToastAlert('toastAlert2','Incorrect PIN',3000)
+       }else{
+         let user={name:resp.details.name,contact:resp.details.contact,role:'user'}
+         setCookie('user',user,setCookieOptionsObj)
+       ToastAlert('toastAlert1','Logged in',3000)
+    
+       }
+     })
+    
+     
+    }
+    }
+    
+    
+    
+    
+    }else{
+     removeCookie("user",setCookieOptionsObj)
+     ToastAlert('toastAlert1','Logged out',3000)
+    }}
+    
+    }>{loginButtonText}</div>
+ 
+
+
+
+
+</div>
+
+</div>
+
 
  </div>
+
+
 
        </div>
      
@@ -289,6 +305,8 @@ if(resp.registered===false){
 
 
 <Switch>
+
+
       <Route path="/advertise/items/:recommender" exact component={Itemsele}/>
       <Route path="/advertise/client1/:recommender" exact component={Client1}/>
       <Route path="/advertise/client2/:recommender" exact component={Client2}/>
@@ -340,7 +358,7 @@ if(resp.registered===false){
       <Route path="/pages/admin/controls" component={ControlsHome}/>
       
       <Route path="/pages/admin/requests" component={Requests}/>
-      <Route path="/pages/admin/orders" component={Orders}/>
+      
       <Route path="/pages/admin/kayasers" component={Kayasers}/>
       <Route path="/pages/admin/attendeeregisters" component={ AttendeeRegisters }/>
       <Route path="/pages/admin/smsnotificationscare" component={ SmsNotificationsCare }/>
@@ -350,8 +368,8 @@ if(resp.registered===false){
       <Route path="/pages/admin/kayasercare" component={ KayaserCare }/>
       <Route path="/pages/admin/attendanceregistercare" component={ RegisterCare }/>
       <Route path="/pages/admin/articlesmonitor" component={ArticlesMonitor}/>
-      <Route path="/pages/admin/clientsmonitor" component={ClientsMonitor}/>
-      <Route path="/pages/admin/recommendations" component={Recommendations}/>
+      
+      
       <Route path="/pages/register" component={RegistrationPage}/>
       
       
@@ -365,8 +383,11 @@ if(resp.registered===false){
       
       <Route path="/pages/followershome" exact component={FollowersHome}/>
       <Route path="/pages/following/:contact/:categoryId" exact component={FollowingComp}/>
-      <Route path="" component={NotFound}/>
+      <Route path="/" exact component={NotFound}/>
       </Switch>
+     
+      
+      
       </Suspense>
 
    
@@ -388,15 +409,22 @@ export function Basenavele(){
   const [tradersTotalCredit,setTradersTotalCredit]=useState('')
   const [smsService,setSmsService]=useState('loading......')
   useEffect(()=>{
-    fetch('/egoSmsAccBal').then(res=>res.json()).then(res=>{
-      setEgoSmsAccBal(res.Balance)
+    let tradersBal=0,egoBal=0;
+    fetch('/egoSmsAccBal').then(res=>res.json()).then(async (res)=>{
+      egoBal=res.Balance;
+      setEgoSmsAccBal(parseInt(res.Balance))
       fetch('/tradersTotalCredit').then(res=>res.json()).then(res=>{
-          setTradersTotalCredit(res.tradersTotalCredit)
-      if(egoSmsAccBal>tradersTotalCredit){
+      tradersBal=res.tradersTotalCredit
+          setTradersTotalCredit(parseInt(res.tradersTotalCredit))
+    
+      if(parseInt(egoBal) > parseInt(tradersBal)){
         setSmsService('Up')
+        
       }else{
+        
         setSmsService('<span style="color:red;">Down</span>')
       }
+    
         
             })
     
@@ -416,8 +444,9 @@ export function Basenavele(){
  <div><span class="fa fa-phone"> Telephone: 0703852178/0773367078</span></div>
  <div><span class="fa fa-envelope"> Email: kayasforyou@gmail.com</span></div>
 <div><span class="fa fa-copyright"></span> Copyright 2024 KAYAS.</div>
-<div>Sms service: <span dangerouslySetInnerHTML={{__html: smsService}}/></div>
 <div>EgoBal {egoSmsAccBal}/{tradersTotalCredit} TTC</div>
+<div>Sms service <span dangerouslySetInnerHTML={{__html: smsService}}/></div>
+
 
 
 

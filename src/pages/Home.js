@@ -27,6 +27,27 @@ import it19 from './imgs/it19.jpg';
 import it20 from './imgs/it20.jpg';
 
 import it21 from './imgs/it21.jpg';
+import it22 from './imgs/it22.jpg';
+import it23 from './imgs/it23.jpg';
+import it24 from './imgs/it24.jpg';
+import it25 from './imgs/it25.jpg';
+import it26 from './imgs/it26.jpg';
+import it27 from './imgs/it27.jpg';
+import it28 from './imgs/it28.jpg';
+import it29 from './imgs/it29.jpg';
+import it30 from './imgs/it30.jpg';
+import it31 from './imgs/it31.jpg';
+import it32 from './imgs/it32.jpg';
+import it33 from './imgs/it33.jpg';
+import it34 from './imgs/it34.jpg';
+import it35 from './imgs/it35.jpg';
+import it36 from './imgs/it36.jpg';
+import it37 from './imgs/it37.jpg';
+import it38 from './imgs/it38.jpg';
+import it39 from './imgs/it39.jpg';
+import it40 from './imgs/it40.jpg';
+import it41 from './imgs/it41.jpg';
+import it42 from './imgs/it42.jpg';
 
 import lights from './imgs/lights.jpg';
 
@@ -217,30 +238,30 @@ export function Items(props){
             <div class="infor"> <div class="item-id">{props.id}</div>
    <div class="item-desc" >{props.des}</div>
    
-   <div class="item-price">Updating price...</div>
+   <div class="item-price">{props.price}</div>
      
        <div onClick={()=>{
-        name=window.prompt("Your name")
-if(name===null){
-  ;
-}else{
-contact=window.prompt("Your contact")
-if(contact===null){;}else{
-fetch('/submitMessage',{
-  method:"post",
-  headers:{'content-type':'application/json'},
-  body:JSON.stringify({name:name,contact:parseInt(contact),serviceType:`${props.id}, ${props.des} of shs ${props.price} ordered by ${name} (${contact}). Recommended by 0${parseInt(componentParams.recommender)}`,recommender:parseInt(componentParams.recommender)})
-}).then(resp=>resp.json()).then(resp=>{
-window.alert("Message sent.");
-})
-}
-}
+//         name=window.prompt("Your name")
+// if(name===null){
+//   ;
+// }else{
+// contact=window.prompt("Your contact")
+// if(contact===null){;}else{
+// fetch('/submitMessage',{
+//   method:"post",
+//   headers:{'content-type':'application/json'},
+//   body:JSON.stringify({name:name,contact:parseInt(contact),serviceType:`${props.id}, ${props.des} of shs ${props.price} ordered by ${name} (${contact}). Recommended by 0${parseInt(componentParams.recommender)}`,recommender:parseInt(componentParams.recommender)})
+// }).then(resp=>resp.json()).then(resp=>{
+// window.alert("Message sent.");
+// })
+// }
+// }
 
 
-
+ToastAlert('toastAlert1','Write down all the items you need with their prices and send to Kayas through WhatsApp on 0703852178',10000)
 
        
-       }} style={{borderRadius:"5px",background:"green",color:"white",textAlign:"center",fontSize:"16px"}}><div class="hovereffect">Order | <span style={{fontSize:"10px"}}>Pay on delivery</span></div></div>
+       }} class="button1"><div class="hovereffect">Order | <span style={{fontSize:"10px"}}>Pay on delivery</span></div></div>
        
       
 
@@ -397,7 +418,7 @@ recommender:parseInt(componentParams.recommender)
 
   return(<div style={{padding:"18px"}}>
     <div class="row AdComponentDiv">
-        <div class="col-md-6">
+        <div class="col-md-6" >
         <div style={{fontSize:"12px",color:"orange",paddingBottom:"10px"}} dangerouslySetInnerHTML={{__html:advertiserName}}/>
         <div style={{color:"black",fontSize:"22px"}}>{props.businessName}</div>
              
@@ -470,7 +491,7 @@ pin:'11111'
   let componentParams=useParams(),CreateOwnPageUrl=`/advertise/${props.id}`,AdvertiseUrl=`whatsapp://send?text=*🔥${props.businessName}.*%0A%0AVisit the website below:%0Ahttps://kayas-mak.herokuapp.com/advertise/${props.id}`
  
  
-     return(<div>
+     return(<div >
  <AdComponent businessName={props.businessName} CreateOwnPageUrl={CreateOwnPageUrl} AdvertiseUrl={AdvertiseUrl}   componentParams={componentParams} />
  
      </div>)
@@ -536,77 +557,101 @@ let v= "col-6 col-md-2 bod";
 //items
     return (
         <div>
-      <BusinessClientAdComponent businessName="Kayas Online shop" id='items' />
+      <BusinessClientAdComponent businessName="Freshers' Online shop by Kayas" id='items' />
       
         <div class="itemse">
        
-       <div style={{ color:"red", fontWeight:"bold",textAlign:"center"}}><marquee>All orders should be made through the website but not through any other contact. Tap the green button below any item to send a message to Kayas</marquee></div>
+       <div style={{ color:"red", fontWeight:"bold",textAlign:"center"}}><marquee>
+        All orders should be made through Kayas on whatsApp 0703852178</marquee></div>
             <div class="row">
             <div class={v}><Items id="Dust bin" des="On sale" price="5,000/=" img={it14} url={kayasurl} contact={kayas} /></div>
-            <div class={v}><Items id="Matress" des="With a pillow and blanket @210,000/=" price="140,000/=" img={it9} url={kayasurl} contact={kayas} /></div>
-            <div class={v}><Items id="Adjustable Reading table" des="Brand new" price="90,000/=" img={it7} url={kayasurl} contact={kayas} /></div>
-            <div class={v}><Items id="Reading Seat" des="Brand new" price="15,000/=" img={it10} url={kayasurl} contact={kayas} /></div>
-            <div class={v}><Items id="Laptop bag" des="Brand new" price="50,000/=" img={it8} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Dust pan" des="On sale" price="7,000/=" img={it35} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Mattress" des="Brand new, strong and durable" price="130,000/=" img={it9} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Bedcover comes with 2 pillow covers + 1 bedsheet" des="Brand new" price="55,000/=" img={it22} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Pillow" des="It is a fiber pillow and lasts longer" price="17,000/=" img={it23} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Adjustable Reading table" des="Brand new" price="80,000/=" img={it7} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Seat (stool)" des="Brand new" price="15,000/=" img={it10} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Reading seat with armrest" des="Brand new" price="24,000/=" img={it24} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Reading seat without armrest" des="Brand new" price="24,000/=" img={it25} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Door mat" des="Brand new" price="16,000/=" img={it36} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="USB stick (flash) 16 GB" des="Brand new" price="20,000/=" img={it26} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Brand new laptop" des="Brand new" price="1.2 mil to 2 mil" img={it27} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Shoe rack" des="Brand new" price="25k/30k" img={it37} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Shoe rack-fully metallic 5 layers" des="Brand new" price="35,000/=" img={it41} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Plastic storage can" des="Store food and other items" price="18k/24k" img={it39} url={kayasurl} contact={kayas} /></div>
+            
+            <div class={v}><Items id="Mosquito net" des="Brand new" price="30,000/=" img={it38} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Laptop bag" des="Brand new" price="40,000/=" img={it8} url={kayasurl} contact={kayas} /></div>
             <div class={v}><Items id="Basins" des="Brand new"  price="5,000/=" img={it20} url={kayasurl} contact={kayas} /></div>
-            <div class={v}><Items id="Stabex Gas cylinder, 6kgs" des="Brand new"  price="160,000/=" img={it11} url={kayasurl} contact={kayas} /></div>
-            <div class={v}><Items id="Percolator" des="Brand new" price="35,000/=" img={parco} url={kayasurl} contact={kayas} /></div>
-            <div class={v}><Items id="Plate rack" des="Brand new"  price="25,000/=" img={it12} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Stabex Gas cylinder, 6kgs" des="Brand new"  price="150,000/=" img={it11} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Scarlet Percolator" des="Brand new" price="30,000/=" img={parco} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="PTL Percolator" des="Brand new" price="28,000/=" img={it29} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Square shaped plate rack" des="Brand new"  price="23,000/=" img={it12} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Circular shaped plate rack" des="Brand new"  price="18,000/=" img={it30} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Wall dressing mirror" des="Brand new"  price="14k/18k/23k" img={it31} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Dressing mirror" des="Brand new"  price="190,000/=" img={it40} url={kayasurl} contact={kayas} /></div>
           <div class={v}><Items id="Fan" des="Brand new"  price="70,000/=" img={fan} url={kayasurl} contact={kayas} /></div>
-          <div class={v}><Items id="Plastic storage can" des="Store a variety of items like food, etc" price="70,000/=" img={it13} url={kayasurl} contact={kayas} /></div>
-            <div class={v}><Items id="Suit case" des="Brand new" price="150,000/=" img={it2} url={kayasurl} contact={kayas} /></div>
+          <div class={v}><Items id="Plastic storage can" des="Store a variety of items like food, etc" price="55,000/=" img={it13} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Suit case" des="Brand new" price="140,000/=" img={it2} url={kayasurl} contact={kayas} /></div>
             <div class={v}><Items id="Go Tv full set" des="Brand new"  price="80,000/=" img={it17} url={kayasurl} contact={kayas} /></div>
             
-            <div class={v}><Items id="Dust pan" des="On sale" price="7,000/=" img={it5} url={kayasurl} contact={kayas} /></div>
+  
              
            
             
             
-            <div class={v}><Items id="Woolen carpets" des="Pleasant colors" price="90,000/150,000 and above" img={ip1} url={kayasurl} contact="See more" /></div>
+            <div class={v}><Items id="Woolen carpets" des="Pleasant colors" price="70k/150k and above" img={ip1} url={kayasurl} contact="See more" /></div>
                        
              <div class={v}><Items id="Sweeping broom" des="On sale" price="6,000/=" img={it1} url={kayasurl} contact={kayas} /></div>
            
-     
+             <div class={v}><Items id="10 metallic cloth hangers" des="brand new"  price="12,000/=" img={it33} url={kayasurl} contact={kayas} /></div>
+             <div class={v}><Items id="6 plastic cloth hangers" des="brand new"  price="8,000/=" img={it34} url={kayasurl} contact={kayas} /></div>
         
             <div class={v}><Items id="Ladies & Gents crafts" des="On sale" price="35,000/=" img={craft7} url="/pages/part4/part4home" contact="See more" /></div>
             
             <div class={v}><Items id="Juice blender" des="Brand new"  price="100,000/=" img={it6} url={kayasurl} contact={kayas} /></div>
-            <div class={v}><Items id="Aillipu woofers" des="brand new"  price="150,000/=" img={woofer} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Aillipu woofers" des="brand new"  price="145,000/=" img={woofer} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Clubox woofers" des="brand new"  price="140,000/=" img={it32} url={kayasurl} contact={kayas} /></div>
             
             <div class={v}><Items id="Hot coil" des="Brand new" price="35,000/=" img={it4} url={kayasurl} contact={kayas}/></div>
             
             <div class={v}><Items id="Hot plate" des="Brand new" price="40,000/=" img={it3} url={kayasurl} contact={kayas}/></div>
             <div class={v}><Items id="Double Hot plate" des="Brand new" price="80,000/=" img={it18} url={kayasurl} contact={kayas}/></div>
             
-            
-            <div class={v}><Items id="Laundry basket" des="On sale" price="20,000/=" img={it15} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Bucket" des="Strong and durable" price="10,000/=" img={it28} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Laundry basket" des="On sale" price="15,000/=" img={it15} url={kayasurl} contact={kayas} /></div>
             <div class={v}><Items id="Saachi flat iron" des="Brand new" price="40,000/=" img={flatiron} url={kayasurl} contact={kayas} /></div>
-            <div class={v}><Items id="Extension cable 4 ports" des="Brand new" price="20,000/=" img={it16} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Phillips flat iron" des="Brand new" price="65,000/=" img={flatiron} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Extension cable 4 or 6 ports" des="Brand new" price="18k/25k" img={it16} url={kayasurl} contact={kayas} /></div>
             
           
             
             
             <div class={v}><Items id="Cakes" des="Birth days, etc"  price="Negotiable" img={cake2} url={kayasurl} contact={kayas} /></div>
-            
+            <div style={{padding:"10px",textAlign:"center",background:"white"}}>
+      <div><span style={{fontSize:"8px"}} class="spinner-border" role="status"></span></div>
+   <div style={{fontSize:"20px"}}>More items being uploaded......</div> 
+    </div>
             
             </div>
            
         </div>
-        <ClientBusinesses/>
       
-        <div style={{backgroundColor:"black",paddingTop:"30px",paddingBottom:"40px"}}>
+        <div style={{backgroundColor:"black",padding:"5px",paddingBottom:"40px"}}>
 <div class="row">
 <div class="col-12 col-sm-12 col-md-6">
-<div style={{fontSize:"30px",color:"white"}}>Do you have any Hostel item to sell?</div>
+<div style={{fontSize:"25px",color:"orange"}}>To our dear freshers take care...</div>
+<div style={{color:"white"}}>Kayas welcomes all freshers to Makerere University, a very proud environment to be in.  Kayas is a student service that aids students acquire hostel items at very much affordable prices.<p></p> We also wish to inform you as a fresher not to trust any stranger around the University setting. Very many con men and con women will be taking advantage of your ignorance about campus life and will encourage you to leave your tuition with them such that they help you pay on your behalf butdont accept that.<br></br> Con men will always come with information claiming to know you and and  will convince you that they are in the same class groups with you. Please take kin attention about such people around you. Feel free to make inquiries through Kayas, a trusted student service. Contact us on our Whats App number 0703852178.<p></p></div>
+</div>
+<div class="col-12 col-sm-12 col-md-6">
+<div style={{fontSize:"25px",color:"orange"}}>Do you have any Hostel item to sell?</div>
 <div style={{color:"white"}}>Please let us know about any item ranging from woofers, television screens, woofers, flat irons, carpets, gas cylinders and many more.</div>
 <p></p></div>
 <div class="col-12 col-sm-12 col-md-6">
-<div style={{fontSize:"30px",color:"white"}}>Smart Bakery Limitted</div>
+<div style={{fontSize:"25px",color:"orange"}}>Smart Bakery Limitted</div>
 <div style={{color:"white"}}>An upcoming and leading provider of delicious cakes and doughnuts for birthday parties and other parties as well within student settings and Kampala at large. We take all sorts of orders and make deliveries as well.<p></p> We do extend our services to University students, treasure and thank them for being the leading customers of our products. We also welcome all those who need cakes and doughnuts at their service to feel free and make requests/orders. Thank you.<p></p>  </div>
 </div>
-<div class="col-12 col-sm-12 col-md-6">
-<div style={{fontSize:"30px",color:"white"}}>To our dear freshers take care...</div>
-<div style={{color:"white"}}>Kayas welcomes all freshers to Makerere University, a very proud environment to be in.  Kayas is a student service that aids students acquire cheaper hostel items being sold by fellow students at very much affordable prices.<p></p> We also wish to inform you as a fresher not to trust any stranger around the University setting. Very many con men and con women will be taking advantage of your ignorance about campus life and will encourage you to leave your tuition with them such that they help you pay on your behalf.<br></br> Con men will always come with information claiming to know you and and  will convince you that they are in the same class groups with you. Please take kin attention about such people around you. Feel free to make inquiries through Kayas, a trusted student service. Contact us on our Whats App number 0703852178.<br></br></div>
-</div>
+
 
 
 </div>

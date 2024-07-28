@@ -71,27 +71,57 @@ pin:document.getElementById("myArticlesForm")[1].value,
       contact:document.getElementById("myArticlesForm")[0].value,
     })
 }).then(resp=>{
-    setStatus(`<div style='color:green;'>Your Articles have been received, please wait we share with you ......</div>`)
-
+    
     return resp.json()}).then(resp=>{
 if(resp.length===0){
 setStatus(`<div style='color:red;'>You don't have any Articles written. Please write some and get back. Thank you.</div>`) 
 
 }else{
 resp.reverse()
-resp.forEach(articleObject=>{
 
-let newComments;
-if(articleObject.newCommentsNumb===undefined){
-newComments=0
-}else{
-newComments=articleObject.newCommentsNumb
-}
 
-data+=`<div class='col-sm-6 col-md-4' style='background:#E3E3E3;border:4px solid white;border-radius:20px;padding:10px;' onclick=fetch('/resetPubArticlesNewCommentsNumb',{method:"post",headers:{"Content-type":"application/json"},body:JSON.stringify({id:${articleObject.id}})}) ><div><a  style='color:black;' href='/pages/pubarticles/article/${articleObject.id}'><span class="hoverEffectUnderline"><div  style='padding-bottom:10px;'><div style='color:black;font-size:18px;'>${articleObject.headline1}</div><div style='font-size:12px;color:grey;'>Article ${articleObject.id}</div><div style='color:grey;padding-top:5px;'><span style='color:red;'>${newComments}</span> new comments | <span style='color:red;'>${articleObject.visits}</span> views | <span style='color:red;'>${articleObject.pubArticleOpinions.length}</span> comments</div></div> </span></a></div></div>`
-})
-setMyArticles('<div style="text-align:center;font-size:20px;color:red;">Your Articles below:</div>'+data)
-setStatus(`<div style='color:green;'>Done, scroll down to see your Articles. <span class='fa fa-check'></span></div>`) 
+
+setMyArticles(resp.map((articleObject)=>{
+    let newComments;
+    if(articleObject.newCommentsNumb===undefined){
+        newComments=0
+        }else{
+        newComments=articleObject.newCommentsNumb
+        }
+
+    return(
+    <div class="col-md-6" onClick={()=>{
+      window.location.href=`/pages/pubarticles/article/${articleObject.id}`
+    }}><div class="pubArticleListItemContainer">
+      
+   <div class ="pubArticleListItemContainer2 backgroundColorHoverEffect3">
+   <div class="pubArticleListItemInstitution">{articleObject.institution}</div>
+    <div class="pubArticleListItemHeadline">{articleObject.headline1}</div>
+    <div class="pubArticleListItemViewsAndVisits">
+                  <div>{articleObject.visits} views, {articleObject.pubArticleOpinions.length} comments, Article {articleObject.id}</div>
+                  <div>Created by {articleObject.author} 0{articleObject.contact}</div>
+                  </div>
+
+    
+   </div>
+    </div></div>
+    
+    )}))
+
+
+// resp.forEach(articleObject=>{
+
+// let newComments;
+// if(articleObject.newCommentsNumb===undefined){
+// newComments=0
+// }else{
+// newComments=articleObject.newCommentsNumb
+// }
+
+// data+=`<div class='col-sm-6 col-md-4' style='background:#E3E3E3;border:4px solid white;border-radius:20px;padding:10px;' onclick=fetch('/resetPubArticlesNewCommentsNumb',{method:"post",headers:{"Content-type":"application/json"},body:JSON.stringify({id:${articleObject.id}})}) ><div><a  style='color:black;' href='/pages/pubarticles/article/${articleObject.id}'><span class="hoverEffectUnderline"><div  style='padding-bottom:10px;'><div style='color:black;font-size:18px;'>${articleObject.headline1}</div><div style='font-size:12px;color:grey;'>Article ${articleObject.id}</div><div style='color:grey;padding-top:5px;'><span style='color:red;'>${newComments}</span> new comments | <span style='color:red;'>${articleObject.visits}</span> views | <span style='color:red;'>${articleObject.pubArticleOpinions.length}</span> comments</div></div> </span></a></div></div>`
+// })
+// setMyArticles('<div style="text-align:center;font-size:20px;color:red;">Your Articles below:</div>'+data)
+// setStatus(`<div style='color:green;'>Done, scroll down to see your Articles. <span class='fa fa-check'></span></div>`) 
 
 }
 
@@ -168,8 +198,8 @@ window.location.href=`whatsapp://send?text=*${document.getElementById("myArticle
 
 
  </form><p></p><p></p>
- <div style={{padding:"3px"}}class="row" dangerouslySetInnerHTML={{__html:myArticles}}/>
- <hr></hr>
+ <div class="row">{myArticles}</div>
+ 
 
  </div>
         

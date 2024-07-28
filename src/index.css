@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
+  background-color: #00000011;
 
 
 }
@@ -25,8 +26,18 @@ a{
 }
 
 .nav-link{
-text-decoration: underline;
+  padding: 3px;
+  
+border: 0.1px solid rgba(255, 255, 255, 0.192);
 color:white;
+}
+
+.navB{
+  width: 100%;
+}
+.nav-item{
+
+padding: 2px;
 }
 .backgroundColorHovereffect:hover{
   background-color:rgb(0, 4, 255);
@@ -46,12 +57,14 @@ color:white;
 }
 .AdComponentDiv{
   padding-bottom:5px;border-radius:3px;
-  box-shadow:0px -4px 8px black;
+  background-color: white;
+  box-shadow:0px 0px 8px black;
 }
  .articleContainer{
 padding:5px;
-border-radius:5px;
-box-shadow: 0px 0px 6px black;
+border-radius:2px;
+background-color: white;
+box-shadow: 0px 0px 3px black;
  }
 
 
@@ -110,6 +123,10 @@ border:0px solid green;
 .App {
   text-align: center;
 }
+
+
+ 
+
 .navigatione{
   background:green;
   height:300px;
@@ -230,16 +247,15 @@ font-weight:bold;
 
 
 .SuspenseContainer{
-font-size: 30px;
+font-size: 25px;
 padding-top:250px;
 background-color: black;
 text-align: center;
 padding-bottom:500px;
 color: white;
+font-family:'Times New Roman';
 }
-.body{
-  font-size:14px;
-}
+
 .itemse{
   background:url("./pages/imgs/snacks.jpg") fixed no-repeat;
   background-size:cover;
@@ -319,7 +335,7 @@ padding:3px;
  .item-id{
   text-align:left;
   color:black;
-font-size:15px;
+font-size:12px;
 font-weight:bold;
   
   }
@@ -331,6 +347,7 @@ font-weight:bold;
   font-size:18px;
   padding-top:0px;
   font-weight:bold;
+  
   }
   
   .item-desc{
@@ -356,14 +373,14 @@ font-weight:bold;
   
   form{
     padding:8px;
-    box-shadow: 0px 0px 3px black;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.685);
     background-color:rgb(252, 252, 252);
-    border:1px solid black;
+    
     border-radius: 5px;
     
   }
   .form-control{
-    border:1px solid grey;
+    border:1px solid rgba(0, 0, 0, 0.164);
   }
   .formInputLabel{
         font-size:13px;
@@ -371,17 +388,19 @@ font-weight:bold;
   }
  .formLabel{
   color:orange;
-  background:black;text-align:center;font-size:14px;padding:8px;
+  font-size: 12px;
+  background:black;text-align:center;padding:8px;
  }
 .form-submit-btn{
 background-color: green;
 text-align: center;
+font-size: 12px;
 color: white;
 padding:3px;
 }
  .followingsNavItem{
-  padding:5px;
-  color:"green"
+  padding:3px;
+  
   
  }
 
@@ -391,7 +410,7 @@ padding:3px;
 .button1{
   background-color:green;
   padding:4px;
-  font-size: 12px;
+  font-size: 10px;
   color: white;
   border-radius: 3px;
   text-align: center;
@@ -404,6 +423,11 @@ background-color:rgb(110, 0, 55);
   color: white;
   border-radius: 3px;
   
+}
+.pubArticleListItemContainer2{
+background-color: white;
+  padding: 5px;
+
 }
 .pubArticleListItemContainer{
   
@@ -432,7 +456,8 @@ background-color:rgb(110, 0, 55);
   color: white;
   padding-top: 30px;
   
-height: 12%;
+  
+height: 15%;
 font-size: 15px;
 position:fixed;
 border-radius: 0px 0px 5px 5px;
@@ -446,8 +471,9 @@ text-align:center;
   background-color:rgb(226, 0, 0);
   padding-top: 30px;
   
+  
   color: white;
-height: 12%;
+height: 15%;
 font-size: 12px;
 position:fixed;
 top:0%;
@@ -456,9 +482,10 @@ right: 0%;
 text-align:center;
 }
 .label1{
-  font-size:19px;
+  font-size:15px;
   font-weight: 500;
 }
 .label2{
+  font-size:12px;
   padding-bottom: 5px;
 }

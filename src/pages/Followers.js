@@ -4,14 +4,15 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { getFormDataOnClick,getFormData,VerifyRegistrationAndPin,setKayaserVerificationStatus } from './Functions'
 
 export function FollowingsNav(){
-  let style={color:"white"},style2={background:"green",padding:"3px",borderRadius:"5px"}
+  let style={color:"white"}
   return (<div >
   <div style={{display:"flex",flexWrap:"wrap",borderRadius:"8px",padding:"3px"}}>
-<div class="followingsNavItem"><a style={style} href="#howItWorks"><div style={style2} class="hovereffect">How it works</div></a></div>
-<div class="followingsNavItem" ><a style={style} href="#followSomeone"><div style={style2} class="hovereffect">Subscribe/Unsubscribe</div></a></div>
-<div class="followingsNavItem"><a style={style} href="#categoriesSubscribedTo"><div style={style2} class="hovereffect">Categories you've subscribed to</div></a></div>
-<div class="followingsNavItem" ><a style={style} href="#displayYourCategories"><div style={style2} class="hovereffect">Your categories</div></a></div>
-<div class="followingsNavItem"><a style={style} href="#createCategory"><div style={style2} class="hovereffect">New category</div></a></div>
+  
+<div class="followingsNavItem"><a style={style} href="#howItWorks"><div class="button1 hovereffect">How it works</div></a></div>
+<div class="followingsNavItem" ><a style={style} href="#followSomeone"><div  class="button1 hovereffect">Subscribe/Unsubscribe</div></a></div>
+<div class="followingsNavItem"><a style={style} href="#categoriesSubscribedTo"><div  class="button1 hovereffect">Categories you've subscribed to</div></a></div>
+<div class="followingsNavItem" ><a style={style} href="#displayYourCategories"><div  class="button1 hovereffect">Your categories</div></a></div>
+<div class="followingsNavItem"><a style={style} href="#createCategory"><div class="button1 hovereffect">New category</div></a></div>
 
 </div>
 
@@ -30,7 +31,7 @@ export function FollowersHome(){
     let [followersCategories,setFollowersCategories]=useState('')
 return(
     <div style={{padding:"4px"}}>
-         <div style={{color:"red",fontSize:"18px"}}>Subscribe and get urgent information even when you are offline</div><div style={{fontSize:"13px"}}>Whether your data is off/has expired or you are using a feature (button) phone, you will get updated. Don' t miss out on urgent information.</div>
+         <div class="label1">Subscribe and get urgent information even when you are offline</div><div class="label2">Whether your data is off/has expired or you are using a feature (button) phone, you will get updated. Don' t miss out on urgent information.</div>
        <p></p>
        <div class="row">
         <div class="col-md-6"><FollowingsNav/></div>

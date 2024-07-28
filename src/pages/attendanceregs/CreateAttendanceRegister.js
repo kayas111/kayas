@@ -139,7 +139,7 @@ let traderDetailsObj=response[0]
     
   }
          }
-       } class="button1">Create register</div><p></p>
+       } class="form-submit-btn">Create register</div><p></p>
       
        </form>
        </div></div>

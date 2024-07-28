@@ -100,7 +100,7 @@ ToastAlert('toastAlert1','Successful',3000)
 
 }
    }
- } class="button1">Display registers</div>
+ } class="form-submit-btn">Display registers</div>
 
  </form>
  <div style={{padding:"3px"}}class="row" dangerouslySetInnerHTML={{__html:myRegisters}}/>
@@ -145,7 +145,7 @@ ToastAlert('toastAlert1','Please wait.....',2000)
 window.location.href=`/pages/attendanceregs/${parseInt(document.getElementById("goToRegsiterForm").contact.value)}/${document.getElementById("goToRegsiterForm").registerId.value}`
 }
      }
-   } class="button1">Go to Register</div>
+   } class="form-submit-btn">Go to Register</div>
   
    </form>
    

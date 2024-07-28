@@ -197,14 +197,19 @@ export function AttendanceRegister(){
           return(
               
              <div>
-                    <div style={{fontSize:"10px",color:"grey",opacity:"0.5",textAlign:"left",paddingLeft:"5px"}}> </div>
-             <div style={{fontSize:"20px",padding:"3px",fontWeight:"500"}}>{registerTitle}</div>
-                         <div style={{fontSize:"12px",color:"green",paddingLeft:"5px",textDecoration:"underline"}}>Register ID: {registerParams.id} Created by: {registrarName} 0{registrarContact}<br></br>{institution} </div>
+              <div class="row">
+<div class="col-md-6">  <div style={{fontSize:"20px",padding:"3px",fontWeight:"500"}}>{registerTitle}</div>
+                         <div style={{fontSize:"12px",color:"",paddingLeft:"5px",textDecoration:"underline"}}>Register ID: {registerParams.id} Created by: {registrarName} 0{registrarContact}</div>
+        </div>
+<div class="col-md-6"><AttendenceRegisterNav/></div>
+
+              </div>
+           
+                         
+        
         <div style={{padding:"5px"}}>         
            <div class="row">
             <div class='col-md-6' style={{padding:"15px"}}>  
-            <AttendenceRegisterNav/>
-            <p></p>
             <div class="label1">Save contact or go to bottom to display</div>
             <div  class="label2">Add a contact to the register</div>
     <form id="messengingForm" >

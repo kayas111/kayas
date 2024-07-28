@@ -106,15 +106,15 @@ export function PubArticleComp(){//clientcomponent
                 }}>
                   
                   <div class="pubArticleListItemContainer">
-                  <div style={{border:"1px solid #d4d4d4",padding:"3px"}}>
-   <div class="backgroundColorHoverEffect3"><div class="pubArticleListItemInstitution">{articleObject.institution}</div>
+                  <div class="pubArticleListItemContainer2 backgroundColorHoverEffect3">
+   <div class="pubArticleListItemInstitution">{articleObject.institution}</div>
     <div class="pubArticleListItemHeadline">{articleObject.headline1}</div>
     <div class="pubArticleListItemViewsAndVisits">
                   <div>{articleObject.visits} views, {articleObject.pubArticleOpinions.length} comments, Article {articleObject.id}</div>
                   <div>Created by {articleObject.author} 0{articleObject.contact}</div>
                   </div>
 
-    </div>
+    
    </div>
                 </div></div>
                 
@@ -151,13 +151,13 @@ export function PubArticleComp(){//clientcomponent
                   <ArticlesNav articleAuthorContact={articleAuthorContact} articleId={articleParams.id}/>
                     <div style={{padding:"6px"}}>
                   <div class="articleContainer">
-                  <div style={{fontSize:"20px",color:"black",paddingBottom:"15px",fontWeight:"500"}}>{articleHeadline1}</div>
+                  <div style={{fontSize:"23px",fontFamily:"Times New Roman",color:"black",paddingBottom:"15px"}}>{articleHeadline1}</div>
                            
               <div style={{paddingBottom:"10px"}}>
               <div class="row">
                 <div class="col-9"><div  style={{fontSize:"13px",color:"",borderBottom:"1px solid black"}}><span style={{color:"red"}}>{visits}</span> views and <span style={{color:"red"}}>{opinionsNumb}</span> comments, Article {articleParams.id} </div></div>
                 <div style={{textAlign:"right"}} class="col-3">
-                <span class="hovereffect" style={{fontSize:"13px",background:"green",borderRadius:"4px",padding:"5px",color:"white"}} onClick={
+                <span class="hovereffect button1"  onClick={
               ()=>{
                 window.location.href=whatsappPublicArticleShareLink
               }}><span class="fa fa-whatsapp"></span> Share</span>
@@ -171,7 +171,7 @@ export function PubArticleComp(){//clientcomponent
           
             
 <div style={{paddingTop:"3px"}}><img src={imageDownLoadUrl} class=" d-block w-100" /></div>
-           <div style={{paddingTop:"10px"}} dangerouslySetInnerHTML={{__html:articleBody}}/>
+           <div style={{paddingTop:"5px"}} dangerouslySetInnerHTML={{__html:articleBody}}/>
                   <div>Always keep it Kayas.</div>
 
 <div style={{textAlign:"center"}}>

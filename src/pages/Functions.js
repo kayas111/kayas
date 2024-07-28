@@ -1,3 +1,5 @@
+
+
 export function getFormData(event){
   event.preventDefault();
   return (Object.fromEntries(new FormData(event.currentTarget)))
@@ -93,6 +95,7 @@ setTimeout(()=>{
   }
 
 
+
   export function globalReducerFunction(state,action){
     console.log(state)
     console.log('--------')
@@ -104,3 +107,6 @@ state.value=state.value+1
       }
     }
   }
+
+
+  
