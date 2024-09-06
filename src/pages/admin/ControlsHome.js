@@ -1,5 +1,6 @@
 import React, {useEffect,useState} from 'react'
 import ControlsNav from './Controls'
+import { ToastAlert } from '../Functions'
 
 export function ControlsHome(){
     
@@ -77,7 +78,7 @@ export function ControlsHome(){
            
            <div style={{fontSize:"15px"}} dangerouslySetInnerHTML={{__html:saveLinkStatus}}/>
            
-           <div style={{borderRadius:"30px"}} onClick={()=>{
+           <div onClick={()=>{
   let desc=document.getElementById('saveLinkForm').desc.value.trim(),linkUrl=document.getElementById('saveLinkForm').linkUrl.value.trim()
   
           if(Array.from(linkUrl).length<1){
@@ -109,16 +110,14 @@ export function ControlsHome(){
           })
   
             }
-            }} class="btn btn-success">Save</div><p></p>
+            }} class="button1">Save</div><p></p>
           
            </form>
                
                
            </div>
            
-           
-           
-  
+         
   
     <div class={classCols} style={{padding:"20px"}}>  
       <div style={{color:"red", fontSize:"15px"}}>DELETE ARTICLE</div>
@@ -129,7 +128,7 @@ export function ControlsHome(){
       <input type="text" class="form-control" autoComplete="off"  name="articleId" placeholder='Enter Article ID' ></input>
        
       </div>
-     <div> <span type="submit" class="btn btn-success" onClick={()=>{
+     <div> <span type="submit" class="button1" onClick={()=>{
      setDeleteArticleStatus("deleting.................")
       
         fetch('/deleteArticle',{method:"post",headers:{"Content-type":"application/json"},
@@ -158,7 +157,7 @@ export function ControlsHome(){
        
       </div><div class='row'>
   
-     <div class='col-6'> <span type="submit" class="btn btn-success" onClick={()=>{
+     <div class='col-6'> <span type="submit" class="button1" onClick={()=>{
      if(Array.from(document.getElementById('dndForm').contact.value).length<10||Array.from(document.getElementById('dndForm').contact.value).length>10){
       setDndStatus("Enter 10 digits contact ..........")
      }else{
@@ -172,7 +171,7 @@ export function ControlsHome(){
      }
     
         }}>ADD</span></div>
-  <div class='col-6'> <span type="submit" class="btn btn-success" onClick={()=>{
+  <div class='col-6'> <span type="submit" class="button1" onClick={()=>{
      if(Array.from(document.getElementById('dndForm').contact.value).length<10||Array.from(document.getElementById('dndForm').contact.value).length>10){
       setDndStatus("Enter 10 digits contact ..........")
      }else{
@@ -201,7 +200,7 @@ export function ControlsHome(){
       <input type="text" class="form-control" autoComplete="off"  name="category" placeholder='Enter Category Description' ></input>
        
       </div>
-     <div> <span type="submit" class="btn btn-success" onClick={()=>{
+     <div> <span type="submit" class="button1" onClick={()=>{
      setMapFromCategoryStatus("Maping.................")
       
         fetch('/mapFromCategoryToMessager',{method:"post",headers:{"Content-type":"application/json"},
@@ -223,7 +222,7 @@ export function ControlsHome(){
       <input type="text" class="form-control" autoComplete="off"  name="contact" placeholder='Contact' ></input>
        
       </div>
-     <div> <span type="submit" class="btn btn-success" onClick={()=>{
+     <div> <span type="submit" class="button1" onClick={()=>{
     setRemoveMessageeStatus("Removing.................")
       
         fetch('/removeMessagee',{method:"post",headers:{"Content-type":"application/json"},
@@ -248,7 +247,7 @@ export function ControlsHome(){
      
     
       </div>
-     <div> <span type="submit" class="btn btn-success" onClick={()=>{
+     <div> <span type="submit" class="button1" onClick={()=>{
      
       setTradingStatus("Please wait ......")
       
@@ -275,7 +274,7 @@ export function ControlsHome(){
     
      <input type="hidden" class="form-control" autoComplete="off" name="subject" placeholder='Subject' ></input><br></br>
     
-     <button type="submit" class="btn btn-success">Clear orders</button>
+     <button type="submit" class="button1">Clear orders</button>
      </form></div></div>
     <div class="col-md-6"><div style={{padding:"10px"}}>
       <form method="post" action="/deleteAllRequests">
@@ -283,7 +282,7 @@ export function ControlsHome(){
     
      <input type="hidden" class="form-control" autoComplete="off" name="subject" placeholder='Subject' ></input><br></br>
     
-     <button type="submit" class="btn btn-success">Clear requests</button>
+     <button type="submit" class="button1">Clear requests</button>
      </form></div></div>
   
         </div>
@@ -300,7 +299,7 @@ export function ControlsHome(){
     
      <input type="text" class="form-control" autoComplete="off" name="collection" placeholder='Enter Collection Name' ></input><br></br>
     
-     <button type="submit"  class="btn btn-success">Delete documents</button>
+     <button type="submit"  class="button1">Delete documents</button>
      </form></div>
      <div class={classCols} style={{padding:"20px"}}>
      <div style={{color:"red", fontSize:"15px"}}> RESET VISITS</div>
@@ -309,7 +308,7 @@ export function ControlsHome(){
     
      <input type="" class="form-control" autoComplete="off" name="value" placeholder='Enter value' ></input><br></br>
     
-     <button type="submit" class="btn btn-success">Reset</button>
+     <button type="submit" class="button1">Reset</button>
      </form></div>
      <div class={classCols} style={{padding:"20px"}}>  
       <div style={{color:"red", fontSize:"15px"}}> QUOTES</div>
@@ -321,7 +320,7 @@ export function ControlsHome(){
      
     
       </div>
-      <button type="submit" class="btn btn-success">Post</button>
+      <button type="submit" class="button1">Post</button>
       </form></div>
   
       <div class={classCols} style={{padding:"20px"}}>  
@@ -338,7 +337,7 @@ export function ControlsHome(){
      
   <div class='row'>
   <div class='col-6 col-md-6'>
-  <div  class="btn btn-success" onClick={()=>{
+  <div  class="button1" onClick={()=>{
     setPushNotificationStatus("Setting.................")
       
         fetch('/setPushNotification',{method:"post",headers:{"Content-type":"application/json"},
@@ -354,7 +353,7 @@ export function ControlsHome(){
         }} >Set</div>
   </div>
   <div class='col-6 col-md-6 hovereffect'>
-  <div  class="btn btn-success" onClick={()=>{
+  <div  class="button1" onClick={()=>{
    fetch('/sendPushNotifications').then(res=>res.json()).then(resp=>{
   ;
        
@@ -375,7 +374,7 @@ export function ControlsHome(){
       
      <div dangerouslySetInnerHTML={{__html:deleteAllBidsStatus}}></div>
     
-     <div  class="btn btn-success" onClick={()=>{
+     <div  class="button1" onClick={()=>{
       setDeleteAllBidsStatus('Deleting bids.........')
   
   fetch('/deleteAllBids').then(resp=>{
@@ -393,7 +392,7 @@ export function ControlsHome(){
     
       <input type="text" class="form-control" autoComplete="off" name="price" placeholder='Enter price'></input><br></br>
      <div dangerouslySetInnerHTML={{__html:setBiddingPriceStatus}}></div>
-      <div  class="btn btn-success" onClick={()=>{
+      <div  class="button1" onClick={()=>{
   setSetBiddingPriceStatus('Setting........')
   
   fetch('/collection_controls_setBiddingPrice',{
@@ -421,7 +420,7 @@ export function ControlsHome(){
     
       </div>
       <div dangerouslySetInnerHTML={{__html:setBiddingHeadlineStatus}}></div>
-      <div class="btn btn-success" onClick={()=>{
+      <div class="button1" onClick={()=>{
   setSetBiddingHeadlineStatus('Setting........')
   
   fetch('/collection_controls_setBiddingHeadline',{
@@ -444,7 +443,7 @@ export function ControlsHome(){
     
       </div>
       <div dangerouslySetInnerHTML={{__html:setBiddingMessageStatus}}></div>
-      <div class="btn btn-success" onClick={()=>{
+      <div class="button1" onClick={()=>{
   setSetBiddingMessageStatus('Setting........')
   
   fetch('/collection_controls_biddingMsg',{
@@ -510,7 +509,7 @@ export function ControlsHome(){
      
     
       </div>
-      <button type="submit" class="btn btn-success">Post</button>
+      <button type="submit" class="button1">Post</button>
       </form></div>
     
       <div style={{padding:"20px"}}>  
@@ -524,7 +523,7 @@ export function ControlsHome(){
      
     
       </div>
-      <button type="submit" class="btn btn-success">Post</button>
+      <button type="submit" class="button1">Post</button>
       </form></div>
     
     
@@ -538,7 +537,7 @@ export function ControlsHome(){
      
     
       </div>
-      <button type="submit" class="btn btn-success">Post</button>
+      <button type="submit" class="button1">Post</button>
       </form></div>
     
       <div style={{padding:"20px"}}>  
@@ -551,7 +550,7 @@ export function ControlsHome(){
      
     
       </div>
-      <button type="submit" class="btn btn-success">Post</button>
+      <button type="submit" class="button1">Post</button>
       </form></div>
     
       <div style={{padding:"20px"}}>  
@@ -565,7 +564,7 @@ export function ControlsHome(){
      
     
       </div>
-      <button type="submit" class="btn btn-success">Send</button>
+      <button type="submit" class="button1">Send</button>
       </form></div>
     
       <div style={{padding:"20px"}}>  
@@ -589,7 +588,7 @@ export function ControlsHome(){
      
     
       </div>
-      <button type="submit" class="btn btn-success">Add</button>
+      <button type="submit" class="button1">Add</button>
       </form></div>
     
     
@@ -609,7 +608,7 @@ export function ControlsHome(){
       <textArea rows="3" type="text" class="form-control" name="topPhotoMsg5" placeholder='Enter Message 5'  required></textArea><br></br>
     
       </div>
-      <button type="submit" class="btn btn-success">Post Messages</button>
+      <button type="submit" class="button1">Post Messages</button>
       </form></div>
     
       
@@ -624,7 +623,7 @@ export function ControlsHome(){
      
     
       </div>
-      <button type="submit" class="btn btn-success">RESET CODE</button>
+      <button type="submit" class="button1">RESET CODE</button>
       </form></div>
       <div style={{padding:"20px"}}>
      <div style={{color:"red", fontSize:"15px"}}> RESET ADMIN REGISTRATION CODE</div>
@@ -633,7 +632,7 @@ export function ControlsHome(){
     
      <input type="" class="form-control" autoComplete="off" name="adminRegCode" placeholder='Enter new admin Reg code' ></input><br></br>
     
-     <button type="submit" class="btn btn-success">Reset</button>
+     <button type="submit" class="button1">Reset</button>
      </form></div>
      <div style={{padding:"20px"}}>  
       
@@ -647,7 +646,7 @@ export function ControlsHome(){
      
     
       </div>
-     <div> <span type="submit" class="btn btn-success" onClick={()=>{
+     <div> <span type="submit" class="button1" onClick={()=>{
      
       setAddMessageeStatus("Please wait ...")
         fetch('/addToMessagingQueueThroughAdmin',{method:"post",headers:{"Content-type":"application/json"},

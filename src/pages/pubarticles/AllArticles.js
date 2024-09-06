@@ -3,7 +3,7 @@
 
 import 'firebase/compat/storage';
 
-
+import { ArticlesNav,PubArticleSearchComp } from './PubArticleHome';
 import React, {useEffect,useState} from 'react';
 
 
@@ -51,7 +51,7 @@ export function AllArticles(){
  
  
          return(<div>
-  <div class="row">{articles}</div>
+          <div class="row">{articles}</div>
        </div>)
        }
 

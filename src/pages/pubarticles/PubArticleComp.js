@@ -1,11 +1,11 @@
-import { VerifyRegistrationAndPin,ToastAlert } from '../Functions';
+import { VerifyRegistrationAndPin,ToastAlert,ListArticles } from '../Functions';
 import firebase from 'firebase/compat/app';
 
 import 'firebase/compat/storage';
 
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import React, {useEffect,useState} from 'react';
-import { ArticlesNav} from './PubArticleHome';
+import { ArticlesNav, PubArticleSearchComp} from './PubArticleHome';
 import AllArticles from './AllArticles';
 import {kayasDomainUrl} from '../../Variables'
 
@@ -98,30 +98,9 @@ export function PubArticleComp(){//clientcomponent
               }else{
                 let firstArticle=resp[0]
               resp.reverse()
-
-                 setAuthorArticles((resp.map((articleObject)=>{
-                return(
-                <div class="col-md-4" onClick={()=>{
-                  window.location.href=`/pages/pubarticles/article/${articleObject.id}`
-                }}>
-                  
-                  <div class="pubArticleListItemContainer">
-                  <div class="pubArticleListItemContainer2 backgroundColorHoverEffect3">
-   <div class="pubArticleListItemInstitution">{articleObject.institution}</div>
-    <div class="pubArticleListItemHeadline">{articleObject.headline1}</div>
-    <div class="pubArticleListItemViewsAndVisits">
-                  <div>{articleObject.visits} views, {articleObject.pubArticleOpinions.length} comments, Article {articleObject.id}</div>
-                  <div>Created by {articleObject.author} 0{articleObject.contact}</div>
-                  </div>
-
-    
-   </div>
-                </div></div>
-                
-                )})))
-
-
-
+             setAuthorArticles(
+              ListArticles(resp)
+              )
 
               }
               
@@ -149,6 +128,7 @@ export function PubArticleComp(){//clientcomponent
                   
                   <div  class="col-md-8">
                   <ArticlesNav articleAuthorContact={articleAuthorContact} articleId={articleParams.id}/>
+                  
                     <div style={{padding:"6px"}}>
                   <div class="articleContainer">
                   <div style={{fontSize:"23px",fontFamily:"Times New Roman",color:"black",paddingBottom:"15px"}}>{articleHeadline1}</div>
@@ -172,28 +152,19 @@ export function PubArticleComp(){//clientcomponent
             
 <div style={{paddingTop:"3px"}}><img src={imageDownLoadUrl} class=" d-block w-100" /></div>
            <div style={{paddingTop:"5px"}} dangerouslySetInnerHTML={{__html:articleBody}}/>
-                  <div>Always keep it Kayas.</div>
-
-<div style={{textAlign:"center"}}>
-<div style={{paddingTop:"20px"}}>Created by:</div>
+           <div>Always keep it Kayas.</div><p></p>
+           
+                 <div style={{textAlign:"left"}}>
+<div>Created by:</div>
 <div style={{fontSize:"15px",fontWeight:"500"}}>{articleAuthor} <span dangerouslySetInnerHTML={{__html:verificationTick}}/></div>
 <div style={{fontSize:"12px"}}>{articleInstitution} 0{articleAuthorContact}</div>
 
-</div>
-</div>
-
-            
-                  </div>
-
-                     <div style={{borderRadius:"10px",padding:"5px"}}>
-                 
-                 <div style={{paddingTop:"20px"}}>
-                  <div style={{display:"flex",flexWrap:"wrap"}}>
-            <div style={{padding:"5px"}}>
-<div >
-             <span class="button2" onClick={()=>{
-                  
-                setOpinionsStatus("Please wait ..........")
+</div><p></p>
+<div  style={{color:"orange",background:"black",display:"flex",flexWrap:"wrap"}}>
+  
+<div style={{padding:"5px"}}>
+             <div onClick={()=>{
+                 setOpinionsStatus("Please wait ..........")
                 setTimeout(()=>{
                if(opinionsReceivedFlag===0){
                setOpinionsStatus("Hope your network is okay. <span style='color:red;'>Please wait.........</span>")
@@ -216,7 +187,7 @@ export function PubArticleComp(){//clientcomponent
                 
              
                 setOpinions(opinions.map((opinionObj)=>{
-                    return (<div style={{padding:"10px"}}><div style={{padding:"5px",background:"white",borderRadius:"5px",textAlign:"left"}}>
+                    return (<div style={{padding:"5px"}}><div style={{padding:"5px",background:"white",textAlign:"left"}}>
                 <div style={{fontSize:"15px"}}>{opinionObj.position}. {opinionObj.name} </div>
                 <div style={{paddingLeft:"17px"}}>
                 <div style={{fontSize:"12px"}}>{opinionObj.msg}</div>
@@ -229,22 +200,35 @@ export function PubArticleComp(){//clientcomponent
                     })           
 
                
-                  }}>Comments ({opinionsNumb})</span>
-</div>
-</div>
-<div style={{padding:"5px"}}>
-  <div >
-             <span class="button2" onClick={
+                  }}>Comments ({opinionsNumb})</div>
+</div> 
+  <div style={{padding:"5px"}}>
+<div  onClick={
               ()=>{
                 window.location.href="#authorArticles"
-              }}>More stories </span>
+              }}>  More trending stories 
 </div>
+
 </div>
+  </div><p></p>
+</div>
+
+            
+                  </div>
+
+                     <div style={{borderRadius:"10px",padding:"5px"}}>
+                 
+                 <div style={{paddingTop:"5px"}}>
+                  <div style={{display:"flex",flexWrap:"wrap"}}>
+            <div style={{padding:"5px"}}>
+
+</div>
+
             </div>
                  </div>
 
                        
-            <div style={{fontSize:"12px",textAlign:"left",paddingTop:"5px"}} dangerouslySetInnerHTML={{__html:opinionsStatus}}/>
+            <div style={{fontSize:"12px",textAlign:"left"}} dangerouslySetInnerHTML={{__html:opinionsStatus}}/>
               <div style={{background:"#ebebeb",borderRadius:"5px"}}>{opinions}</div>
   
                           
@@ -258,7 +242,7 @@ export function PubArticleComp(){//clientcomponent
 <div style={{padding:"5px"}}> 
  
 <form method="post" id="clientForm" action={formActionUrl}>
-<div style={{paddingBottom:"8px"}}><div class="formLabel">Post your comment<div style={{fontSize:"10px",color:"white"}} class="hovereffect" onClick={()=>{window.location.href="#authorArticles"}}>Or see more storis</div></div></div>
+<div style={{paddingBottom:"8px"}}><div class="formLabel">Post your comment<div style={{fontSize:"10px",color:"white"}} class="hovereffect" onClick={()=>{window.location.href="#authorArticles"}}>Or see more stories</div></div></div>
 
 <div class="mb-3">
 <div class="formInputLabel">Type message</div>

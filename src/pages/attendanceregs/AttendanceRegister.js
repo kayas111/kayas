@@ -240,7 +240,7 @@ export function AttendanceRegister(){
    }else{
  name=document.getElementById('messengingForm').name.value.trim()
    }
-   
+   ToastAlert('toastAlert1','Saving......',3000)
    fetch(`/getTradingDetails/${registrarContact}`).then(res=>res.json()).then(resp=>{
      let traderDetailsObj=resp[0]
    fetch(`/addToAttendeesRegister`,{
@@ -535,7 +535,7 @@ export function AttendanceRegister(){
            ToastAlert('toastAlert2','Incorrect PIN',3000)
  
          }else{
-           ToastAlert('toastAlert2','Sending.........',3000)
+           ToastAlert('toastAlert1','Sending.........',3000)
           
            document.getElementById("setAttendeeRegisterSmsForm").pin.value=''
            fetch('/sendAttendeeRegisterSms',{

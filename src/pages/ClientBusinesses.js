@@ -797,8 +797,8 @@ return(<div style={{paddingTop:"50px",padding:"15px"}} >
  <div>
    <p></p>
    
-   <img src={client12img11} class=" d-block w-100" alt="..." /><p></p>
-   <img src={client11img22} class=" d-block w-100" alt="..." /><p></p>
+   <img src={client12img11} class="d-block w-100" alt="..." /><p></p>
+   <img src={client11img22} class="d-block w-100" alt="..." /><p></p>
    
    
    
@@ -836,12 +836,7 @@ return(<div style={{paddingTop:"50px",padding:"15px"}} >
 
    let v="col-md-4"
   return(<div class='row' style={{padding:"5px"}}>
-        <div style={{color:"red",paddingLeft:"23px",fontSize:"20px"}}>More for you! </div>
-        
-        <div class={v}><ClientBusinessAnchor id='client11'  businessName="2 days outdoor camping at 55,000/=" description1="See photos of place here" description2="Enjoyment is usually periodic" recommender={componentParams.recommender}/></div> 
-       
-      
-      <div class={v}><ClientBusinessAnchor id='items'  businessName="Hostel room/hall necessities" description1="Neccessary for personal and convinient use while at campus" description2="Shop with this trusted website!" recommender={componentParams.recommender}/></div> 
+        <div class="blackBgOrangeColor">More services</div>
       <div class={v}><ClientBusinessAnchor id='client5'  businessName="Laptops-nice Brand new and cheaper 2nd hand (used)" description1="Perfectly working and in good looking condition" description2="700,000 UGX-4,000,000 UGX" recommender={componentParams.recommender}/></div> 
       <div class={v}><ClientBusinessAnchor id='client6'  businessName="Ladies' bags" description1="Look nice and beautiful in them" description2="Extremely affordable and necessary" recommender={componentParams.recommender}/></div>  
       <div class={v}><ClientBusinessAnchor id='client9'  businessName="Foot wear at 40,000/= Grab your self two or three of these!" description1="Durable and comfortable to wear" description2="Smartness is key" recommender={componentParams.recommender}/></div>  
@@ -849,20 +844,18 @@ return(<div style={{paddingTop:"50px",padding:"15px"}} >
      
       <div class={v}><ClientBusinessAnchor id='client10'  businessName="Fluffy pillows-attractive, beautiful for your bed or seat!" description1="Elegant cushions" description2="Beauty attracts beauty" recommender={componentParams.recommender}/></div>  
       
-      <div class={v}><ClientBusinessAnchor id='client7'  businessName="Need a search and delivery service? See this opportunity!" description1="It's searched for and delivered" description2="Acquire it now, never acquire it any more" recommender={componentParams.recommender}/></div>  
-      
     </div>)
 }
 export function ClientBusinessAnchor(props){
 
-    return(<div style={{padding:"15px",backgroundColor:'#E3E3E3',borderRadius:"20px",border:'4px solid white' }}> 
-    <div style={{color:"black"}} onClick={()=>{
+    return(<div style={{padding:"3px",borderRadius:"2px",background:"white",border:'0px solid green' }}> 
+    <div style={{color:"black",border:"0.5px solid orange",padding:"3px"}} onClick={()=>{
       window.location.href=`/advertise/${props.id}/${props.recommender}`
     }}>
     <span class="hoverEffectUnderline">
-    <div style={{color:"green",fontSize:"16px"}}>{props.businessName}</div>
-      <div style={{color:"grey",fontSize:"13px"}}>{props.description1}</div>
-      <div style={{fontSize:"13px"}}>{props.description2}</div>
+    <div style={{color:"black",fontSize:"15px",fontWeight:"600"}}>{props.businessName}</div>
+      <div style={{color:"grey",fontSize:"12px"}}>{props.description1}</div>
+      <div style={{fontSize:"12px",color:"grey"}}>{props.description2}</div>
 
     </span>
     </div>

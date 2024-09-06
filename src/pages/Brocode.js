@@ -23,14 +23,14 @@ return(
  <div style={{fontSize:"15px",color:"red",textAlign:"center",paddingBottom:"10px"}}><div style={{fontSize:"20px"}}>Who is Kayas? </div><div ><a style={{color:"green",fontSize:"15px"}}href="https://twitter.com/isaacopiokayas"><span class="fa fa-twitter hovereffect"> Follow Kayas on Twitter</span></a></div></div>
  
  <div style={{padding:"3px"}}>
- <div  class="row">
+ <div style={{padding:"4px"}} class="row">
  
  <div class="col-md-3"></div>
  <div class="col-md-6">
   
   <img src={isaac10} class="d-block w-100" alt="..."  />
  <div style={{color:"",textAlign:"center",fontSize:"20px"}}>Opio Isaac (Kayas) 0703852178</div>
- <div>
+ <div >
  Following the life experiences that I have gone through, my passion is directed towards serving the young generation through developing and implementing solutions to life challenges. <p></p>
  Life is not what we think it is at a younger age and some humans are not whom we think they are. Having gone through all the psychological tests of life and relating it to what many other young men and women go through, I involve myself in stress relieving and socializing moments, business oriented thinking, distinguishing between leadership & service versus politics and lastly realising personal strengths and weaknesses.<p></p>
  Part of my pride is sharing with you the team of colleagues who stood by my side, encouraged me, shared happy moments with me and above all kept intouch with me for over years. Get to know them below.<p></p>

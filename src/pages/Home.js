@@ -49,6 +49,7 @@ import it40 from './imgs/it40.jpg';
 import it41 from './imgs/it41.jpg';
 import it42 from './imgs/it42.jpg';
 
+
 import lights from './imgs/lights.jpg';
 
 import ad from './imgs/ad.jpg';
@@ -564,6 +565,7 @@ let v= "col-6 col-md-2 bod";
        <div style={{ color:"red", fontWeight:"bold",textAlign:"center"}}><marquee>
         All orders should be made through Kayas on whatsApp 0703852178</marquee></div>
             <div class="row">
+
             <div class={v}><Items id="Dust bin" des="On sale" price="5,000/=" img={it14} url={kayasurl} contact={kayas} /></div>
             <div class={v}><Items id="Dust pan" des="On sale" price="7,000/=" img={it35} url={kayasurl} contact={kayas} /></div>
             <div class={v}><Items id="Mattress" des="Brand new, strong and durable" price="130,000/=" img={it9} url={kayasurl} contact={kayas} /></div>
@@ -589,7 +591,7 @@ let v= "col-6 col-md-2 bod";
             <div class={v}><Items id="Square shaped plate rack" des="Brand new"  price="23,000/=" img={it12} url={kayasurl} contact={kayas} /></div>
             <div class={v}><Items id="Circular shaped plate rack" des="Brand new"  price="18,000/=" img={it30} url={kayasurl} contact={kayas} /></div>
             <div class={v}><Items id="Wall dressing mirror" des="Brand new"  price="14k/18k/23k" img={it31} url={kayasurl} contact={kayas} /></div>
-            <div class={v}><Items id="Dressing mirror" des="Brand new"  price="190,000/=" img={it40} url={kayasurl} contact={kayas} /></div>
+            <div class={v}><Items id="Dressing mirror" des="Brand new"  price="170,000/=" img={it40} url={kayasurl} contact={kayas} /></div>
           <div class={v}><Items id="Fan" des="Brand new"  price="70,000/=" img={fan} url={kayasurl} contact={kayas} /></div>
           <div class={v}><Items id="Plastic storage can" des="Store a variety of items like food, etc" price="55,000/=" img={it13} url={kayasurl} contact={kayas} /></div>
             <div class={v}><Items id="Suit case" des="Brand new" price="140,000/=" img={it2} url={kayasurl} contact={kayas} /></div>

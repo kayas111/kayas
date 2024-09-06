@@ -1,12 +1,13 @@
-import { VerifyRegistrationAndPin,ToastAlert } from '../Functions';
+import { VerifyRegistrationAndPin,ToastAlert,ListArticles } from '../Functions';
 import firebase from 'firebase/compat/app';
+
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import 'firebase/compat/storage';
 
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import React, {useEffect,useState} from 'react';
 
-import {kayasDomainUrl} from '../../Variables'
+import axios from 'axios'
 
 firebase.initializeApp({
   apiKey: "AIzaSyCf0LC-eL1pJ2Rpvh59ukbg5OUFm6IcrEA",
@@ -19,13 +20,77 @@ const storage=firebase.storage()
 const bucket=storage.ref()
 
 
+export function PubArticleSearchComp(){
+  const [searchStatus,setSearchStatus]=useState('')
+  const [searchResults,setSearchResults]=useState('')
+  const [marqueeNews,setMarqueeNews]=useState('')
+  useEffect(()=>{
 
+fetch('/getMarqueeNews').then(resp=>resp.json()).then(resp=>{
+resp.reverse()
+setMarqueeNews(resp.map(marqueeNews=>{
+  return(<span class="marqueeNewsSpan2" ><span class="marqueeNewsSpan1">{marqueeNews.msg}</span></span>)
+}))
+})
+
+
+
+
+  },[])
+
+  return(
+    <div>
+      <div style={{paddingRight:"10px",paddingLeft:"10px"}}><marquee scrollamount="3" class="marquee">{marqueeNews}</marquee></div>
+      <div style={{padding:"5px"}}>
+      <div class="PubArticleSearchCompContainer1">
+        <div  style={{textAlign:"center"}}>{searchStatus}</div>
+      
+
+        <div>
+          <input id="articleSearchValue" class="searchInputTag1" placeholder='Search for articles'
+            onKeyDown={(event)=>{
+          if(event.key==='Enter' || event.key==='NumpadEnter'){
+  setSearchStatus(<div><span style={{fontSize:"2px",height:"15px",width:"15px"}} class="spinner-border" role="status"> </span> <span>Searching.....</span></div>)
+                  
+            axios.post('/searchForArticles',{
+              articleSearchValue:document.querySelector('#articleSearchValue').value
+            }).then(resp=>{
+              
+              if(resp.data.length===0){
+                ToastAlert('toastAlert2','No results',3000);
+                setSearchStatus('')
+                setSearchResults('')
+              } else{
+                ToastAlert('toastAlert1','Successful',3000);
+                setSearchStatus('')
+                setSearchResults(ListArticles(resp.data))
+              }
+            })  
+          }else{
+
+          }
+        
+          
+          
+                  }}
+        
+        ></input>
+        </div>
+   
+       
+
+      </div>
+    </div>
+    <div class="row" >{searchResults}</div>
+    </div>
+  )
+}
 
 export function ArticlesNav(props){
   let style2={padding:"5px"}
   
     return(
-  
+  <div>
     <div style={{paddingTop:"8px",display:"flex",flexWrap:"wrap"}}>
       <div style={style2}><div class="button1" onClick={()=>{
               window.location.href=`/pages/pubarticles/createarticle`
@@ -82,14 +147,17 @@ window.location.href=`/pages/pubarticles/article/${props.articleId}`
 </div></div>
 
           
-
-            
+        
             
             
             
             
             </div>
- 
+
+
+<div><PubArticleSearchComp/></div>
+
+            </div>
   
     )
   }

@@ -75,6 +75,7 @@ return(
      <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/traderscare"><span class="hovereffect">Traders {tradersNumb}</span></a> 
      <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/attendanceregistercare"><span class="hovereffect">Register-Care</span></a> 
      <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/smsnotificationscare"><span class="hovereffect">SMS-Notifications</span></a> 
+     <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/marqueenews"><span class="hovereffect">Marquee-news</span></a> 
      
      </div>
 )

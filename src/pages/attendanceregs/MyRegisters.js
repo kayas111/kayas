@@ -62,7 +62,7 @@ pin:document.getElementById("myRegsitersForm").pin.value,
           ToastAlert('toastAlert2','Incorrect PIN',3000)
 
         }else{
-      
+          ToastAlert('toastAlert1','Please wait......',5000)
     fetch('/getMyRegisters',{
     method:"post",
     headers:{'Content-type':'application/json'},

@@ -15,8 +15,8 @@ export function CreateAttendanceRegister(){
 <div class='row'>
 <div class='col-md-3'></div>
 <div class='col-md-6'><div style={{padding:"10px"}}>
-      <div class="label1">Bulk SMS/Fast phone calls</div>
-      <div class="label2">Save contacts in a register and send an SMS message to all contacts at once. You can also make quick phones calls to all the contacts.</div>
+      <div class="label1">Send an SMS message to many contacts at once.</div>
+      <div class="label2">Create a register, save contacts in the register then send an SMS message to all the contacts at once. You can also make quick phones calls to all the contacts.</div>
 <AttendenceRegisterNav/>
 <p></p>
          <form method="post" id="attendanceRegisterCreateForm" action="#">

@@ -34,8 +34,8 @@ const Itemsele=React.lazy(()=>import('./pages/Home'));
 const RegistrationPage=React.lazy(()=>import('./pages/RegistrationPage'));
 
 const SendMessage=React.lazy(()=>import('./pages/SendMessage'));
-
-
+const MarqueeNews=React.lazy(()=>import('./pages/admin/MarqueeNews'));
+const UsedItems=React.lazy(()=>import('./pages/UsedItems'));
 const Messager=React.lazy(()=>import('./pages/Messager'));
 const SendFreeSms=React.lazy(()=>import('./pages/SendFreeSms'));
 const AllArticles=React.lazy(()=>import('./pages/pubarticles/AllArticles'));
@@ -157,7 +157,9 @@ useEffect(()=>{
 <div  class="navbar-collapse justify-content-md-right collapse navB" id="navbarsExample08" >
 
  <ul  class="navbar-nav" style={{display:"flex",flexWrap:"wrap"}}>
-
+ <li class="nav-item">
+   <a class="hovereffect nav-link" href="/pages/about"><span class="hovereffect">Services by Kayas</span></a>
+   </li>
  <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/pubarticles/allarticles"><span class="hovereffect">Trending stories ({articlesNumb})  </span></a>
    </li>
@@ -169,29 +171,27 @@ useEffect(()=>{
 <a class="hovereffect nav-link" href="/pages/register"><span class="hovereffect">Register </span></a>
    </li>
    <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/attendanceregs/createattendanceregister"><span class="hovereffect">Bulk SMS/Fast phone calls</span></a>
-   </li>
- <li class="nav-item active">
-   <a class="hovereffect nav-link" href="/pages/message"><span class="hovereffect">Send message</span></a>
-   </li>
-   <li class="nav-item">
-   <a  class="hovereffect nav-link" href="/advertise/items/0703852178"><span class="hovereffect">Buy items</span></a>
+   <a class="hovereffect nav-link" href="/pages/attendanceregs/createattendanceregister"><span class="hovereffect">Bulk SMS</span></a>
    </li>
  
-  
+   <li class="nav-item">
+   <a  class="hovereffect nav-link" href="/advertise/items/0703852178"><span class="hovereffect">Brand new items</span></a>
+   </li>
+ 
+   <li class="nav-item">
+<a class="hovereffect nav-link" href="/pages/usedItems"><span class="hovereffect">Used items</span></a> 
+
+
+   </li>
    
    <li class="nav-item">
-<a class="hovereffect nav-link" href="/pages/followershome"><span class="hovereffect">Get urgent information when offline</span></a> 
+<a class="hovereffect nav-link" href="/pages/followershome"><span class="hovereffect">Offline notification system</span></a> 
 
 
    </li>
 
-
-   <li class="nav-item">
-
-
-
-   </li>
+   
+ 
 
 
    <li class="nav-item">
@@ -216,11 +216,12 @@ useEffect(()=>{
    
    }} ><span class="hovereffect">Account</span></a>
    </li>
-   <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/about"><span class="hovereffect">About</span></a>
-   </li>
+  
    <li class="nav-item">
    <a class="hovereffect nav-link"  href="#"><span class="hovereffect">Loans</span></a> 
+   </li>
+   <li class="nav-item active">
+   <a class="hovereffect nav-link" href="/pages/message"><span class="hovereffect">Send message</span></a>
    </li>
    <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/brocode"><span class="hovereffect">Who is Kayas?</span></a> 
@@ -320,6 +321,7 @@ useEffect(()=>{
       <Route path="/advertise/client10/:recommender" exact component={Client10}/>
       <Route path="/advertise/client11/:recommender" exact component={Client11}/>
       <Route path="/advertise/client12/:recommender" exact component={Client12}/>
+      
            
       <Route path="/pages/attendanceregs/:registrar/:id" component={AttendanceRegister}/>
       <Route path="/pages/attendanceregs/seemyregisters" component={ MyRegisters }/>
@@ -356,6 +358,7 @@ useEffect(()=>{
       <Route path="/pages/bids/bidshome" component={BidsHome}/>
             
       <Route path="/pages/admin/controls" component={ControlsHome}/>
+      <Route path="/pages/admin/marqueenews" exact component={MarqueeNews}/>
       
       <Route path="/pages/admin/requests" component={Requests}/>
       
@@ -371,6 +374,7 @@ useEffect(()=>{
       
       
       <Route path="/pages/register" component={RegistrationPage}/>
+      <Route path="/pages/useditems" component={UsedItems}/>
       
       
       
