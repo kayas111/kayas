@@ -1,9 +1,9 @@
-import { VerifyRegistrationAndPin,ToastAlert,ListArticles } from '../Functions';
+import { VerifyRegistrationAndPin,ToastAlert,ListArticles, IsLoggedIn } from '../Functions';
 import firebase from 'firebase/compat/app';
 
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import 'firebase/compat/storage';
-
+import {useCookies} from 'react-cookie'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import React, {useEffect,useState} from 'react';
 
@@ -87,6 +87,7 @@ setMarqueeNews(resp.map(marqueeNews=>{
 }
 
 export function ArticlesNav(props){
+  const [cookies,setCookie,removeCookie]=useCookies(['user'])
   let style2={padding:"5px"}
   
     return(
@@ -96,12 +97,9 @@ export function ArticlesNav(props){
               window.location.href=`/pages/pubarticles/createarticle`
             }}><span class="hovereffect"><span class="fa fa-plus"></span> New article</span></div></div>
       <div style={style2}><div class="button1" onClick={()=>{
-let pin=window.prompt('Enter your PIN to delete this article.');
-VerifyRegistrationAndPin(props.articleAuthorContact,pin).then(resp=>{
-  if(resp.pin===false){
-    
-    ToastAlert('toastAlert2','Not allowed',3000)
-  }else{
+
+if(IsLoggedIn(cookies)===true && parseInt(props.articleAuthorContact)===parseInt(cookies.user.contact)){
+  ToastAlert('toastAlert1','Deleting, please wait.....',4000)
   const imageRef = ref(getStorage(), `pubArticleImages/pubArticleImage_${props.articleId}`);
   deleteObject(imageRef).then(() => {
   fetch('/deleteArticle',{
@@ -130,23 +128,32 @@ window.location.href=`/pages/pubarticles/article/${props.articleId}`
  
 
   
+}else{    ToastAlert('toastAlert2','Not allowed',3000)
 
-
-  }
-})
+}
 
 
             
 
             }}><span class="hovereffect"><span class="fa fa-minus"></span> Delete</span></div>  </div>
+
+<div style={style2}><div class="button1" onClick={()=>{
+             if(IsLoggedIn(cookies)===true){
+              window.location.href="/pages/pubarticles/MyArticles"
+             } else{;}
+            }}>
+     
+<span class="hovereffect"> My Articles</span>
+</div></div>  
+
       <div style={style2}><div class="button1" onClick={()=>{
-              window.location.href=`/pages/pubarticles/assessmyarticles`
+         ToastAlert('toastAlert2','Not allowed',3000)
+            //  window.location.href=`/pages/pubarticles/assessmyarticles`
             }}>
      
 <span class="hovereffect"> Assess</span>
 </div></div>
-
-          
+    
         
             
             

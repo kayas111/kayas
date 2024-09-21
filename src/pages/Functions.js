@@ -1,4 +1,28 @@
+export function SuspenseComponent(){
+  return(
+    <div class="SuspenseContainer">
+    <div><span style={{fontSize:"8px"}} class="spinner-border" role="status"></span></div>
+ <div>Kayas</div> 
+  </div>
+  )
+}
 
+export function IsLoggedIn(cookies){
+if(cookies.user===undefined){
+  ToastAlert('toastAlert2','You are not logged in, please log in',10000);
+  
+  setTimeout(()=>{
+    window.location.href="/pages/login"
+  },2000)
+  
+return false;
+}else{
+ return true; 
+}
+
+
+
+}
 export function ListArticles(ArrayOfArticles){
   return (
     

@@ -1,7 +1,7 @@
 import React,{useEffect,useState,Suspense,lazy} from 'react'
 import {useCookies} from 'react-cookie'
 import {KyuOpinionPolls,OpinionPoll1,AcholiStudentsUnionPoll} from './pages/VoterOpinionPolls/VoterOpinionPollsHome';
-import {FollowersHome,FollowingComp} from './pages/Followers'
+import {FollowingComp} from './pages/followers/FollowersHome'
 import About from './pages/About';
 import { VerifyRegistrationAndPin } from './pages/Functions';
 import Links from './pages/Links';
@@ -31,8 +31,9 @@ import {RegisterCare, AttendeeRegisters, SmsNotificationsCare} from './pages/adm
 
 const Itemsele=React.lazy(()=>import('./pages/Home'));
 // const NotFound=React.lazy(()=>import('./pages/Home'));
+const LoginPage=React.lazy(()=>import('./pages/LoginPage'));
 const RegistrationPage=React.lazy(()=>import('./pages/RegistrationPage'));
-
+const FollowersHome=React.lazy(()=>import('./pages/followers/FollowersHome'));
 const SendMessage=React.lazy(()=>import('./pages/SendMessage'));
 const MarqueeNews=React.lazy(()=>import('./pages/admin/MarqueeNews'));
 const UsedItems=React.lazy(()=>import('./pages/UsedItems'));
@@ -49,8 +50,10 @@ const ShareMyArticles=React.lazy(()=>import('./pages/pubarticles/ShareMyArticles
 
 const AttendanceRegister=React.lazy(()=>import('./pages/attendanceregs/AttendanceRegister'));
 const CreateAttendanceRegister=React.lazy(()=>import('./pages/attendanceregs/CreateAttendanceRegister'));
-const EditRegister=React.lazy(()=>import('./pages/attendanceregs/EditRegister'));
 const MyRegisters=React.lazy(()=>import('./pages/attendanceregs/MyRegisters'));
+const SendSms=React.lazy(()=>import('./pages/attendanceregs/SendSms'));
+const EditRegister=React.lazy(()=>import('./pages/attendanceregs/EditRegister'));
+
 
 
 
@@ -249,37 +252,14 @@ useEffect(()=>{
 <div style={{textAlign:"right",paddingTop:"10px"}}  class="col-6 col-sm-6 col-md-2">
   
   <div style={{paddingRight:"10px"}} onClick={()=> {if(cookies.user===undefined){
-     let contact=window.prompt('Enter your contact'),pin;
-    if(contact===null){;}else{
-    pin=window.prompt('Enter your PIN')
-    if(pin===null){;}else{
     
-     VerifyRegistrationAndPin(contact.trim(),pin.trim()).then(resp=>{
-    
-    if(resp.registered===false){
-     ToastAlert('toastAlert2','Not registered. Tap menu to register',3000)
-    }else
-    
-       if(resp.pin===false){
-         
-         ToastAlert('toastAlert2','Incorrect PIN',3000)
-       }else{
-         let user={name:resp.details.name,contact:resp.details.contact,role:'user'}
-         setCookie('user',user,setCookieOptionsObj)
-       ToastAlert('toastAlert1','Logged in',3000)
-    
-       }
-     })
-    
-     
-    }
-    }
-    
+     window.location.href='/pages/login'
     
     
     
     }else{
      removeCookie("user",setCookieOptionsObj)
+     window.location.href="/pages/login"
      ToastAlert('toastAlert1','Logged out',3000)
     }}
     
@@ -324,13 +304,14 @@ useEffect(()=>{
       
            
       <Route path="/pages/attendanceregs/:registrar/:id" component={AttendanceRegister}/>
-      <Route path="/pages/attendanceregs/seemyregisters" component={ MyRegisters }/>
+      <Route path="/pages/attendanceregs/myregisters" component={ MyRegisters }/>
+      <Route path="/pages/sendsmsattendanceregs/:registrarContact/:registerId" exact component={ SendSms }/>
       <Route path="/pages/attendanceregs/createattendanceregister" component={CreateAttendanceRegister}/>
       <Route path="/pages/editattendanceregs/:registrarContact/:registerId" component={ EditRegister }/>
       <Route path="/pages/pubarticles/article/:id" component={PubArticleComp}/>
       <Route path="/pages/pubarticles/createarticle" component={CreateArticle}/>
       <Route path="/pages/pubarticles/allarticles" component={AllArticles}/>
-      <Route path="/pages/pubarticles/seemyarticles" component={MyArticles}/>
+      <Route path="/pages/pubarticles/myarticles" component={MyArticles}/>
       <Route path="/pages/pubarticles/sharemyarticles/:articleAuthorContact" exact component={ShareMyArticles}/>
       <Route path="/pages/pubarticles/assessmyarticles" component={AssessMyArticles}/>
    
@@ -343,7 +324,7 @@ useEffect(()=>{
       <Route path="/pages/clientbusinesses/:recommender" exact component={ClientBusinesses}/>
       <Route path="/pages/clientbusinesses" exact component={ClientBusinesses}/>
      
-
+      <Route path="/pages/login" exact component={LoginPage}/>
       <Route path="/pages/quotes" component={Quotes}/>
       
       <Route path="/pages/links" exact component={Links}/>

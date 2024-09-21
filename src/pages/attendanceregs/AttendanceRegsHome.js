@@ -14,13 +14,13 @@ export function AttendenceRegisterNav(){
       <div style={{paddingTop:"8px",display:"flex",flexWrap:"wrap"}}>
       <div style={style2}><div class="button1" onClick={()=>{
               window.location.href=`/pages/attendanceregs/createattendanceregister`
-            }}><span class="hovereffect"><span class="fa fa-plus"></span> New register</span></div></div>
+            }}><span class="hovereffect"><span class="fa fa-plus"></span> Create register</span></div></div>
    
       <div style={style2}><div class="button1" onClick={()=>{
-              window.location.href=`/pages/attendanceregs/createattendanceregister/#myregisters`
+              window.location.href=`/pages/attendanceregs/myregisters`
             }}>
      
-<span class="hovereffect"> Your registers</span>
+<span class="hovereffect">My registers</span>
 </div></div>
 
           

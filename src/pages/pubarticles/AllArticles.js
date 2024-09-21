@@ -6,7 +6,7 @@ import 'firebase/compat/storage';
 import { ArticlesNav,PubArticleSearchComp } from './PubArticleHome';
 import React, {useEffect,useState} from 'react';
 
-
+import { SuspenseComponent } from '../Functions';
 // firebase.initializeApp({
 //   apiKey: "AIzaSyCf0LC-eL1pJ2Rpvh59ukbg5OUFm6IcrEA",
 //   authDomain: "kayas-42321.firebaseapp.com",
@@ -19,9 +19,7 @@ import React, {useEffect,useState} from 'react';
 
 
 export function AllArticles(){
-    const[articles,setArticles]=useState(<div style={{padding:"40px",fontSize:"15px",color:"green",textAlign:"center"}}>
-       More stories loading.......
-       </div>)
+    const[articles,setArticles]=useState(<SuspenseComponent/>)
  useEffect(()=>{
  fetch('/getAllArticles').then(res=>res.json()).then(resp=>{
       setArticles(resp.map((articleObject)=>{
