@@ -213,7 +213,7 @@ export function AttendanceRegister(){
   <div class="row">
   
    <div>
-   <div style={{padding:"5px",fontSize:"20px"}} dangerouslySetInnerHTML={{__html:status}}/>
+   <div style={{padding:"5px",fontSize:"15px"}} dangerouslySetInnerHTML={{__html:status}}/>
    <div style={{display:"flex",flexWrap:"wrap"}}>
      <div style={{padding:"3px"}}>
      <div onClick={()=>{
@@ -228,7 +228,7 @@ export function AttendanceRegister(){
    }else{
  name=document.getElementById('messengingForm').name.value.trim()
    }
-   ToastAlert('toastAlert1','Saving......',3000)
+   setStatus('Saving.......')
    fetch(`/getTradingDetails/${registrarContact}`).then(res=>res.json()).then(resp=>{
      let traderDetailsObj=resp[0]
    fetch(`/addToAttendeesRegister`,{
@@ -245,6 +245,7 @@ export function AttendanceRegister(){
  else{
    if(res.success===1){
      ToastAlert('toastAlert1','Successful, save another',3000)
+     setStatus('Saved')
      document.getElementById('messengingForm').contact.value=""
      document.getElementById('messengingForm').name.value=""
      setMessageesNumb(res.attendees.length)
@@ -292,7 +293,7 @@ export function AttendanceRegister(){
  
  if(IsLoggedIn(cookies)===true){
 
-  ToastAlert('toastAlert1','Please wait......',3000)
+  
   setTimeout(()=>{
     if(contactsReceivedFlag===0){
       ToastAlert('toastAlert1','Gaining network, please wait......',8000)
@@ -306,7 +307,7 @@ export function AttendanceRegister(){
   
   
    
-       ToastAlert('toastAlert1','Getting contacts, please wait.......',3000)
+       setStatus('Getting contacts, please wait......')
        fetch(`/attendeesMessage/${registerParams.registrar}/${registerParams.id}`).then(res=>res.json()).then(res=>{
       
 let message=res.message
@@ -347,6 +348,7 @@ window.location.href=`https://wa.me/256${attendeeObj.contact}?text=Hello ${atten
 
 
 ToastAlert('toastAlert1','Successful. Scroll to see',3000)
+setStatus('Successful. Scroll to see')
 
 }
 
@@ -474,7 +476,7 @@ ToastAlert('toastAlert1','Successful. Scroll to see',3000)
    <div style={{padding:"30px"}}><div style={{color:"red",fontSize:"20px",textAlign:"center",paddingTop:"20px",borderBottom:"1px solid red"}}>Below here is only for the Admin</div></div>
        
     
-     
+     <div class="col-md-3"></div>
      <div class='col-md-6'style={{padding:"15px"}}>  
      <div class="label1">Transfer/share contact</div>
      <div class="label2">Send a copy of a contact to your other register. Enter the register ID to identify the register to send to.</div>
@@ -518,55 +520,58 @@ ToastAlert('toastAlert1','Successful. Scroll to see',3000)
      
      <div onClick={()=>{
        
- 
-       if(parseInt(document.getElementById("sendContactToRegister").contactPosition.value)==='NaN'){
-         ToastAlert('toastAlert2','Enter a position corresponding to a contact e.g 1,2,3,....',3000)
-       }else{
- 
-       let contactPosition=parseInt(document.getElementById("sendContactToRegister").contactPosition.value)
-       if(contactPosition<1){
-         ToastAlert('toastAlert2','Position can not be less than 1',3000)
-       }else{
- 
-         let attendeeDoc=arrayOfAttendees[contactPosition-1]
-                
-                if(attendeeDoc===undefined){
-                 ToastAlert('toastAlert2',`Refresh the page to update OR position ${document.getElementById("sendContactToRegister").contactPosition.value} does not exist in this register`,7000)
-                 
-                }else{
-                 fetch(`/addToAttendeesRegister`,{
-                   method:"post",
-                   headers:{"Content-type":"application/json"},
-                   body:JSON.stringify({name:attendeeDoc.name,contact:attendeeDoc.contact,registrarContact:registrarContact,registerId:parseInt(document.getElementById("sendContactToRegister").registerId.value)})
-                 }).then(res=>res.json()).then(resp=>{
-                   
-                   if(resp.success===1){
-                     ToastAlert('toastAlert1','Successful',3000)
-                     document.getElementById("sendContactToRegister").contactPosition.value=''
-                   }else if(resp.success==='memberPresent'){
-                     ToastAlert('toastAlert2','Contact is already in the register you are sending to',4000)
-                     document.getElementById("sendContactToRegister").contactPosition.value=''
-                   } else if(resp.registerPresent===0){
-                     ToastAlert('toastAlert2','Register does not exist',3000)
-                     document.getElementById("sendContactToRegister").contactPosition.value=''
-                   }
-                   else{
-         
-                   }
-                 })
-                 
-                }
-         
- 
-       }
- 
-     
-       }
+ if(IsLoggedIn(cookies)===true){
+  if(parseInt(document.getElementById("sendContactToRegister").contactPosition.value)==='NaN'){
+    ToastAlert('toastAlert2','Enter a position corresponding to a contact e.g 1,2,3,....',3000)
+  }else{
+
+  let contactPosition=parseInt(document.getElementById("sendContactToRegister").contactPosition.value)
+  if(contactPosition<1){
+    ToastAlert('toastAlert2','Position can not be less than 1',3000)
+  }else{
+
+    let attendeeDoc=arrayOfAttendees[contactPosition-1]
+           
+           if(attendeeDoc===undefined){
+            ToastAlert('toastAlert2',`Refresh the page to update OR position ${document.getElementById("sendContactToRegister").contactPosition.value} does not exist in this register`,7000)
+            
+           }else{
+            fetch(`/addToAttendeesRegister`,{
+              method:"post",
+              headers:{"Content-type":"application/json"},
+              body:JSON.stringify({name:attendeeDoc.name,contact:attendeeDoc.contact,registrarContact:registrarContact,registerId:parseInt(document.getElementById("sendContactToRegister").registerId.value)})
+            }).then(res=>res.json()).then(resp=>{
+              
+              if(resp.success===1){
+                ToastAlert('toastAlert1','Successful',3000)
+                document.getElementById("sendContactToRegister").contactPosition.value=''
+              }else if(resp.success==='memberPresent'){
+                ToastAlert('toastAlert2','Contact is already in the register you are sending to',4000)
+                document.getElementById("sendContactToRegister").contactPosition.value=''
+              } else if(resp.registerPresent===0){
+                ToastAlert('toastAlert2','Register does not exist',3000)
+                document.getElementById("sendContactToRegister").contactPosition.value=''
+              }
+              else{
+    
+              }
+            })
+            
+           }
+    
+
+  }
+
+
+  }
+
+ }else{;}
+       
        }}type="text" class="button1">Send</div>
      </form>
      
      </div>
-     
+     <div class="col-md-3"></div>
      
              </div>
             

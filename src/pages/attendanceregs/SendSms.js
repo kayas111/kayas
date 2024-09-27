@@ -29,11 +29,11 @@ export function SendSms(){
        const[registrarContact,setRegistrarContact]=useState('')
        const[institution,setInstitution]=useState('')
        const[registerTitle,setRegisterTitle]=useState('Please wait......')
-       const[accBal,setAccBal]=useState('Caltulating......')
+       const[accBal,setAccBal]=useState('calculating......')
        const[charLength,setCharLength]=useState('')
        const[noOfSms,setNoOfSms]=useState('')
        const[smsUnitCost,setSmsUnitCost]=useState('')
-       const[smsCost,setSmsCost]=useState('caltulating.....')
+       const[smsCost,setSmsCost]=useState('calculating.....')
      
        const [attendeeRegisterMessageStatus,setAttendeeRegisterMessageStatus]=useState('')
        
