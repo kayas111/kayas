@@ -27,7 +27,7 @@ export function LoginPage(){
       
      <div onClick={
       ()=>{
-  if(Array.from(document.getElementById("loginForm").contact.value).length<10||Array.from(document.getElementById("loginForm").contact.value).length>10)
+  if(Array.from(document.getElementById("loginForm").contact.value.trim()).length<10||Array.from(document.getElementById("loginForm").contact.value.trim()).length>10)
         {
           ToastAlert('toastAlert2','Enter contact of 10 digits',3000)
         }
