@@ -535,9 +535,9 @@ text-align:center;
 height: 15%;
 font-size: 12px;
 position:fixed;
-top:30%;
-left: 5%;
-right: 7%;
+top:0%;
+left: 0%;
+right: 0%;
 text-align:center;
 }
 .label1{
