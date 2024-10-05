@@ -143,29 +143,28 @@ export function SendSms(){
 <div class="row">
 <div class="col-md-3"></div>
 <div class='col-md-6'style={{padding:"15px"}}>  
-<AttendenceRegisterNav/><p></p>
-     <div class="blackBgOrangeColor">Send SMS to {registerTitle} <div style={{color:"white"}}>{messageesNumb} contacts</div></div>
-     
- 
- 
- <div style={{fontSize:"19px"}}>Account balance: <span style={{color:"red",fontSize:"20px"}}>{accBal}/=</span></div>
- <div >Sending times left: <span style={{color:"red"}}>{sendSmsTokens}</span> </div>
- 
-
- 
- <br></br>
+<AttendenceRegisterNav/>
+      
+  <br></br>
   <form id="setAttendeeRegisterSmsForm" >
-  <div style={{paddingBottom:"8px"}}><div class="formLabel">Send to {registerTitle} </div></div>
+  <div style={{paddingBottom:"8px"}}><div class="formLabel">Send SMS to {registerTitle}
+  <div style={{color:"white"}}>{messageesNumb} contacts</div></div>
+   </div>
+  
 
      
-   <div style={{textAlign:"right",paddingBottom:"3px"}}><div class="btn btn-sm btn-warning"
-       onClick={()=>{document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value=''}}>Clear message</div></div>
-     
+ 
      <div class="mb-3">
  <input type="hidden" class="form-control" autoComplete="off" name="contact" defaultValue={registrarContact} ></input>
- <div style={{fontSize:"12px",paddingTop:"5px",paddingBottom:"5px"}}>Rate: <span style={{fontSize:"20px",color:"red"}}>{charactersPerSms}</span> characters per contact = <span style={{fontSize:"20px",color:"red"}}>{smsUnitCost}/=</span> </div>
- <div>Cost for <span style={{fontSize:"20px",color:"red"}}>{charLength}</span> characters to <span style={{fontSize:"20px",color:"red"}}>{messageesNumb}</span> contacts = <span style={{fontSize:"20px",color:"red"}}>{smsCost}/=</span></div>
+ <div >Account balance: <span style={{color:"red",fontSize:"15px"}}>{accBal}/=</span></div>
+ <div >SMS Rate: <span style={{fontSize:"15px",color:"red"}}>{charactersPerSms}</span> characters per contact = <span style={{fontSize:"15px",color:"red"}}>{smsUnitCost}/=</span> </div>
+ <div>Cost for <span style={{fontSize:"15px",color:"red"}}>{charLength}</span> characters to <span style={{fontSize:"15px",color:"red"}}>{messageesNumb}</span> contacts = <span style={{fontSize:"15px",color:"red"}}>{smsCost}/=</span></div>
+ <div>Sending times left: <span style={{color:"red"}}>{sendSmsTokens}</span> </div>
  <p></p>
+ <div style={{textAlign:"right"}}>
+    <div class="btn btn-sm btn-warning"
+       onClick={()=>{document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value=''}}>Clear message</div></div>
+     
  <div class="formInputLabel">Enter message</div>
  <textarea rows="5" type="text" class="form-control" autoComplete="off" name="smsmessage" onChange={()=>{
    setCharLength(Array.from(document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value.trim()).length)
@@ -208,7 +207,7 @@ export function SendSms(){
         if(window.confirm("Press OK to confirm")===true){
           
         
-        ToastAlert('toastAlert1','Sending.........',3000)
+        ToastAlert('toastAlert1','Sending.........',4000)
           
                 
         fetch('/sendAttendeeRegisterSms',{
@@ -224,7 +223,8 @@ export function SendSms(){
       }).then(res=>res.json()).then(resp=>{
         
         ToastAlert('toastAlert1',`${resp[0]}`,3000)
-        fetch(`/getTradingDetails/${registerParams.registrar}`).then(res=>res.json()).then((resp)=>{
+        fetch(`/getTradingDetails/${registerParams.registrarContact}`).then(res=>res.json()).then((resp)=>{
+
 
           setAccBal(resp[0].accBal)
           setSendSmsTokens(resp[0].permissionTokensObj.sendSmsTokens)

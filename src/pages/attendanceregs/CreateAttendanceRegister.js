@@ -102,7 +102,7 @@ if(IsLoggedIn(cookies)===true){
 }else{}
 
          }
-       } class="form-submit-btn">Create register</div><p></p>
+       } class="form-submit-btn button1">Create register</div><p></p>
       
        </form>
        </div></div>
