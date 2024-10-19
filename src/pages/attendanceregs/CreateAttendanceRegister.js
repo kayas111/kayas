@@ -21,7 +21,7 @@ export function CreateAttendanceRegister(){
       <div style={{paddingBottom:"8px"}}><div class="formLabel">Create register</div></div>
       
        <div class="mb-3">
-        <div class="formInputLable">Name of register</div>
+        <div class="formInputLabel">Name of register</div>
        <textarea rows="2" type="text" class="form-control" autoComplete="off" name="attendanceRegisterTitle" ></textarea>
      
      <br></br>

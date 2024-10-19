@@ -30,7 +30,7 @@ export function PubArticleComp(){//clientcomponent
       const[articleHeadline1,setArticleHeadline1]=useState('')
       const[articleAuthor,setArticleAuthor]=useState('')
       const[articleAuthorContact,setArticleAuthorContact]=useState('')
-      const[articleBody,setArticleBody]=useState('<div style="font-size:20px;color:red;">Please wait..........<p></p></div>')
+      const[articleBody,setArticleBody]=useState('<div style="font-size:15px;color:red;">Please wait..........<p></p></div>')
       const[opinionsStatus,setOpinionsStatus]=useState('')
       const[submissionStatus,setSubmissionStatus]=useState('')
       const[opinionsNumb,setOpinionsNumb]=useState('')
@@ -160,10 +160,10 @@ export function PubArticleComp(){//clientcomponent
 <div style={{fontSize:"12px"}}>{articleInstitution} 0{articleAuthorContact}</div>
 
 </div><p></p>
-<div  style={{color:"orange",background:"black",display:"flex",flexWrap:"wrap"}}>
+<div  style={{display:"flex",flexWrap:"wrap"}}>
   
 <div style={{padding:"5px"}}>
-             <div onClick={()=>{
+             <div class="button1" onClick={()=>{
                  setOpinionsStatus("Please wait ..........")
                 setTimeout(()=>{
                if(opinionsReceivedFlag===0){
@@ -203,13 +203,14 @@ export function PubArticleComp(){//clientcomponent
                   }}>Comments ({opinionsNumb})</div>
 </div> 
   <div style={{padding:"5px"}}>
-<div  onClick={
+<div class="button1" onClick={
               ()=>{
                 window.location.href="#authorArticles"
               }}>  More trending stories 
 </div>
 
 </div>
+
   </div><p></p>
 </div>
 
@@ -217,15 +218,7 @@ export function PubArticleComp(){//clientcomponent
                   </div>
 
                      <div style={{borderRadius:"10px",padding:"5px"}}>
-                 
-                 <div style={{paddingTop:"5px"}}>
-                  <div style={{display:"flex",flexWrap:"wrap"}}>
-            <div style={{padding:"5px"}}>
-
-</div>
-
-            </div>
-                 </div>
+              
 
                        
             <div style={{fontSize:"12px",textAlign:"left"}} dangerouslySetInnerHTML={{__html:opinionsStatus}}/>

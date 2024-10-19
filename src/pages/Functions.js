@@ -9,12 +9,8 @@ export function SuspenseComponent(){
 
 export function IsLoggedIn(cookies){
 if(cookies.user===undefined){
-  ToastAlert('toastAlert2','You are not logged in, please log in',10000);
-  
-  setTimeout(()=>{
-    window.location.href="/pages/login"
-  },2000)
-  
+  ToastAlert('toastAlert2','You are not logged in, please log in',4000);
+
 return false;
 }else{
  return true; 
@@ -131,7 +127,13 @@ export function ConvertFileToBase64(file){
       }
     })
   }
-  
+  export async function GetTradingDetails(contact){
+   let tradingDetails= await fetch(`/getTradingDetails/${contact}`).then(resp=>{
+    
+      return resp.json()}).then(resp=>{ return resp[0]})
+      return tradingDetails
+
+  }
 export function ToastAlert(alertClass,message,delay){
   
 let body=document.querySelector('body'),alertDiv=document.createElement('div')

@@ -1,4 +1,4 @@
-import React,{useEffect,useState,Suspense,lazy} from 'react'
+import React,{useEffect,useState,Suspense} from 'react'
 import {useCookies} from 'react-cookie'
 import {KyuOpinionPolls,OpinionPoll1,AcholiStudentsUnionPoll} from './pages/VoterOpinionPolls/VoterOpinionPollsHome';
 import {FollowingComp} from './pages/followers/FollowersHome'
@@ -26,11 +26,13 @@ import {NotFound} from './pages/Home';
 
 
 import {RegisterCare, AttendeeRegisters, SmsNotificationsCare} from './pages/admin/Controls';
-
-
-
+ 
 const Itemsele=React.lazy(()=>import('./pages/Home'));
 // const NotFound=React.lazy(()=>import('./pages/Home'));
+const BnplHome=React.lazy(()=>import('./pages/bnpl/BnplHome'));
+const BnplProductsAndServices=React.lazy(()=>import('./pages/bnpl/BnplProductsAndServices'));
+const BnplTransactions=React.lazy(()=>import('./pages/admin/bnpl/bnplTransactions'));
+const ClearBnplDebt=React.lazy(()=>import('./pages/admin/bnpl/ClearBnplDebt'));
 const LoginPage=React.lazy(()=>import('./pages/LoginPage'));
 const RegistrationPage=React.lazy(()=>import('./pages/RegistrationPage'));
 const FollowersHome=React.lazy(()=>import('./pages/followers/FollowersHome'));
@@ -240,7 +242,9 @@ useEffect(()=>{
 <a class="hovereffect nav-link" href="#"><span class="hovereffect">Links</span></a> 
 </li>
 
- 
+<li class="nav-item">
+   <a class="hovereffect nav-link" href="/pages/bnpl/home"><span class="hovereffect">Buy Now Pay Later  </span></a>
+   </li>
    
  </ul>
 
@@ -252,14 +256,47 @@ useEffect(()=>{
 <div style={{textAlign:"right",paddingTop:"10px"}}  class="col-6 col-sm-6 col-md-2">
   
   <div style={{paddingRight:"10px"}} onClick={()=> {if(cookies.user===undefined){
-    
-     window.location.href='/pages/login'
+    let contact=window.prompt("Enter your contact")
+    if(contact===null){
+      ;
+    }else if(Array.from(contact.trim()).length<10){
+      
+      ToastAlert('toastAlert2','Enter contact of 10 digits',4000)
+    }else{
+      let pin=window.prompt("Enter your Kayas PIN")
+      if(pin===null){
+        ;
+      }else if(Array.from(pin.trim()).length<5){
+        
+        ToastAlert('toastAlert2','PIN must be 5 digits',4000)
+      } else{
+        VerifyRegistrationAndPin(contact.trim(),pin.trim()).then(resp=>{
+        if(resp.registered===false){
+           ToastAlert('toastAlert2','Not registered. Tap menu to register',3000)
+          }else
+          
+             if(resp.pin===false){
+               
+               ToastAlert('toastAlert2','Incorrect PIN',3000)
+             }else{
+               let user={name:resp.details.name,contact:resp.details.contact,role:'user'}
+               setCookie('user',user,setCookieOptionsObj)
+             
+             window.alert("Successful")
+         
+             }
+           })
+      }
+
+
+    }
+    // window.location.href='/pages/login'
     
     
     
     }else{
      removeCookie("user",setCookieOptionsObj)
-     window.location.href="/pages/login"
+     //window.location.href="/pages/login"
      ToastAlert('toastAlert1','Logged out',3000)
     }}
     
@@ -287,6 +324,8 @@ useEffect(()=>{
 
 <Switch>
 
+<Route path="/pages/bnpl/home" exact component={BnplHome}/>
+<Route path="/pages/bnpl/productsandservices" exact component={BnplProductsAndServices}/>
 
       <Route path="/advertise/items/:recommender" exact component={Itemsele}/>
       <Route path="/advertise/client1/:recommender" exact component={Client1}/>
@@ -342,6 +381,9 @@ useEffect(()=>{
       <Route path="/pages/admin/marqueenews" exact component={MarqueeNews}/>
       
       <Route path="/pages/admin/requests" component={Requests}/>
+
+      <Route path="/pages/admin/bnpl/bnpltransactions" component={BnplTransactions}/>
+      <Route path="/pages/admin/bnpl/clearbnpldebt" component={ClearBnplDebt}/>
       
       <Route path="/pages/admin/kayasers" component={Kayasers}/>
       <Route path="/pages/admin/attendeeregisters" component={ AttendeeRegisters }/>
