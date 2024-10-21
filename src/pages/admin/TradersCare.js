@@ -1,5 +1,6 @@
 import React, {useEffect,useState} from 'react'
 import ControlsNav from './Controls'
+import { ToastAlert } from '../Functions'
 export function TradersCare(){
     const[updateTraderDetailsFormStatus,setUpdateTraderDetailsFormStatus]=useState('')
     const[setTraderNoticeStatus,setSetTraderNoticeStatus]=useState('')
@@ -26,6 +27,8 @@ export function TradersCare(){
       })
       
     })
+
+    let style={padding:"3px"}
     return(<div>
     <div style={{fontSize:"20px",color:"red",textAlign:"center"}}>Traders Care</div>
     
@@ -40,6 +43,43 @@ export function TradersCare(){
       <div class="mb-3">
   <input type="text" class="form-control" autoComplete="off" name="contact" placeholder="Enter trader's contact" ></input><br></br>
   <input type="text" class="form-control" autoComplete="off" name="fieldToUpdate" placeholder="Enter field to update" ></input><br></br>
+  
+  <div style={{display:"flex",flexWrap:"wrap"}}>
+<div style={style}><div class="button1"
+ onClick={()=>{
+        
+  if(Array.from(document.getElementById('updateTraderDetailsForm').contact.value).length<10||Array.from(document.getElementById('updateTraderDetailsForm').contact.value).length>10){
+    ToastAlert('toastAlert2','Enter correct contact of 10 digits',3000)
+  } 
+  else{
+    setUpdateTraderDetailsFormStatus('Updating ........')
+    fetch('/updateTraderDetails',{
+      method:"post",
+      headers:{'Content-type':'application/json'},
+      body:JSON.stringify({method:'updateAsAdmin',argsObj:{traderContact:parseInt(document.getElementById('updateTraderDetailsForm').contact.value),fieldToUpdate:'bnplEligibility',updateValue:'notApplicable'}
+
+      }) 
+  }).then(res=>res.json()).then((resp)=>{
+    setUpdateTraderDetailsFormStatus(resp[0])
+
+  ToastAlert('toastAlert1',`${resp.msg}`,3000)
+     
+  }
+      
+
+  )  
+
+
+
+  }
+  
+
+}}
+
+>Turn BNPL eligibility on/off</div></div>
+
+  </div>
+  
   <input type="text" class="form-control" autoComplete="off" name="updateValue" placeholder='Enter update value'></input>
    
       </div>

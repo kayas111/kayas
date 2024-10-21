@@ -24,7 +24,6 @@ onClick={()=>{
     setStatus('Please wait........')
 GetTradingDetails(cookies.user.contact).then(resp=>{
     let trader=resp
-    trader.bnpl.isEligible=true
     if(trader.bnpl.isEligible===false){
         setStatus('Not eligible for the service. WhatsApp 0703852178')
     }else{
@@ -61,7 +60,9 @@ setStatus('Successful')
  }else{;}
     
 }}
->Complete transaction</div>
+>Complete transaction
+<div style={{color:"red"}}>To be completed by the restaurant owner only</div>
+</div>
     
 </div>
     </div>)

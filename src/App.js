@@ -188,7 +188,9 @@ useEffect(()=>{
 
 
    </li>
-   
+   <li class="nav-item">
+   <a class="hovereffect nav-link" href="/pages/bnpl/home"><span class="hovereffect">Buy Now Pay Later  </span></a>
+   </li>
    <li class="nav-item">
 <a class="hovereffect nav-link" href="/pages/followershome"><span class="hovereffect">Offline notification system</span></a> 
 
@@ -242,9 +244,7 @@ useEffect(()=>{
 <a class="hovereffect nav-link" href="#"><span class="hovereffect">Links</span></a> 
 </li>
 
-<li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/bnpl/home"><span class="hovereffect">Buy Now Pay Later  </span></a>
-   </li>
+
    
  </ul>
 

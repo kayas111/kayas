@@ -1,5 +1,5 @@
 export function BnplHome(){
-let step={fontSize:"18px",fontWeight:"600"},stepContainer={boxShadow:"0px 0px 3px grey",padding:"3px"}
+let step={fontSize:"15px",fontWeight:"600",background:"orange"},stepContainer={border:"1px solid orange",padding:"3px"}
     return (<div style={{padding:"3px"}}>
         
         <div class="blackBgOrangeColor ">Buy Now Pay Later</div>
@@ -9,12 +9,12 @@ let step={fontSize:"18px",fontWeight:"600"},stepContainer={boxShadow:"0px 0px 3p
             <div class="label1" style={{textAlign:"center"}}>Get a product/service on credit and pay later at your convinience.</div><p></p>
            <div style={stepContainer}>
             <div style={step}>Step 1 </div>
-            Register with a fee of 5,000 shs by contacting 0703852178 on WhatsApp.</div><p></p>
+            Register with a fee of 4,000 shs by contacting 0703852178 on WhatsApp.</div><p></p>
            <div style={stepContainer}><div style={step}>Step 2 </div> Select the "Get started" button at the bottom.</div><p></p>
-           <div style={stepContainer}><div style={step}>Step 3 </div>Look for the product/service you are interested in and find out where it is located.</div><p></p>
-           <div style={stepContainer}><div style={step}>Step 4 </div>Go to where the product/service is located.</div><p></p>
-           <div style={stepContainer}><div style={step}>Step 5 </div>Let the product/service provider complete the transaction then you will be served.</div><p></p>
-           <a href="/pages/bnpl/productsandservices"><div class="button1" style={{fontSize:"20px"}}>Get started</div></a>
+          <div style={stepContainer}><div style={step}>Step 3 </div>Go to where the product/service that you want to receive is located.</div><p></p>
+           <div style={stepContainer}><div style={step}>Step 4 </div>Let the product/service provider complete the transaction then you will be served.</div><p></p>
+           <div style={stepContainer}><div style={step}>Step 5 </div>The current credit limit is 7,000 shs which you are required to pay back after a maximum of one week after receiving the credit service.</div><p></p>
+           <a href="/pages/bnpl/productsandservices"><div class="button1" style={{fontSize:"15px"}}>Get started</div></a>
            </div>
            <div class="col-md-3"></div>
         </div>
