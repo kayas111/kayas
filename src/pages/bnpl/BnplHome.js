@@ -1,5 +1,5 @@
 export function BnplHome(){
-let step={fontSize:"15px",fontWeight:"600",background:"orange"},stepContainer={border:"1px solid orange",padding:"3px"}
+let step={fontSize:"18px",fontWeight:"600"},stepContainer={border:"1px solid orange",padding:"3px"}
     return (<div style={{padding:"3px"}}>
         
         <div class="blackBgOrangeColor ">Buy Now Pay Later</div>

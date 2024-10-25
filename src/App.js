@@ -26,10 +26,13 @@ import {NotFound} from './pages/Home';
 
 
 import {RegisterCare, AttendeeRegisters, SmsNotificationsCare} from './pages/admin/Controls';
+
  
 const Itemsele=React.lazy(()=>import('./pages/Home'));
 // const NotFound=React.lazy(()=>import('./pages/Home'));
 const BnplHome=React.lazy(()=>import('./pages/bnpl/BnplHome'));
+const BnplPromotion=React.lazy(()=>import('./pages/bnpl/BnplPromotion'));
+const CompletePromotionTransaction=React.lazy(()=>import('./pages/bnpl/CompletePromotionTransaction'));
 const BnplProductsAndServices=React.lazy(()=>import('./pages/bnpl/BnplProductsAndServices'));
 const BnplTransactions=React.lazy(()=>import('./pages/admin/bnpl/bnplTransactions'));
 const ClearBnplDebt=React.lazy(()=>import('./pages/admin/bnpl/ClearBnplDebt'));
@@ -162,8 +165,15 @@ useEffect(()=>{
 <div  class="navbar-collapse justify-content-md-right collapse navB" id="navbarsExample08" >
 
  <ul  class="navbar-nav" style={{display:"flex",flexWrap:"wrap"}}>
+  
+  
+
+
  <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/about"><span class="hovereffect">Services by Kayas</span></a>
+   </li>
+   <li class="nav-item">
+   <a class="hovereffect nav-link" href="/pages/bnpl/bnplpromotion"><span class="hovereffect">Food promotion</span></a>
    </li>
  <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/pubarticles/allarticles"><span class="hovereffect">Trending stories ({articlesNumb})  </span></a>
@@ -326,6 +336,8 @@ useEffect(()=>{
 
 <Route path="/pages/bnpl/home" exact component={BnplHome}/>
 <Route path="/pages/bnpl/productsandservices" exact component={BnplProductsAndServices}/>
+<Route path="/pages/bnpl/bnplpromotion" exact component={BnplPromotion}/>
+<Route path="/pages/bnpl/completepromotiontransaction" exact component={CompletePromotionTransaction}/>
 
       <Route path="/advertise/items/:recommender" exact component={Itemsele}/>
       <Route path="/advertise/client1/:recommender" exact component={Client1}/>
@@ -431,7 +443,7 @@ useEffect(()=>{
 
 
 export function Basenavele(){ 
-  
+  const [totalBnplDailyPromotions,setTotalBnplDailyPromotions]=useState('')  
   const [egoSmsAccBal,setEgoSmsAccBal]=useState('')
   const [tradersTotalCredit,setTradersTotalCredit]=useState('')
   const [smsService,setSmsService]=useState('loading......')
@@ -456,6 +468,11 @@ export function Basenavele(){
             })
     
         })
+        fetch('/totalBnplDailyPromotions').then(res=>res.json()).then(array=>{
+          setTotalBnplDailyPromotions(array.length)        })
+
+
+
        
   },[])
   
@@ -473,6 +490,7 @@ export function Basenavele(){
 <div><span class="fa fa-copyright"></span> Copyright 2024 KAYAS.</div>
 <div>EgoBal {egoSmsAccBal}/{tradersTotalCredit} TTC</div>
 <div>Sms service <span dangerouslySetInnerHTML={{__html: smsService}}/></div>
+<div>BnplDailyPromos {totalBnplDailyPromotions}</div>
 
 
 
@@ -485,28 +503,4 @@ export function Basenavele(){
   );
 }
 
-export default App;
-
-
-
-/*
-<div style={{background:`url(${topNavPhotoBg})`,backgroundSize:"cover",padding:"10px",fontSize:"12px"}}>
-   
-   <div class="row">
-    <div class="col-md-3"></div>
-   <div class="col-md-6"><div style={{color:"white",textAlign:"center",fontSize:"15px"}}>{topPhotoMsg1}</div>
-
-<div class="row" style={{fontFamily:"charm"}}><div style={{color:"white",textAlign:"center"}} class="col-3 col-md-3">
-  <div>{topPhotoMsg2}</div><div style={{paddingTop:"20px"}}>{topPhotoMsg4}</div></div><div class="col-6 col-md-6" >
-  <img style={{borderRadius:"500px"}} src={topPhoto} class="d-block w-100" alt="..."  /></div>
-  <div style={{color:"white",textAlign:"center",paddingTop:""}} class="col-3 col-md-3"><div>{topPhotoMsg3}</div>
-  <div style={{paddingTop:"20px"}}>{topPhotoMsg5}</div>
-  </div>
-  </div></div>
-
-  <div class="col-md-3"></div>
-   </div>
-
-   </div>
-  */
- 
+export default App
