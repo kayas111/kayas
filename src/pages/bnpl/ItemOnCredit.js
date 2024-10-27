@@ -25,7 +25,7 @@ onClick={()=>{
 GetTradingDetails(cookies.user.contact).then(resp=>{
     let trader=resp
     if(trader.bnpl.isEligible===false){
-        setStatus('Not eligible for the service. WhatsApp 0703852178')
+        setStatus("You've not registered for Kayas services. Contact Kayas.")
     }else{
    setTimeout(()=>{
         if(window.confirm(`Complete the transaction to debit user with ${props.bill}/=`)===true){

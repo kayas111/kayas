@@ -459,6 +459,12 @@ padding:3px;
 .test{
   color:#5a5a5a
 }
+.pageLabel{
+  background-color: black;
+  color:orange;
+  text-align: center;
+  font-size: 18px;
+}
 .button1{
   background-color:orange;
   padding:4px;

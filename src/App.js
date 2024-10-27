@@ -27,12 +27,16 @@ import {NotFound} from './pages/Home';
 
 import {RegisterCare, AttendeeRegisters, SmsNotificationsCare} from './pages/admin/Controls';
 
+
  
 const Itemsele=React.lazy(()=>import('./pages/Home'));
 // const NotFound=React.lazy(()=>import('./pages/Home'));
 const BnplHome=React.lazy(()=>import('./pages/bnpl/BnplHome'));
 const BnplPromotion=React.lazy(()=>import('./pages/bnpl/BnplPromotion'));
 const CompletePromotionTransaction=React.lazy(()=>import('./pages/bnpl/CompletePromotionTransaction'));
+const FoodDeliveryHome = React.lazy(()=>import('./pages/fooddelivery/FoodDeliveryHome'));
+const RequestFoodDelivery=React.lazy(()=>import('./pages/fooddelivery/RequestFoodDelivery'));
+const FoodDeliveryRequests=React.lazy(()=>import('./pages/fooddelivery/FoodDeliveryRequests'));
 const BnplProductsAndServices=React.lazy(()=>import('./pages/bnpl/BnplProductsAndServices'));
 const BnplTransactions=React.lazy(()=>import('./pages/admin/bnpl/bnplTransactions'));
 const ClearBnplDebt=React.lazy(()=>import('./pages/admin/bnpl/ClearBnplDebt'));
@@ -171,6 +175,9 @@ useEffect(()=>{
 
  <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/about"><span class="hovereffect">Services by Kayas</span></a>
+   </li>
+   <li class="nav-item">
+   <a class="hovereffect nav-link" href="/pages/fooddelivery/fooddeliveryhome"><span class="hovereffect">Food delivery</span></a>
    </li>
    <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/bnpl/bnplpromotion"><span class="hovereffect">Food promotion</span></a>
@@ -338,6 +345,11 @@ useEffect(()=>{
 <Route path="/pages/bnpl/productsandservices" exact component={BnplProductsAndServices}/>
 <Route path="/pages/bnpl/bnplpromotion" exact component={BnplPromotion}/>
 <Route path="/pages/bnpl/completepromotiontransaction" exact component={CompletePromotionTransaction}/>
+
+<Route path="/pages/fooddelivery/fooddeliveryhome" exact component={FoodDeliveryHome}/>
+<Route path="/pages/fooddelivery/requestfooddelivery" exact component={RequestFoodDelivery}/>
+<Route path="/pages/fooddelivery/fooddeliveryrequests" exact component={FoodDeliveryRequests}/>
+
 
       <Route path="/advertise/items/:recommender" exact component={Itemsele}/>
       <Route path="/advertise/client1/:recommender" exact component={Client1}/>

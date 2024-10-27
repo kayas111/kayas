@@ -51,7 +51,7 @@ onClick={()=>{
     GetTradingDetails(cookies.user.contact).then(traderObj=>{
             
         if(traderObj.bnpl.isEligibe===false){
-            setStatus('Not allowed. Contact Kayas.')  
+            setStatus("You've not registered for Kayas services. Contact Kayas.")  
         }else{
             fetch('/updateTraderDetails',{
                 method:"post",
