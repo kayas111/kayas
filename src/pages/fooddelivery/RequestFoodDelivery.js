@@ -28,7 +28,8 @@ export function RequestFoodDelivery(){
    <div class="formInputLabel">Your location or hostel of residence</div>
    <textArea rows={2} type="text" class="form-control" autoComplete="off" name="location"  ></textArea>
    <br></br><div class="formInputLabel">Room number</div>
-   <input type="text" class="form-control" autoComplete="off" name="room" ></input>
+   <input type="text" class="form-control" autoComplete="off" name="room" ></input><br></br>
+   <div style={{color:"red"}}>Deliveries stop at 7:00 PM</div>
         </div>
       <div style={{fontSize:"17px",textAlign:"center",color:"orange",fontWeight:"600"}} dangerouslySetInnerHTML={{__html:status}}/>
      <div onClick={

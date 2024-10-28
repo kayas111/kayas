@@ -463,7 +463,8 @@ padding:3px;
   background-color: black;
   color:orange;
   text-align: center;
-  font-size: 18px;
+  font-size: 17px;
+  padding:8px;
 }
 .button1{
   background-color:orange;
