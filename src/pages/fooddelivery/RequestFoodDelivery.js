@@ -5,6 +5,7 @@ import bnplImage1 from '../imgs/bnplImage1.jpg'
 export function RequestFoodDelivery(){
     const [cookies]=useCookies(['user'])
     const [status, setStatus]=useState('')
+    const [commentStatus, setCommentStatus]=useState('')
     useEffect(()=>{
         if(IsLoggedIn(cookies)===false){
             window.alert('Please log in first.')
@@ -29,21 +30,22 @@ export function RequestFoodDelivery(){
    <textArea rows={2} type="text" class="form-control" autoComplete="off" name="location"  ></textArea>
    <br></br><div class="formInputLabel">Room number</div>
    <input type="text" class="form-control" autoComplete="off" name="room" ></input><br></br>
-   <div style={{color:"red"}}>Deliveries stop at 7:00 PM</div>
+   
         </div>
-      <div style={{fontSize:"17px",textAlign:"center",color:"orange",fontWeight:"600"}} dangerouslySetInnerHTML={{__html:status}}/>
+      <div style={{fontSize:"14px",textAlign:"center",color:"orange",fontWeight:"600"}} dangerouslySetInnerHTML={{__html:status}}/>
      <div onClick={
       ()=>{
-  if(Array.from(document.getElementById("requestFoodDeliveryForm").desc.value).length<2){
+  if(Array.from(document.getElementById("requestFoodDeliveryForm").desc.value.trim()).length<2){
 
 ToastAlert('toastAlert2','Describe what food you want',4000)
+setStatus('Your delivery will arrive in less than 15 minutes, please stay in your location. Comment on the food after eating using the form below. Thank you.')
 
-} else if(Array.from(document.getElementById("requestFoodDeliveryForm").location.value).length<2){
+} else if(Array.from(document.getElementById("requestFoodDeliveryForm").location.value.trim()).length<2){
 
     ToastAlert('toastAlert2','Fill in your location',3000)
     
     }
-    else if(Array.from(document.getElementById("requestFoodDeliveryForm").room.value).length<1){
+    else if(Array.from(document.getElementById("requestFoodDeliveryForm").room.value.trim()).length<1){
 
         ToastAlert('toastAlert2','Fill in the room number or type no room number',5000)
         
@@ -76,6 +78,40 @@ if(window.confirm("You will be charged 1,000/= as a delivery fee, tap 'OK' to pr
     
      </form>
 
+<p></p>
+<form method="post" id="foodCommentForm">
+    <div class="formLabel">Comment on the food/service</div><p></p>
+    <div class="mb-3">
+    <div class="formInputLabel">How was the food/service?</div>
+    <textarea rows={4} type="text" class="form-control" autoComplete="off" name="comment"  ></textarea>
+ 
+       </div>
+     <div style={{fontSize:"14px",textAlign:"center",color:"orange",fontWeight:"600"}} dangerouslySetInnerHTML={{__html:commentStatus}}/>
+    <div onClick={
+     ()=>{
+ if(Array.from(document.getElementById("foodCommentForm").comment.value.trim()).length<2){
+ToastAlert('toastAlert2','Type a comment',4000)
+} 
+else{
+    setCommentStatus('Sending comment......')
+    let form=document.getElementById("foodCommentForm"), payLoad={name:cookies.user.name,contact:cookies.user.contact,comment:form.comment.value.trim()}
+   
+    fetch('/foodDeliveryComment',{
+        method:"post",
+        headers:{'Content-type':'application/json'},
+        body:JSON.stringify(payLoad) 
+    }).then(res=>res.json()).then(resp=>{
+        setCommentStatus(resp.msg)
+    })
+
+
+
+}
+     } 
+
+    } class="form-submit-btn backgroundColorHovereffect"><span class="fa fa-envelope"></span> Send comment</div><p></p>
+   
+    </form>
 
      <div style={{fontSize:"20px",paddingTop:"18px"}}>Did you know?</div>
 <div><img src={bnplImage1} class=" d-block w-100" alt="..." /></div>

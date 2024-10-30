@@ -6,25 +6,27 @@ export function FoodDeliveryHome(){
         <div class="col-md-6">
             <div class="pageLabel">Food delivery service - only around Kikoni</div>
             <div style={{textAlign:"center",paddingBottom:"20px"}}>Get packed food delivered to you in less than 10 minutes at a delivery fee of 1,000/=</div>
-           
+            <div style={{color:"red",fontSize:"15px",padding:"10px",textAlign:"center"}}>Delivery is between 1 PM and 3:00 PM for now</div>
            <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6"><img  style={{borderRadius:"5px",padding:"10px",boxShadow:"0px 0px 10px grey",background:"white"}} src={foodImage} class=" d-block w-100" alt="..." />
+            <div class="col-2"></div>
+            <div class="col-8"><img  style={{borderRadius:"5px",padding:"10px",boxShadow:"0px 0px 10px grey",background:"white"}} src={foodImage} class=" d-block w-100" alt="..." />
             
             </div>
-            <div class="col-3"></div>
+            <div class="col-2"></div>
            
            </div>
            
-           <div style={{fontSize:"23px",textAlign:"center",paddingTop:"25px",fontWeight:"600"}}>Restaurants available</div>
+           <div style={{fontSize:"20px",textAlign:"center",paddingTop:"25px",fontWeight:"600"}}>Restaurants available</div>
+           <div style={{fontSize:"",paddingBottom:"10px",textAlign:"center",color:"orange"}}>More restaurants will be added soon</div>
             <div style={{padding:"5px",border:"1px solid orange"}}>
-            <div  style={{fontSize:"18px",borderBottom:"1px solid black"}}>Nalikka Hostel restaurant - Kikoni</div>
+            <div  style={{fontSize:"15px",fontWeight:"600",borderBottom:"1px solid black"}}>Nalikka Hostel restaurant - Kikoni</div>
          
             <div style={{paddingTop:"10px"}}class="row">
 <div class="col-8">All foods plus beans or gnuts:</div>
 <div class="col-4">3,000/=</div>
-<div class="col-8">All foods plus beef:</div>
-<div class="col-4">4,000/=</div>
+<div class="col-8">All foods plus small beef:</div><div class="col-4">4,000/=</div>
+<div class="col-8">All foods plus cow peas:</div><div class="col-4">3,500/=</div>
+<div class="col-8">2 chapatis and beans (Kikomando)</div><div class="col-4">2,000/=</div>
 
 
             </div>
@@ -36,7 +38,7 @@ export function FoodDeliveryHome(){
 <p></p><div>Make sure you are logged in.</div>
 <a href="/pages/fooddelivery/requestfooddelivery"><div class="button1">Request delivery</div></a>
 
-<div style={{fontSize:"20px",paddingTop:"18px"}}>Did you know?</div>
+<div style={{fontSize:"20px",paddingTop:"10px"}}>Did you know?</div>
 <div><img src={bnplImage1} class=" d-block w-100" alt="..." /></div>
         </div>
         <div class="col-md-3"></div>
