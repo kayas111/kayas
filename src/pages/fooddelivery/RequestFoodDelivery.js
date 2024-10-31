@@ -53,9 +53,17 @@ setStatus('Your delivery will arrive in less than 15 minutes, please stay in you
 else{
 
 
+    setStatus('Sending request........')
+
+fetch('/getControls').then(res=>res.json()).then(resp=>{
+    let controlsDoc=resp[0]
+    if(controlsDoc.foodDeliveryControls.deliveryServiceIsOn===false){
+setStatus(controlsDoc.foodDeliveryControls.foodDeliveryServiceNotice)
+    }else{
+     
 
 if(window.confirm("You will be charged 1,000/= as a delivery fee, tap 'OK' to proceed.")===true){
-    setStatus('Sending request........')
+    
     let form=document.getElementById("requestFoodDeliveryForm"), payLoad={name:cookies.user.name,contact:cookies.user.contact,desc:form.desc.value.trim(),location:form.location.value.trim(),room:form.room.value.trim()}
     
      fetch('/requestFoodDelivery',{
@@ -68,6 +76,12 @@ if(window.confirm("You will be charged 1,000/= as a delivery fee, tap 'OK' to pr
 }else{
     setStatus('You cancelled the request.')
 }
+
+
+    }
+
+
+ })
 
 
  

@@ -39,6 +39,7 @@ const RequestFoodDelivery=React.lazy(()=>import('./pages/fooddelivery/RequestFoo
 const FoodDeliveryRequests=React.lazy(()=>import('./pages/fooddelivery/FoodDeliveryRequests'));
 const BnplProductsAndServices=React.lazy(()=>import('./pages/bnpl/BnplProductsAndServices'));
 const BnplTransactions=React.lazy(()=>import('./pages/admin/bnpl/bnplTransactions'));
+const FoodDeliveryControls=React.lazy(()=>import('./pages/admin/FoodDeliveryControls'));
 const ClearBnplDebt=React.lazy(()=>import('./pages/admin/bnpl/ClearBnplDebt'));
 const LoginPage=React.lazy(()=>import('./pages/LoginPage'));
 const RegistrationPage=React.lazy(()=>import('./pages/RegistrationPage'));
@@ -407,6 +408,7 @@ useEffect(()=>{
       <Route path="/pages/admin/requests" component={Requests}/>
 
       <Route path="/pages/admin/bnpl/bnpltransactions" component={BnplTransactions}/>
+      <Route path="/pages/admin/fooddeliverycontrols" component={FoodDeliveryControls}/>
       <Route path="/pages/admin/bnpl/clearbnpldebt" component={ClearBnplDebt}/>
       
       <Route path="/pages/admin/kayasers" component={Kayasers}/>

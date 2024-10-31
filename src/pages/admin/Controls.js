@@ -59,25 +59,38 @@ export function ControlsNav(){
       },[])    
 
 return(
-  <div style={{padding:"10px",background:"black",fontSize:"12px"}}>
+  <div>
+    <div style={{padding:"10px",background:"black",fontSize:"12px"}}>
  
-  <a style={{color:"white",paddingRight:"9px",}} href="/pages/admin/requests"><span class="hovereffect">Requests {reqNumb}  </span></a>
-     <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/recommendations"><span class="hovereffect"> Recommendations {recomNumb} </span></a>
-     <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/kayasers"><span class="hovereffect"> Kayasers {kayasersNumb} </span></a> 
-      <br></br>
-      <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/clientsmonitor"><span class="hovereffect"> Monitored-Opinions{monitoredOpinionsNumb}</span></a> 
-      
-     <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/attendeeregisters"><span class="hovereffect"> Registers {attendeeRegistersNumb}</span></a> <br></br>
-     <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/articlesmonitor"><span class="hovereffect">Monitored-Articles {monitoredArticlesNumb}</span></a>
-     <a  style={{color:"white",paddingRight:"9px"}} href="#"><span class="hovereffect"> Visits {visits}</span></a>
-     <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/controls"><span class="hovereffect">Controls</span></a> 
-     <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/kayasercare"><span class="hovereffect">Kayas-Care</span></a><br></br> 
-     <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/traderscare"><span class="hovereffect">Traders {tradersNumb}</span></a> 
-     <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/attendanceregistercare"><span class="hovereffect">Register-Care</span></a> 
-     <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/smsnotificationscare"><span class="hovereffect">SMS-Notifications</span></a> 
-     <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/marqueenews"><span class="hovereffect">Marquee-news</span></a> 
+ <a style={{color:"white",paddingRight:"9px",}} href="/pages/admin/requests"><span class="hovereffect">Requests {reqNumb}  </span></a>
+    <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/recommendations"><span class="hovereffect"> Recommendations {recomNumb} </span></a>
+    <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/kayasers"><span class="hovereffect"> Kayasers {kayasersNumb} </span></a> 
+     <br></br>
+     <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/clientsmonitor"><span class="hovereffect"> Monitored-Opinions{monitoredOpinionsNumb}</span></a> 
      
-     </div>
+    <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/attendeeregisters"><span class="hovereffect"> Registers {attendeeRegistersNumb}</span></a> <br></br>
+    <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/articlesmonitor"><span class="hovereffect">Monitored-Articles {monitoredArticlesNumb}</span></a>
+    <a  style={{color:"white",paddingRight:"9px"}} href="#"><span class="hovereffect"> Visits {visits}</span></a>
+    <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/controls"><span class="hovereffect">Controls</span></a> 
+    <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/kayasercare"><span class="hovereffect">Kayas-Care</span></a><br></br> 
+    <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/traderscare"><span class="hovereffect">Traders {tradersNumb}</span></a> 
+    <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/attendanceregistercare"><span class="hovereffect">Register-Care</span></a> 
+    <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/smsnotificationscare"><span class="hovereffect">SMS-Notifications</span></a> 
+    <a  style={{color:"white",paddingRight:"9px"}} href="/pages/admin/marqueenews"><span class="hovereffect">Marquee-news</span></a> 
+ </div>
+      
+    <div class='bg-dark' style={{display:"flex",flexWrap:"wrap",padding:"10px"}}>
+
+<div class="nav-item">
+  <a class="hovereffect nav-link" href="/pages/admin/bnpl/bnpltransactions"><span class="hovereffect">Bnpl transactions</span></a>
+  </div>
+
+  <div class="nav-item">
+  <a class="hovereffect nav-link" href="/pages/admin/fooddeliverycontrols"><span class="hovereffect">Food delivery controls</span></a>
+  </div>
+  
+</div>
+  </div>
 )
 
 
