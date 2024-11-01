@@ -62,7 +62,7 @@ setStatus(controlsDoc.foodDeliveryControls.foodDeliveryServiceNotice)
     }else{
      
 
-if(window.confirm("You will be charged 1,000/= as a delivery fee, tap 'OK' to proceed.")===true){
+if(window.confirm("You will be charged 500/= or 1,000/= as a delivery fee, tap 'OK' to proceed.")===true){
     
     let form=document.getElementById("requestFoodDeliveryForm"), payLoad={name:cookies.user.name,contact:cookies.user.contact,desc:form.desc.value.trim(),location:form.location.value.trim(),room:form.room.value.trim()}
     
