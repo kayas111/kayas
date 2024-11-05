@@ -6,6 +6,8 @@ export function RequestFoodDelivery(){
     const [cookies]=useCookies(['user'])
     const [status, setStatus]=useState('')
     const [commentStatus, setCommentStatus]=useState('')
+    const [selectedOption, setSelectedOption] = useState('')
+
     useEffect(()=>{
         if(IsLoggedIn(cookies)===false){
             window.alert('Please log in first.')
@@ -23,6 +25,26 @@ export function RequestFoodDelivery(){
     <form method="post" id="requestFoodDeliveryForm">
     
      <div class="mb-3">
+<div style={{textAlign:"center",fontSize:"20px",fontWeight:"600"}}>{selectedOption}</div><p></p>
+<div>
+<select
+      
+        onChange={(event)=>{
+            setSelectedOption(event.target.value)
+        }}
+      >
+        <option value="">Select restaurant/canteen</option>
+        <option value="Nalikka hostel restaurant">Nalikka hostel restaurant</option>
+        <option value="Akwata hostel snacks canteen">Akwata hostel snacks canteen</option>
+        <option value="Shalom foods">Shalom foods</option>
+        <option value="Kayas shop">Kayas shop</option>
+      </select>
+
+
+</div>
+
+<br></br>
+
      <div class="formInputLabel">What food do you want?</div>
      <textarea rows={2} type="text" class="form-control" autoComplete="off" name="desc"  ></textarea>
    <br></br>
@@ -35,10 +57,16 @@ export function RequestFoodDelivery(){
       <div style={{fontSize:"14px",textAlign:"center",color:"orange",fontWeight:"600"}} dangerouslySetInnerHTML={{__html:status}}/>
      <div onClick={
       ()=>{
-  if(Array.from(document.getElementById("requestFoodDeliveryForm").desc.value.trim()).length<2){
+        if(Array.from(selectedOption.trim()).length<2){
+
+            ToastAlert('toastAlert2','Select a restaurant, shop or canteen',4000)
+            
+            
+            }
+  else if(Array.from(document.getElementById("requestFoodDeliveryForm").desc.value.trim()).length<2){
 
 ToastAlert('toastAlert2','Describe what food you want',4000)
-setStatus('Your delivery will arrive in less than 15 minutes, please stay in your location. Comment on the food after eating using the form below. Thank you.')
+
 
 } else if(Array.from(document.getElementById("requestFoodDeliveryForm").location.value.trim()).length<2){
 
@@ -64,7 +92,7 @@ setStatus(controlsDoc.foodDeliveryControls.foodDeliveryServiceNotice)
 
 if(window.confirm("You will be charged 500/= or 1,000/= as a delivery fee, tap 'OK' to proceed.")===true){
     
-    let form=document.getElementById("requestFoodDeliveryForm"), payLoad={name:cookies.user.name,contact:cookies.user.contact,desc:form.desc.value.trim(),location:form.location.value.trim(),room:form.room.value.trim()}
+    let form=document.getElementById("requestFoodDeliveryForm"), payLoad={origin:selectedOption,name:cookies.user.name,contact:cookies.user.contact,desc:form.desc.value.trim(),location:form.location.value.trim(),room:form.room.value.trim()}
     
      fetch('/requestFoodDelivery',{
          method:"post",

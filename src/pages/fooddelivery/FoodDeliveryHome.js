@@ -17,7 +17,27 @@ export function FoodDeliveryHome(){
            </div>           
            <div style={{fontSize:"20px",textAlign:"center",paddingTop:"25px",fontWeight:"600"}}>Available restaurants/canteens</div>
            <div style={{fontSize:"",paddingBottom:"10px",textAlign:"center",color:"orange"}}>More restaurants will be added soon</div>
-            <div style={{padding:"5px",border:"1px solid orange"}}>
+           <div style={{padding:"5px",border:"2px solid orange"}}>
+
+<div  style={{fontSize:"15px",fontWeight:"600",borderBottom:"1px solid black"}}>Shalom foods
+<div style={{color:"red",fontSize:"11px"}}>Delivery fee: 1000/=</div>
+</div>
+
+<div style={{paddingTop:"10px"}}class="row">
+<div class="col-8">Rice, chips and gravy</div><div class="col-4">4,000/=</div>
+
+
+
+</div>
+
+
+
+
+</div>
+<p></p>
+           
+           
+            <div style={{padding:"5px",border:"2px solid orange"}}>
 
             <div  style={{fontSize:"15px",fontWeight:"600",borderBottom:"1px solid black"}}>Nalikka Hostel restaurant - Kikoni
             <div style={{color:"red",fontSize:"11px"}}>Delivery fee: 1000/=</div>
@@ -38,7 +58,7 @@ export function FoodDeliveryHome(){
             
             </div>
             <p></p>
-            <div style={{padding:"5px",border:"1px solid orange"}}>
+            <div style={{padding:"5px",border:"2px solid orange"}}>
             <div  style={{fontSize:"15px",fontWeight:"600",borderBottom:"1px solid black"}}>Akwata hostel snacks canteen
             <div style={{color:"red",fontSize:"11px"}}>Delivery fee: 500/=</div>
             </div>
@@ -60,8 +80,8 @@ export function FoodDeliveryHome(){
             </div>
 
             <p></p>
-            <div style={{padding:"5px",border:"1px solid orange"}}>
-            <div  style={{fontSize:"15px",fontWeight:"600",borderBottom:"1px solid black"}}>Nalikka street supermarket
+            <div style={{padding:"5px",border:"2px solid orange"}}>
+            <div  style={{fontSize:"15px",fontWeight:"600",borderBottom:"1px solid black"}}>Kayas shop
             <div style={{color:"red",fontSize:"11px"}}>Delivery fee: 500/=</div>
             </div>
          

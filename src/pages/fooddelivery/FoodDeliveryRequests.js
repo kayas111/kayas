@@ -28,11 +28,12 @@ export function FoodDeliveryRequests(){
                     return(
                         <div style={{padding:"5px"}}>
                 <div style={{border:"1px solid orange",padding:"5px"}}>
-                <div style={{fontWeight:"600",fontSize:"17px",borderBottom:"1px solid grey"}}>{counter+1}. {deliveryRequest.name} - 0{deliveryRequest.contact}</div>
-                <div>Location: {deliveryRequest.location}</div>
-                <div>Room: {deliveryRequest.room}</div>
+                <div style={{fontWeight:"600",fontSize:"17px",borderBottom:"1px solid grey"}}>{counter+1}. {deliveryRequest.origin}</div>
                 <div>Description: {deliveryRequest.desc}</div>
-                
+                <div>Deliver to: {deliveryRequest.location}</div>
+                <div>Room: {deliveryRequest.room}</div>
+                <div>Name: {deliveryRequest.name}</div>
+                <div>Contact: 0{deliveryRequest.contact}</div>
                 
                 </div>
                         </div>
