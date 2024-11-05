@@ -8,12 +8,14 @@ export function BnplProductsAndServices(){
     const [cookies]=useCookies(['user'])
     const [bnplDebt,setBnplDebt]=useState('')
     const [bnplBal,setBnplBal]=useState('')
+   
     let style={padding:"5px"}
     return (<div style={{padding:"3px"}}>
-        <div class="blackBgOrangeColor">Buy Now Pay Later Products and services</div><p></p>
+        <div class="pageLabel">Buy Now Pay Later Products and services</div><p></p>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
+            <div>Allow the service provider to verify you by clicking the complete transaction button</div><p></p>
          <div style={{display:"flex",flexWrap:"wrap",paddingBottom:"10px"}}>
             <div style={style}><div class="button1"
             onClick={()=>{
@@ -34,8 +36,8 @@ setBnplBal(`Balance: ${bnplMaxCreditAmount-trader.bnpl.debt}/=`)
             
             >Check balance</div></div> <div style={style}><div>{bnplDebt}</div></div><div style={style}><div>{bnplBal}</div></div>
             </div>   
-        <ItemOnCredit label="Nalikka Restaurant" description="1 plate of all foods and beans." location="Located in Kikoni at Nalikka hostel." bill="3500" contact="0758632737"/>
-        <div style={{textAlign:"center",padding:"20px",fontSize:"20px",color:"orange"}}>More restaurants will be considered soon....</div>
+        <ItemOnCredit label="Nalikka Hostel Restaurant" description="1 plate of any combination of food that you wish with either beans or gnuts." location="Located in Kikoni at Nalikka hostel." bill="3500" contact="0752217435"/>
+        <div style={{textAlign:"center",padding:"20px",fontSize:"20px"}}>More restaurants will be considered soon....</div>
         </div>
         <div class="col-md-3"></div>
     </div>

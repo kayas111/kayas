@@ -8,14 +8,14 @@ export function ItemOnCredit(props){
 const [status,setStatus]=useState('')
     return(<div style={{padding:"5px"}}>
 
-<div style={{boxShadow:"0px 0px 4px rgba(0, 0, 0, 0.685)",border:"2px solid white",padding:"5px"}}>
+<div style={{boxShadow:"",border:"2px solid orange",padding:"5px"}}>
 <div style={{fontSize:"20px",fontWeight:"600",textAlign:"center",borderBottom:"0.5px solid grey"}}>{props.label}
-<div style={{fontSize:"13px",textAlign:"center",color:"orange"}}>Contact: {props.contact}</div>
+<div style={{fontSize:"13px",textAlign:"center"}}>Contact: {props.contact}</div>
 </div>
 
-<div style={{paddingBottom:"3px",paddingTop:"4px",textAlign:"center",fontSize:"15px"}}>{props.description}</div>
+<div style={{paddingBottom:"3px",paddingTop:"4px",textAlign:"left",fontSize:"15px",paddingBottom:"8px"}}>{props.description}</div>
 
-<div style={{fontSize:"12px",textAlign:"center"}}>{props.location}</div>
+<div style={{fontSize:"12px",textAlign:"left"}}>{props.location}</div>
 <div style={{fontSize:"20px",textAlign:"center",padding:"8px"}}> <span style={{color:"green",padding:"5px",fontWeight:"600"}}>{props.bill}/=</span></div>
 <div style={{textAlign:"center",fontSize:"18px",color:"orange",fontWeight:"600"}}>{status}</div>
 <div class="button1"
@@ -32,7 +32,7 @@ GetTradingDetails(cookies.user.contact).then(resp=>{
 let payLoad={name:cookies.user.name,contact:cookies.user.contact,bill:parseInt(props.bill),label:props.label,description:props.description}
 
 if((parseInt(props.bill)+parseInt(trader.bnpl.debt))>bnplMaxCreditAmount){
-    setStatus('Low account balance.')
+    setStatus("Low account balance. Clear your debt")
 }else{
 fetch('/completeBnplTransaction',{
                 method:"post",
@@ -40,7 +40,7 @@ fetch('/completeBnplTransaction',{
                 body:JSON.stringify(payLoad)
             }).then(resp=>resp.json()).then(status=>{
 if(status.success===true){
-setStatus('Successful')
+setStatus('Successful. Give credit to customer')
                 }else{
         setStatus('Not successful. Try again')
                 }
@@ -61,7 +61,7 @@ setStatus('Successful')
     
 }}
 >Complete transaction
-<div style={{color:"red"}}>To be completed by the restaurant owner only</div>
+<div style={{color:"red"}}>To be clicked by the restaurant owner only</div>
 </div>
     
 </div>

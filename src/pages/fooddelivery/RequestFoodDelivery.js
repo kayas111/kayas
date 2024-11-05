@@ -123,7 +123,7 @@ else{
 }
      } 
 
-    } class="form-submit-btn backgroundColorHovereffect"><span class="fa fa-envelope"></span> Send comment</div><p></p>
+    } class="button1"><span class="fa fa-envelope"></span> Send comment</div><p></p>
    
     </form>
 

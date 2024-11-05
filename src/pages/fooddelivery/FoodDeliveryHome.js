@@ -5,8 +5,8 @@ export function FoodDeliveryHome(){
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="pageLabel">Food/snacks delivery service - only around Kikoni</div>
-            <div style={{textAlign:"center",paddingBottom:"10px"}}>Get snacks or packed food delivered to you in less than 10 minutes at a delivery fee of 1,000/= or 500/= respectively.</div>
-            <div style={{color:"red",fontSize:"15px",padding:"10px",textAlign:"center"}}>Supported hostels: Nalikka, Dreamworld, Akwata Empola, Garden courts, Muhika, Edith Hetty's, Apex, Charks, Annex, Lynn, Kare, Biira</div>
+            <div style={{paddingBottom:"10px"}}>Get snacks or packed food delivered to you in less than 10 minutes at a delivery fee of 500/= or 1,000/= respectively.</div>
+            <div style={{color:"red",fontSize:"11px",paddingTop:"5px"}}>Supported hostels: Nalikka, Dreamworld, Akwata Empola, Waveny, Garden courts, Muhika, Edith Hetty's, Apex, Charks, Annex, Lynn, Kare, Biira</div><p></p>
            <div class="row">
             <div class="col-2"></div>
             <div class="col-8"><img  style={{borderRadius:"5px",padding:"10px",boxShadow:"0px 0px 10px grey",background:"white"}} src={foodImage} class=" d-block w-100" alt="..." />

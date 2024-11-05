@@ -1,6 +1,6 @@
 import React, {useEffect,useState} from 'react'
 import ControlsNav from './Controls'
-import { ToastAlert } from '../Functions'
+import { GetTradingDetails, ToastAlert } from '../Functions'
 export function TradersCare(){
     const[updateTraderDetailsFormStatus,setUpdateTraderDetailsFormStatus]=useState('')
     const[setTraderNoticeStatus,setSetTraderNoticeStatus]=useState('')
@@ -45,6 +45,29 @@ export function TradersCare(){
   <input type="text" class="form-control" autoComplete="off" name="fieldToUpdate" placeholder="Enter field to update" ></input><br></br>
   
   <div style={{display:"flex",flexWrap:"wrap"}}>
+  <div style={style}>
+  <div class="button1"
+  onClick={()=>{
+    let form=document.getElementById('updateTraderDetailsForm')
+    if(Array.from(form.contact.value.trim()).length<10){
+      ToastAlert('toastAlert2','Enter 10 digits',3000)
+    }else{
+
+      GetTradingDetails(form.contact.value.trim()).then(trader=>{
+        if(trader.bnpl.studentDetails!==undefined){
+          window.alert(`Std No: ${trader.bnpl.studentDetails.studentNo}, Course: ${trader.bnpl.studentDetails.course}  `)
+        }else{
+          ToastAlert('toastAlert2','No student details submittted yet',3000)
+        }
+      })
+
+    }
+  
+
+  }}
+  
+  >Get student details</div>
+</div>
 <div style={style}><div class="button1"
  onClick={()=>{
         

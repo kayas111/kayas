@@ -32,6 +32,7 @@ import {RegisterCare, AttendeeRegisters, SmsNotificationsCare} from './pages/adm
 const Itemsele=React.lazy(()=>import('./pages/Home'));
 // const NotFound=React.lazy(()=>import('./pages/Home'));
 const BnplHome=React.lazy(()=>import('./pages/bnpl/BnplHome'));
+const VerifyAsStudent=React.lazy(()=>import('./pages/bnpl/VerifyAsStudent'));
 const BnplPromotion=React.lazy(()=>import('./pages/bnpl/BnplPromotion'));
 const CompletePromotionTransaction=React.lazy(()=>import('./pages/bnpl/CompletePromotionTransaction'));
 const FoodDeliveryHome = React.lazy(()=>import('./pages/fooddelivery/FoodDeliveryHome'));
@@ -180,8 +181,9 @@ useEffect(()=>{
    <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/fooddelivery/fooddeliveryhome"><span class="hovereffect">Food delivery</span></a>
    </li>
+ 
    <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/bnpl/bnplpromotion"><span class="hovereffect">Food promotion</span></a>
+   <a class="hovereffect nav-link" href="/pages/bnpl/home"><span class="hovereffect">Buy Now Pay Later  </span></a>
    </li>
  <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/pubarticles/allarticles"><span class="hovereffect">Trending stories ({articlesNumb})  </span></a>
@@ -206,9 +208,7 @@ useEffect(()=>{
 
 
    </li>
-   <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/bnpl/home"><span class="hovereffect">Buy Now Pay Later  </span></a>
-   </li>
+   
    <li class="nav-item">
 <a class="hovereffect nav-link" href="/pages/followershome"><span class="hovereffect">Offline notification system</span></a> 
 
@@ -300,7 +300,8 @@ useEffect(()=>{
                let user={name:resp.details.name,contact:resp.details.contact,role:'user'}
                setCookie('user',user,setCookieOptionsObj)
              
-             window.alert("Successful")
+             window.alert("Successfully logged in")
+             window.location.href=window.location.href
          
              }
            })
@@ -343,6 +344,7 @@ useEffect(()=>{
 <Switch>
 
 <Route path="/pages/bnpl/home" exact component={BnplHome}/>
+<Route path="/pages/bnpl/verifyasstudent" exact component={VerifyAsStudent}/>
 <Route path="/pages/bnpl/productsandservices" exact component={BnplProductsAndServices}/>
 <Route path="/pages/bnpl/bnplpromotion" exact component={BnplPromotion}/>
 <Route path="/pages/bnpl/completepromotiontransaction" exact component={CompletePromotionTransaction}/>
