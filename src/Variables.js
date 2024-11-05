@@ -7,4 +7,4 @@ export const setCookieOptionsObj={
    }
 export const user={name:'Not logged in',contact:null,role:'user'}
 export const AppContext=createContext()
-export const bnplMaxCreditAmount=3500
+export const bnplMaxCreditAmount=4000

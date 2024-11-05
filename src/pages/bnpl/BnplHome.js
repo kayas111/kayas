@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import {useCookies} from 'react-cookie'
 import { IsLoggedIn, ToastAlert } from '../Functions'
+import { bnplMaxCreditAmount } from '../../Variables'
 export function BnplHome(){
 const [cookies]=useCookies(['user'])
 
@@ -16,7 +17,7 @@ let step={fontSize:"18px",fontWeight:"600"},stepContainer={border:"1px solid ora
            <div style={stepContainer}><div style={step}>Step 2 </div> Select the "Get started" button at the bottom to see available services/products on credit.</div><p></p>
           <div style={stepContainer}><div style={step}>Step 3 </div>Go to where the product/service that you want to receive is located.</div><p></p>
            <div style={stepContainer}><div style={step}>Step 4 </div>Let the product/service provider complete the transaction then you will be served.</div><p></p>
-           <div style={stepContainer}><div style={step}>Step 5 </div>The current credit limit is 1 plate (3,500 shs) which you are required to pay back after a maximum of one week from the time of receiving the credit service.</div><p></p>
+           <div style={stepContainer}><div style={step}>Step 5 </div>The current credit limit is 1 plate ({bnplMaxCreditAmount}/=) which you are required to pay back after a maximum of one week from the time of receiving the credit service.</div><p></p>
            
            <div class="button1" style={{fontSize:"15px"}}
            

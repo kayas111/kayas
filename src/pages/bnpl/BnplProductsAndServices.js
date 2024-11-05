@@ -36,7 +36,7 @@ setBnplBal(`Balance: ${bnplMaxCreditAmount-trader.bnpl.debt}/=`)
             
             >Check balance</div></div> <div style={style}><div>{bnplDebt}</div></div><div style={style}><div>{bnplBal}</div></div>
             </div>   
-        <ItemOnCredit label="Nalikka Hostel Restaurant" description="1 plate of any combination of food that you wish with either beans or gnuts." location="Located in Kikoni at Nalikka hostel." bill="3500" contact="0752217435"/>
+        <ItemOnCredit label="Nalikka Hostel Restaurant" description="1 plate of any combination of food that you wish with either beans or gnuts." location="Located in Kikoni at Nalikka hostel." bill="4000" contact="0752217435"/>
         <div style={{textAlign:"center",padding:"20px",fontSize:"20px"}}>More restaurants will be considered soon....</div>
         </div>
         <div class="col-md-3"></div>
