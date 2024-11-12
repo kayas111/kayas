@@ -31,6 +31,7 @@ import {RegisterCare, AttendeeRegisters, SmsNotificationsCare} from './pages/adm
  
 const Itemsele=React.lazy(()=>import('./pages/Home'));
 // const NotFound=React.lazy(()=>import('./pages/Home'));
+const QtoolHome=React.lazy(()=>import('./pages/qtool/QtoolHome')); 
 const BnplHome=React.lazy(()=>import('./pages/bnpl/BnplHome'));
 const VerifyAsStudent=React.lazy(()=>import('./pages/bnpl/VerifyAsStudent'));
 const BnplPromotion=React.lazy(()=>import('./pages/bnpl/BnplPromotion'));
@@ -184,6 +185,9 @@ useEffect(()=>{
  
    <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/bnpl/home"><span class="hovereffect">Buy Now Pay Later  </span></a>
+   </li>
+   <li class="nav-item">
+   <a class="hovereffect nav-link" href="/pages/qtool/qtoolhome"><span class="hovereffect">Queue service</span></a>
    </li>
  <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/pubarticles/allarticles"><span class="hovereffect">Trending stories ({articlesNumb})  </span></a>
@@ -342,7 +346,7 @@ useEffect(()=>{
 
 
 <Switch>
-
+<Route path="/pages/qtool/qtoolhome" exact component={QtoolHome}/>
 <Route path="/pages/bnpl/home" exact component={BnplHome}/>
 <Route path="/pages/bnpl/verifyasstudent" exact component={VerifyAsStudent}/>
 <Route path="/pages/bnpl/productsandservices" exact component={BnplProductsAndServices}/>

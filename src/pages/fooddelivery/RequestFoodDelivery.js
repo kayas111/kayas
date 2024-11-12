@@ -116,7 +116,7 @@ if(window.confirm("You will be charged 500/= or 1,000/= as a delivery fee, tap '
 }
       } 
 
-     } class="form-submit-btn backgroundColorHovereffect"><span class="fa fa-envelope"></span> Request</div><p></p>
+     } class="button1"><span class="fa fa-envelope"></span> Request</div><p></p>
     
      </form>
 
