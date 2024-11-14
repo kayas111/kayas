@@ -64,7 +64,7 @@ let contact=document.getElementById("loginForm").contact.value,pin=document.getE
 }
       } 
 
-     } class="form-submit-btn backgroundColorHovereffect"> Log in</div><p></p>
+     } class="button1"> Log in</div><p></p>
     
      </form></div>
 

@@ -32,6 +32,7 @@ import {RegisterCare, AttendeeRegisters, SmsNotificationsCare} from './pages/adm
 const Itemsele=React.lazy(()=>import('./pages/Home'));
 // const NotFound=React.lazy(()=>import('./pages/Home'));
 const QtoolHome=React.lazy(()=>import('./pages/qtool/QtoolHome')); 
+const RequestForClient=React.lazy(()=>import('./pages/qtool/RequestForClient')); 
 const BnplHome=React.lazy(()=>import('./pages/bnpl/BnplHome'));
 const VerifyAsStudent=React.lazy(()=>import('./pages/bnpl/VerifyAsStudent'));
 const BnplPromotion=React.lazy(()=>import('./pages/bnpl/BnplPromotion'));
@@ -40,6 +41,7 @@ const FoodDeliveryHome = React.lazy(()=>import('./pages/fooddelivery/FoodDeliver
 const RequestFoodDelivery=React.lazy(()=>import('./pages/fooddelivery/RequestFoodDelivery'));
 const FoodDeliveryRequests=React.lazy(()=>import('./pages/fooddelivery/FoodDeliveryRequests'));
 const BnplProductsAndServices=React.lazy(()=>import('./pages/bnpl/BnplProductsAndServices'));
+const AddTeller=React.lazy(()=>import('./pages/admin/qtool/AddTeller'));
 const BnplTransactions=React.lazy(()=>import('./pages/admin/bnpl/bnplTransactions'));
 const FoodDeliveryControls=React.lazy(()=>import('./pages/admin/FoodDeliveryControls'));
 const ClearBnplDebt=React.lazy(()=>import('./pages/admin/bnpl/ClearBnplDebt'));
@@ -347,6 +349,7 @@ useEffect(()=>{
 
 <Switch>
 <Route path="/pages/qtool/qtoolhome" exact component={QtoolHome}/>
+<Route path="/pages/qtool/requestforclient" exact component={RequestForClient}/>
 <Route path="/pages/bnpl/home" exact component={BnplHome}/>
 <Route path="/pages/bnpl/verifyasstudent" exact component={VerifyAsStudent}/>
 <Route path="/pages/bnpl/productsandservices" exact component={BnplProductsAndServices}/>
@@ -407,7 +410,7 @@ useEffect(()=>{
       <Route path="/pages/trading/tradinghome" component={TradingHome}/>
    
       <Route path="/pages/bids/bidshome" component={BidsHome}/>
-            
+      <Route path="/pages/admin/addteller" component={AddTeller}/>            
       <Route path="/pages/admin/controls" component={ControlsHome}/>
       <Route path="/pages/admin/marqueenews" exact component={MarqueeNews}/>
       

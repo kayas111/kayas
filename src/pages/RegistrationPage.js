@@ -88,8 +88,8 @@ pin:document.getElementById("freeRegistrationForm").pin.value
        return resp.json()}).then(res=>{
         
      let kayaserDetailsObj=res
-     ToastAlert('toastAlert1',`Successfully registered as ${kayaserDetailsObj.name}`,3000)
      
+     window.alert('Successful')
      document.getElementById("freeRegistrationForm").name.value=""
      document.getElementById("freeRegistrationForm").institution.value=""
    
