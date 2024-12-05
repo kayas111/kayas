@@ -496,6 +496,7 @@ background-color:orange;
 .pubArticleListItemContainer2{
 background-color: white;
   padding: 5px;
+  border: 1px solid orange;
 
 }
 .pubArticleListItemContainer{

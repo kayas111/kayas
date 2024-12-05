@@ -43,7 +43,7 @@ export function PubArticleComp(){//clientcomponent
       const[verificationTick,setVerificationTick]=useState('')
      const[imageDownLoadUrl,setImageDownLoadUrl]=useState('')
       
-      let opinionsReceivedFlag=0,whatsappPublicArticleShareLink=`whatsapp://send?text=*🌹KAYAS: ${articleHeadline1.trim()}*%0A___________________________%0A%0ASee details using the link below:%0A%0A${kayasDomainUrl}/pages/pubarticles/article/${articleParams.id}%0A%0A_Created by: ${articleAuthor}_`
+      let opinionsReceivedFlag=0,whatsappPublicArticleShareLink=`whatsapp://send?text=*🌹KAYAS: ${articleHeadline1.trim()}*%0A___________________________%0A%0ASee details using the link below:%0A%0A${kayasDomainUrl}/pages/pubarticles/article/${articleParams.id}%0A%0A_Created by: ${articleAuthor}_`,style={padding:"5px"}
       
      useEffect(()=>{
          
@@ -131,18 +131,30 @@ export function PubArticleComp(){//clientcomponent
                   
                     <div style={{padding:"6px"}}>
                   <div class="articleContainer">
-                  <div style={{fontSize:"23px",fontFamily:"Times New Roman",color:"black",paddingBottom:"15px"}}>{articleHeadline1}</div>
+                  <div style={{fontSize:"23px",fontFamily:"Times New Roman",color:"black",paddingBottom:"10px"}}>{articleHeadline1}</div>
                            
               <div style={{paddingBottom:"10px"}}>
-              <div class="row">
-                <div class="col-9"><div  style={{fontSize:"13px",color:"",borderBottom:"1px solid black"}}><span style={{color:"red"}}>{visits}</span> views and <span style={{color:"red"}}>{opinionsNumb}</span> comments, Article {articleParams.id} </div></div>
-                <div style={{textAlign:"right"}} class="col-3">
-                <span class="hovereffect button1"  onClick={
+              <div style={{display:"flex",flexWrap:"wrap"}}>
+
+                <div  style={style}>
+                  <div><span style={{color:"red",fontSize:"15px",fontWeight:"600"}}>{visits} views</span>  
+                {/* and <span style={{color:"red"}}>{opinionsNumb}</span> comments 
+                
+                Article {articleParams.id} 
+                */}</div> 
+                
+                </div>
+
+                <div style={style}>
+                <div class="button1"  onClick={
               ()=>{
                 window.location.href=whatsappPublicArticleShareLink
-              }}><span class="fa fa-whatsapp"></span> Share</span>
+              }}><span class="fa fa-whatsapp"></span> Share article</div>
                                
                 </div>
+
+
+
                 </div> </div>     
                       
                
@@ -160,7 +172,7 @@ export function PubArticleComp(){//clientcomponent
 <div style={{fontSize:"12px"}}>{articleInstitution} 0{articleAuthorContact}</div>
 
 </div><p></p>
-<div  style={{display:"flex",flexWrap:"wrap"}}>
+{/* <div  style={{display:"flex",flexWrap:"wrap"}}>
   
 <div style={{padding:"5px"}}>
              <div class="button1" onClick={()=>{
@@ -211,16 +223,12 @@ export function PubArticleComp(){//clientcomponent
 
 </div>
 
-  </div><p></p>
+  </div><p></p> */}
 </div>
-
-            
-                  </div>
+      </div>
 
                      <div style={{borderRadius:"10px",padding:"5px"}}>
-              
-
-                       
+                                   
             <div style={{fontSize:"12px",textAlign:"left"}} dangerouslySetInnerHTML={{__html:opinionsStatus}}/>
               <div style={{background:"#ebebeb",borderRadius:"5px"}}>{opinions}</div>
   
@@ -230,7 +238,7 @@ export function PubArticleComp(){//clientcomponent
 </div>
 
 
-<div class="col-md-12"> 
+{/* <div class="col-md-12"> 
 
 <div style={{padding:"5px"}}> 
  
@@ -288,7 +296,7 @@ ToastAlert('toastAlert1','Successful',3000)
               
 </div>
 
-</div>
+</div> */}
                   
                   </div>
                   <div class="col-md-2"></div>

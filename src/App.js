@@ -177,33 +177,30 @@ useEffect(()=>{
   
   
 
-
+ <li class="nav-item">
+<a class="hovereffect nav-link" href="/pages/register"><span class="hovereffect">Register </span></a>
+   </li>
  <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/about"><span class="hovereffect">Services by Kayas</span></a>
    </li>
-   <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/fooddelivery/fooddeliveryhome"><span class="hovereffect">Food delivery</span></a>
-   </li>
- 
-   <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/bnpl/home"><span class="hovereffect">Buy Now Pay Later  </span></a>
-   </li>
-   <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/qtool/qtoolhome"><span class="hovereffect">Queue service</span></a>
-   </li>
+      
  <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/pubarticles/allarticles"><span class="hovereffect">Trending stories ({articlesNumb})  </span></a>
    </li>
   
+
+   <li class="nav-item">
+   <a class="hovereffect nav-link" href="/pages/attendanceregs/createattendanceregister"><span class="hovereffect">Bulk SMS</span></a>
+   </li>
    <li class="nav-item">
    <a class="hovereffect nav-link"  href="/pages/pubarticles/createarticle"><span class="hovereffect">Create Article</span></a>
    </li>
    <li class="nav-item">
-<a class="hovereffect nav-link" href="/pages/register"><span class="hovereffect">Register </span></a>
+   <a class="hovereffect nav-link" href="/pages/bnpl/home"><span class="hovereffect">Buy Now Pay Later  </span></a>
    </li>
-   <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/attendanceregs/createattendanceregister"><span class="hovereffect">Bulk SMS</span></a>
-   </li>
+
+  
+  
  
    <li class="nav-item">
    <a  class="hovereffect nav-link" href="/advertise/items/0703852178"><span class="hovereffect">Brand new items</span></a>
@@ -257,13 +254,14 @@ useEffect(()=>{
    <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/brocode"><span class="hovereffect">Who is Kayas?</span></a> 
    </li>
-
-  
+ 
  
    <li class="nav-item">
    <a class="hovereffect nav-link" href="/pages/quotes"><span class="hovereffect">Quotes</span></a>
    </li>
-
+   <li class="nav-item">
+   <a class="hovereffect nav-link" href="#"><span class="hovereffect">Queue service</span></a>
+   </li>
    <li class="nav-item">
 <a class="hovereffect nav-link" href="#"><span class="hovereffect">Links</span></a> 
 </li>

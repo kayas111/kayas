@@ -90,6 +90,7 @@ pin:document.getElementById("freeRegistrationForm").pin.value
      let kayaserDetailsObj=res
      
      window.alert('Successful')
+     window.location.href=window.location.href
      document.getElementById("freeRegistrationForm").name.value=""
      document.getElementById("freeRegistrationForm").institution.value=""
    
@@ -99,8 +100,6 @@ pin:document.getElementById("freeRegistrationForm").pin.value
      fetch(`/getTradingDetails/${kayaserDetailsObj.contact}`).then(res=>res.json()).then(resp=>{
 let traderDetailsObj=resp[0]
 
-
-setStatus(`<div style='color:green;'>You have registered succesfully as ${traderDetailsObj.name}. <span style='color:red;'>Thank you.</span></div>`)
 
      })
       
