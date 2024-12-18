@@ -11,8 +11,7 @@ export function MyRegisters(){
     useEffect(()=>{
 if(IsLoggedIn(cookies)==true){
  
-  ToastAlert('toastAlert1','Please wait......',5000)
-  fetch('/getMyRegisters',{
+fetch('/getMyRegisters',{
   method:"post",
   headers:{'Content-type':'application/json'},
   body:JSON.stringify({
@@ -21,7 +20,10 @@ if(IsLoggedIn(cookies)==true){
 }).then(resp=>{
  return resp.json()}).then(resp=>{
 if(resp.length===0){
-ToastAlert('toastAlert2','You have no registers created.',3000)
+ToastAlert('toastAlert2','You have no registers. Create one',3000)
+setTimeout(()=>{
+  window.location.href='/pages/attendanceregs/createattendanceregister'
+},4000)
 
 }else{
   

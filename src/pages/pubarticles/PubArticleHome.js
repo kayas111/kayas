@@ -1,10 +1,10 @@
-import { VerifyRegistrationAndPin,ToastAlert,ListArticles, IsLoggedIn } from '../Functions';
+import {ToastAlert,ListArticles, IsLoggedIn } from '../Functions';
 import firebase from 'firebase/compat/app';
 
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import 'firebase/compat/storage';
 import {useCookies} from 'react-cookie'
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+//import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import React, {useEffect,useState} from 'react';
 
 import axios from 'axios'
@@ -16,8 +16,8 @@ firebase.initializeApp({
   storageBucket: "kayas-42321.appspot.com"
 
 })
-const storage=firebase.storage()
-const bucket=storage.ref()
+//const storage=firebase.storage()
+//const bucket=storage.ref()
 
 
 export function PubArticleSearchComp(){
@@ -40,13 +40,11 @@ setMarqueeNews(resp.map(marqueeNews=>{
 
   return(
     <div>
-      <div style={{paddingRight:"10px",paddingLeft:"10px"}}><marquee scrollamount="3" class="marquee">{marqueeNews}</marquee></div>
+      
       <div style={{padding:"5px"}}>
       <div class="PubArticleSearchCompContainer1">
         <div  style={{textAlign:"center"}}>{searchStatus}</div>
-      
-
-        <div>
+       <div>
           <input id="articleSearchValue" class="searchInputTag1" placeholder='Search for articles'
             onKeyDown={(event)=>{
           if(event.key==='Enter' || event.key==='NumpadEnter'){
@@ -81,21 +79,27 @@ setMarqueeNews(resp.map(marqueeNews=>{
 
       </div>
     </div>
+    <div style={{padding:"5px"}}><marquee scrollamount="3" class="marquee">{marqueeNews}</marquee></div>
     <div class="row" >{searchResults}</div>
     </div>
   )
 }
 
 export function ArticlesNav(props){
-  const [cookies,setCookie,removeCookie]=useCookies(['user'])
-  let style2={padding:"5px"}
+  const [cookies]=useCookies(['user'])
+  let style2={padding:"3px"}
   
     return(
   <div>
     <div style={{paddingTop:"8px",display:"flex",flexWrap:"wrap"}}>
-      <div style={style2}><div class="button1" onClick={()=>{
-              window.location.href=`/pages/pubarticles/createarticle`
-            }}><span class="hovereffect"><span class="fa fa-plus"></span> New article</span></div></div>
+      <div style={style2}>
+      <a href="/pages/pubarticles/createarticle">
+        <div class="button1" ><span ><span class="fa fa-plus"></span> New article</span></div>
+        
+        </a>
+        </div>
+
+
       <div style={style2}><div class="button1" onClick={()=>{
 
 if(IsLoggedIn(cookies)===true && parseInt(props.articleAuthorContact)===parseInt(cookies.user.contact)){
@@ -135,23 +139,28 @@ window.location.href=`/pages/pubarticles/article/${props.articleId}`
 
             
 
-            }}><span class="hovereffect"><span class="fa fa-minus"></span> Delete</span></div>  </div>
+            }}><span ><span class="fa fa-minus"></span> Delete</span></div>  </div>
 
-<div style={style2}><div class="button1" onClick={()=>{
+<div style={style2}>
+  
+  <div class="button1" onClick={()=>{
              if(IsLoggedIn(cookies)===true){
               window.location.href="/pages/pubarticles/MyArticles"
              } else{;}
             }}>
      
-<span class="hovereffect"> My Articles</span>
-</div></div>  
+     <span class="fa fa-list"></span> My articles
+</div>
+
+
+</div>  
 
       <div style={style2}><div class="button1" onClick={()=>{
          ToastAlert('toastAlert2','Not allowed',3000)
             //  window.location.href=`/pages/pubarticles/assessmyarticles`
             }}>
      
-<span class="hovereffect"> Assess</span>
+<span > Assess</span>
 </div></div>
     
         

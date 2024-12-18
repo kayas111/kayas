@@ -2,7 +2,7 @@
 
  
 export function About(){
-let v={},x={borderRadius:"2px",borderBottom:"1px solid grey",textAlign:"center",padding:"5px"},
+let v={padding:"5px"},x={border:"1.5px solid orange",textAlign:"center",padding:"5px"},
 p={textAlign:"center",fontWeight:"bold",fontSize:"17px",padding:"5px",borderRadius:"5px"}
  return( 
 
@@ -12,11 +12,12 @@ p={textAlign:"center",fontWeight:"bold",fontSize:"17px",padding:"5px",borderRadi
     <div class='col-md-2'></div>
     <div class='col-md-8'>
       
-<div  style={v} class="col-md-12">
+<div class="col-md-12">
 
-<div style={{textAlign:"center",background:"black",color:"orange",fontSize:"14px",padding:"5px"}}>
+<div class="pageLabel">
 
- Services offered by Kayas
+ Services offered by Kayas 
+ <div style={{fontSize:"10px",color:"white"}}>WhatsApp: 0703852178 </div>
     
     
 </div>
@@ -27,7 +28,7 @@ p={textAlign:"center",fontWeight:"bold",fontSize:"17px",padding:"5px",borderRadi
 <div style={x}>
 <div style={p}>Bulk SMS</div>
 <div>
-    Send an SMS messsage to many contacts at once instantly.
+    Send an SMS messsage to many contacts at once instantly. You can also get the system and send the SMS by yourself.
 </div>
 
 </div>
@@ -39,7 +40,7 @@ p={textAlign:"center",fontWeight:"bold",fontSize:"17px",padding:"5px",borderRadi
 <div style={x}>
 <div style={p}>Delivery services</div>
 <div>
-    All student room products/items can be delivered to your door step after purchase for example mattress, dressing mirrors, basins, e.t.c
+    All student room products/items e.g. mattress, dressing mirrors, basins, e.t.c can be delivered to your door step after purchase. 
 </div>
 
 </div>
@@ -57,13 +58,22 @@ p={textAlign:"center",fontWeight:"bold",fontSize:"17px",padding:"5px",borderRadi
 </div>
 </div>
 
+<div style={v}  class="col-md-12">
+<div style={x}>
+<div style={p}>Cheaper used items</div>
+<div>
+    Get good items like tables, carpets, TVs, etc being sold by students at very cheap prices. WhatsApp Kayas on 0703852178 to join the items group for updates.
+</div>
 
+</div>
+
+
+</div>
 
 
 
     </div>
-    <div class='col-md-2'>
-    </div>
+  
 
 </div>
  </div>

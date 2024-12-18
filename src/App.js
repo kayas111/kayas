@@ -164,7 +164,7 @@ useEffect(()=>{
   
  <div style={{paddingLeft:"5px"}} class ="bg-dark">
  <div class="row" style={{color:"orange",padding:"6px"}}>
- <div class="col-6 col-sm-6 col-md-10" >
+ <div class="col-6 col-sm-6 col-md-11" >
    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
 <button  style={{color:"orange",fontSize:"15px"}} class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
@@ -173,47 +173,47 @@ useEffect(()=>{
 
 <div  class="navbar-collapse justify-content-md-right collapse navB" id="navbarsExample08" >
 
- <ul  class="navbar-nav" style={{display:"flex",flexWrap:"wrap"}}>
+ <ul  class="navbar-nav" style={{display:"flex",flexWrap:"wrap",justifyContent:"center"}}>
   
   
 
  <li class="nav-item">
-<a class="hovereffect nav-link" href="/pages/register"><span class="hovereffect">Register </span></a>
+<a class="orangeHoverEffect nav-link" href="/pages/register"><span>Register </span></a>
    </li>
  <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/about"><span class="hovereffect">Services by Kayas</span></a>
+   <a class="orangeHoverEffect nav-link" href="/pages/about"><span>Services by Kayas</span></a>
    </li>
       
  <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/pubarticles/allarticles"><span class="hovereffect">Trending stories ({articlesNumb})  </span></a>
+   <a class="orangeHoverEffect nav-link" href="/pages/pubarticles/allarticles"><span>Trending stories ({articlesNumb})  </span></a>
    </li>
   
 
    <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/attendanceregs/createattendanceregister"><span class="hovereffect">Bulk SMS</span></a>
+   <a class="orangeHoverEffect nav-link" href="/pages/attendanceregs/createattendanceregister"><span>Bulk SMS</span></a>
    </li>
    <li class="nav-item">
-   <a class="hovereffect nav-link"  href="/pages/pubarticles/createarticle"><span class="hovereffect">Create Article</span></a>
+   <a class="orangeHoverEffect nav-link"  href="/pages/pubarticles/createarticle"><span>Create Article</span></a>
    </li>
    <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/bnpl/home"><span class="hovereffect">Buy Now Pay Later  </span></a>
+   <a class="orangeHoverEffect nav-link" href="/pages/bnpl/home"><span>Buy Now Pay Later  </span></a>
    </li>
 
   
   
  
    <li class="nav-item">
-   <a  class="hovereffect nav-link" href="/advertise/items/0703852178"><span class="hovereffect">Brand new items</span></a>
+   <a  class="orangeHoverEffect nav-link" href="/advertise/items/0703852178"><span>Brand new items</span></a>
    </li>
  
    <li class="nav-item">
-<a class="hovereffect nav-link" href="/pages/usedItems"><span class="hovereffect">Used items</span></a> 
+<a class="orangeHoverEffect nav-link" href="/pages/usedItems"><span>Used items</span></a> 
 
 
    </li>
    
    <li class="nav-item">
-<a class="hovereffect nav-link" href="/pages/followershome"><span class="hovereffect">Offline notification system</span></a> 
+<a class="orangeHoverEffect nav-link" href="/pages/followershome"><span>Offline notification system</span></a> 
 
 
    </li>
@@ -223,13 +223,13 @@ useEffect(()=>{
 
 
    <li class="nav-item">
-<a class="hovereffect nav-link" href="/pages/clientbusinesses/0703852178"><span class="hovereffect">More</span></a>
+<a class="orangeHoverEffect nav-link" href="/pages/clientbusinesses/0703852178"><span>More</span></a>
    </li>
   
  
   
    <li class="nav-item">
-   <a class="hovereffect nav-link"  href="#" onClick={()=>{
+   <a class="orangeHoverEffect nav-link"  href="#" onClick={()=>{
  if(cookies.user===undefined){
    ToastAlert('toastAlert2','You are not logged in',3000)
    
@@ -242,28 +242,28 @@ useEffect(()=>{
    
 
    
-   }} ><span class="hovereffect">Account</span></a>
+   }} ><span>Account</span></a>
    </li>
   
    <li class="nav-item">
-   <a class="hovereffect nav-link"  href="#"><span class="hovereffect">Loans</span></a> 
+   <a class="orangeHoverEffect nav-link"  href="#"><span>Loans</span></a> 
    </li>
    <li class="nav-item active">
-   <a class="hovereffect nav-link" href="/pages/message"><span class="hovereffect">Send message</span></a>
+   <a class="orangeHoverEffect nav-link" href="/pages/message"><span>Send message</span></a>
    </li>
    <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/brocode"><span class="hovereffect">Who is Kayas?</span></a> 
+   <a class="orangeHoverEffect nav-link" href="/pages/brocode"><span>Who is Kayas?</span></a> 
    </li>
  
  
    <li class="nav-item">
-   <a class="hovereffect nav-link" href="/pages/quotes"><span class="hovereffect">Quotes</span></a>
+   <a class="orangeHoverEffect nav-link" href="/pages/quotes"><span>Quotes</span></a>
    </li>
    <li class="nav-item">
-   <a class="hovereffect nav-link" href="#"><span class="hovereffect">Queue service</span></a>
+   <a class="orangeHoverEffect nav-link" href="#"><span>Queue service</span></a>
    </li>
    <li class="nav-item">
-<a class="hovereffect nav-link" href="#"><span class="hovereffect">Links</span></a> 
+<a class="orangeHoverEffect nav-link" href="#"><span>Links</span></a> 
 </li>
 
 
@@ -275,7 +275,7 @@ useEffect(()=>{
 </nav>
 </div>
  
-<div style={{textAlign:"right",paddingTop:"10px"}}  class="col-6 col-sm-6 col-md-2">
+<div style={{textAlign:"right",paddingTop:"10px"}}  class="col-6 col-sm-6 col-md-1">
   
   <div style={{paddingRight:"10px"}} onClick={()=> {if(cookies.user===undefined){
     let contact=window.prompt("Enter your contact")
@@ -443,7 +443,7 @@ useEffect(()=>{
       
       <Route path="/pages/followershome" exact component={FollowersHome}/>
       <Route path="/pages/following/:contact/:categoryId" exact component={FollowingComp}/>
-      <Route path="/" exact component={NotFound}/>
+      <Route path="" exact component={About}/>
       </Switch>
      
       
@@ -468,6 +468,7 @@ export function Basenavele(){
   const [egoSmsAccBal,setEgoSmsAccBal]=useState('')
   const [tradersTotalCredit,setTradersTotalCredit]=useState('')
   const [smsService,setSmsService]=useState('loading......')
+  let a=6
   useEffect(()=>{
     let tradersBal=0,egoBal=0;
     fetch('/egoSmsAccBal').then(res=>res.json()).then(async (res)=>{
@@ -503,11 +504,9 @@ export function Basenavele(){
     <div class="basenave">
       
 <div class="row">
-
-
- <div><span class="fa fa-whatsapp"> WhatsApp: 0703852178</span></div>
- <div><span class="fa fa-phone"> Telephone: 0703852178/0773367078</span></div>
- <div><span class="fa fa-envelope"> Email: kayasforyou@gmail.com</span></div>
+ <div><span class="fa fa-whatsapp"> </span> WhatsApp: 0703852178</div>
+ <div><span class="fa fa-phone"> </span> Telephone: 0703852178/0773367078</div>
+ <div><span class="fa fa-envelope"> </span> Email: kayasforyou@gmail.com</div>
 <div><span class="fa fa-copyright"></span> Copyright 2024 KAYAS.</div>
 <div>EgoBal {egoSmsAccBal}/{tradersTotalCredit} TTC</div>
 <div>Sms service <span dangerouslySetInnerHTML={{__html: smsService}}/></div>

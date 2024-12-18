@@ -5,7 +5,7 @@ import 'firebase/compat/storage';
 
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import React, {useEffect,useState} from 'react';
-import { ArticlesNav, PubArticleSearchComp} from './PubArticleHome';
+import { ArticlesNav} from './PubArticleHome';
 import AllArticles from './AllArticles';
 import {kayasDomainUrl} from '../../Variables'
 
@@ -30,7 +30,7 @@ export function PubArticleComp(){//clientcomponent
       const[articleHeadline1,setArticleHeadline1]=useState('')
       const[articleAuthor,setArticleAuthor]=useState('')
       const[articleAuthorContact,setArticleAuthorContact]=useState('')
-      const[articleBody,setArticleBody]=useState('<div style="font-size:15px;color:red;">Please wait..........<p></p></div>')
+      const[articleBody,setArticleBody]=useState('<div style="font-size:25px;color:black;">Please wait..........<p></p></div>')
       const[opinionsStatus,setOpinionsStatus]=useState('')
       const[submissionStatus,setSubmissionStatus]=useState('')
       const[opinionsNumb,setOpinionsNumb]=useState('')
@@ -124,16 +124,15 @@ export function PubArticleComp(){//clientcomponent
                                        
                      
             <div class="row">
-                  <div class="col-md-2"></div>
+                  <div class="col-md-3"></div>
                   
-                  <div  class="col-md-8">
+                  <div  class="col-md-6">
                   <ArticlesNav articleAuthorContact={articleAuthorContact} articleId={articleParams.id}/>
                   
-                    <div style={{padding:"6px"}}>
-                  <div class="articleContainer">
-                  <div style={{fontSize:"23px",fontFamily:"Times New Roman",color:"black",paddingBottom:"10px"}}>{articleHeadline1}</div>
+                 <div class="articleContainer">
+                  <div style={{fontSize:"23px",color:"black",paddingBottom:"5px"}}>{articleHeadline1}</div>
                            
-              <div style={{paddingBottom:"10px"}}>
+              <div style={{paddingBottom:"3px"}}>
               <div style={{display:"flex",flexWrap:"wrap"}}>
 
                 <div  style={style}>
@@ -156,20 +155,21 @@ export function PubArticleComp(){//clientcomponent
 
 
                 </div> </div>     
-                      
-               
-              
-              
+                                       
           
             
-<div style={{paddingTop:"3px"}}><img src={imageDownLoadUrl} class=" d-block w-100" /></div>
-           <div style={{paddingTop:"5px"}} dangerouslySetInnerHTML={{__html:articleBody}}/>
-           <div>Always keep it Kayas.</div><p></p>
+<div style={{paddingTop:"2px"}}><img src={imageDownLoadUrl} class=" d-block w-100" /></div>
+          
+          <div style={{paddingTop:"5px",fontSize:"14px"}}>
+           <div  dangerouslySetInnerHTML={{__html:articleBody}}/>
+           <div>Always keep it Kayas.
+            </div><p></p>
+           </div>
            
-                 <div style={{textAlign:"left"}}>
+                 <div style={{textAlign:"center",padding:"5px",border:"1px solid orange"}}>
 <div>Created by:</div>
-<div style={{fontSize:"15px",fontWeight:"500"}}>{articleAuthor} <span dangerouslySetInnerHTML={{__html:verificationTick}}/></div>
-<div style={{fontSize:"12px"}}>{articleInstitution} 0{articleAuthorContact}</div>
+<div style={{fontSize:"18px",fontWeight:"600"}}>{articleAuthor} <span dangerouslySetInnerHTML={{__html:verificationTick}}/></div>
+<div >{articleInstitution} 0{articleAuthorContact}</div>
 
 </div><p></p>
 {/* <div  style={{display:"flex",flexWrap:"wrap"}}>
@@ -225,9 +225,9 @@ export function PubArticleComp(){//clientcomponent
 
   </div><p></p> */}
 </div>
-      </div>
+      
 
-                     <div style={{borderRadius:"10px",padding:"5px"}}>
+                     {/* <div style={{borderRadius:"10px",padding:"5px"}}>
                                    
             <div style={{fontSize:"12px",textAlign:"left"}} dangerouslySetInnerHTML={{__html:opinionsStatus}}/>
               <div style={{background:"#ebebeb",borderRadius:"5px"}}>{opinions}</div>
@@ -235,7 +235,7 @@ export function PubArticleComp(){//clientcomponent
                           
             
 
-</div>
+</div> */}
 
 
 {/* <div class="col-md-12"> 
@@ -299,18 +299,15 @@ ToastAlert('toastAlert1','Successful',3000)
 </div> */}
                   
                   </div>
-                  <div class="col-md-2"></div>
+                  <div class="col-md-3"></div>
                   
 
                   </div>  
                  
-            
-
-           
-            
+                      
              
           
-<div style={{paddingTop:"15px"}} id="authorArticles"></div>
+<div style={{paddingTop:"5px"}} id="authorArticles"></div>
                    
           <div class="row">{authorArticles}</div>
          

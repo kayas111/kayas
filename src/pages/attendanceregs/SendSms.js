@@ -8,7 +8,7 @@ import { kayasDomainUrl } from '../../Variables';
 
 export function SendSms(){
 
-    let registerParams=useParams(),charactersPerSms=145
+    let registerParams=useParams(),charactersPerSms=149
     
      const[status,setStatus]=useState('')
      const [cookies]=useCookies(['user'])
