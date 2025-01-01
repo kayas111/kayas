@@ -20,6 +20,7 @@ export function AttendanceRegister(){
        let formActionUrl=`/pages/attendanceregs/article/`
        const[registrarName,setRegistrarName]=useState('')
        const[messageesNumb,setMessageesNumb]=useState('')
+       const[numberOfContacts,setNumberOfContacts]=useState('')
        const[arrayOfAttendees,setArrayOfAttendees]=useState([])
        const[sendToContactRegisterStatus,setSendToContactRegisterStatus]=useState('')
        const[sendToContactRegisterName,setSendToContactRegisterName]=useState('')
@@ -213,7 +214,7 @@ export function AttendanceRegister(){
   <div class="row">
   
    <div>
-   <div style={{padding:"5px",fontSize:"15px"}} dangerouslySetInnerHTML={{__html:status}}/>
+   <div style={{padding:"5px",fontSize:"15px",color:"green"}} dangerouslySetInnerHTML={{__html:status}}/>
    <div style={{display:"flex",flexWrap:"wrap"}}>
      <div style={{padding:"3px"}}>
      <div onClick={()=>{
@@ -333,21 +334,19 @@ registerDoc.attendees.forEach(attendeeObj=>{
 setMessagees(
 registerDoc.attendees.map(attendeeObj=>{
  return (<div style={{padding:"5px"}}>
-<div class="row" style={{background:"white",borderRadius:"20px"}}><div class="col-6">{attendeeObj.position}. {attendeeObj.name}</div><div class="col-6" style={{textAlign:"right"}}>
+<div class="row contactsRegisterContactRecordContainer" >
+  
+  <div class="col-6">{attendeeObj.position}. {attendeeObj.name}</div><div class="col-6" style={{textAlign:"right"}}>
 
 
 <a  onClick={()=>{
 window.location.href=`tel:0${attendeeObj.contact}`
-}}><span class="hovereffect"> <span class="fa fa-phone "></span></span></a> 0{attendeeObj.contact} <a  onClick={()=>{
-window.location.href=`https://wa.me/256${attendeeObj.contact}?text=Hello ${attendeeObj.name}, I would like to speak to you briefly. Is it okay?%0A%0AI am *${registerDoc.name.trim()}*%0A%0A____________________%0A${attendeeObj.position}`
-}}><span class="hovereffect"> <span class="fa fa-whatsapp "></span></span> </a>   </div>  </div>
+}}><span class="hovereffect"><span class="fa fa-phone"></span> Call: 0{attendeeObj.contact}</span></a></div></div>
 
 
  </div>)
 }))
-
-
-ToastAlert('toastAlert1','Successful. Scroll to see',3000)
+setNumberOfContacts(`${registerDoc.attendees.length} contacts`)
 setStatus('Successful. Scroll to see')
 
 }
@@ -468,8 +467,10 @@ setStatus('Successful. Scroll to see')
      </div>
      </form>
      
-     </div>
-     <div style={{background:"#e9e8e8",padding:"10px"}}>{messagees}</div>
+     </div><p></p>
+     <div style={{padding:"5px",fontSize:"17px",textAlign:"center",color:"black",fontWeight:"600",background:"white"}} dangerouslySetInnerHTML={{__html:numberOfContacts}}/>
+     <div style={{background:"#e9e8e8",padding:"10px"}}>
+      {messagees}</div>
      </div>
      <div class="col-md-3"></div>
         
@@ -478,11 +479,11 @@ setStatus('Successful. Scroll to see')
     
      <div class="col-md-3"></div>
      <div class='col-md-6'style={{padding:"15px"}}>  
-     <div class="label1">Transfer/share contact</div>
-     <div class="label2">Send a copy of a contact to your other register. Enter the register ID to identify the register to send to.</div>
+     <div class="label1">Send a contact from this register to another register</div>
+     <div class="label2">Send a copy of a contact to another register. Enter the register ID of the register to send to.</div>
   <form id="sendContactToRegister" >
   <div style={{paddingBottom:"8px"}}><div class="formLabel">Send contact to a register</div></div>
-     <div style={{paddingBottom:"5px"}}>This section is for the Register Admin, {registrarName} </div>
+     <div style={{paddingBottom:"5px"}}>Only for the Register Admin, {registrarName} </div>
      <div style={{paddingTop:"5px"}}>Sending to: <span style={{padding:"5px"}} dangerouslySetInnerHTML={{__html:sendToContactRegisterName}}/> </div>
      <div class="mb-3">
  <input type="hidden" class="form-control" autoComplete="off" name="registrarContact" defaultValue={registrarContact} ></input>
@@ -512,7 +513,7 @@ setStatus('Successful. Scroll to see')
  })
    }
  }></input> <br></br>
- <div class="formInputLabel">Enter a position corresponding to the contact e.g. 1,2,3...</div>
+ <div class="formInputLabel">Position of the contact in this register (e.g. 1,2,3,...)</div>
  <input type="text" class="form-control" autoComplete="off" name="contactPosition" ></input> 
       </div>
      

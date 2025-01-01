@@ -34,6 +34,7 @@ export function ListArticles(ArrayOfArticles){
   <div class="pubArticleListItemHeadline">{articleObject.headline1}</div>
   <div class="pubArticleListItemViewsAndVisits">
         <div>{articleObject.visits} views | Article {articleObject.id}</div>
+       
         <div>Created by {articleObject.author} 0{articleObject.contact}</div>
         </div>
   

@@ -190,7 +190,7 @@ useEffect(()=>{
   
 
    <li class="nav-item">
-   <a class="orangeHoverEffect nav-link" href="/pages/attendanceregs/createattendanceregister"><span>Bulk SMS</span></a>
+   <a class="orangeHoverEffect nav-link" href="/pages/attendanceregs/createattendanceregister"><span>Contacts</span></a>
    </li>
    <li class="nav-item">
    <a class="orangeHoverEffect nav-link"  href="/pages/pubarticles/createarticle"><span>Create Article</span></a>

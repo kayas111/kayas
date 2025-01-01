@@ -61,14 +61,19 @@ if(IsLoggedIn(cookies)===true){
    
             return(<div>
                 <p></p>
-                <div class="blackBgOrangeColor">My Articles</div>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6"><div class="blackBgOrangeColor">Your articles</div></div>
+                    <div class="col-md-3"></div>
+                </div>
+                
                 
                 <div style={{display:"flex",flexWrap:"wrap",padding:"5px"}}>
-                  <div >
+                
                   <div class="button1" onClick={()=>{
-                        window.location.href=`whatsapp://send?text=*Trending stories*%0A___________________________%0A%0ATap the link below for details:%0A%0A${kayasDomainUrl}/pages/pubarticles/sharemyarticles/${cookies.user.contact}`
+                        window.location.href=`whatsapp://send?text=*Trending stories*%0A%0ATap the link below for details:%0A%0A${kayasDomainUrl}/pages/pubarticles/sharemyarticles/${cookies.user.contact}`
                     }}><span class="fa fa-whatsapp"></span> Share all articles through WhatsApp</div>
-                  </div>
+                  
                 </div>
                 
                 <div class="row">{myArticles}</div>

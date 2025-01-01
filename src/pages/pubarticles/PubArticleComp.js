@@ -43,7 +43,7 @@ export function PubArticleComp(){//clientcomponent
       const[verificationTick,setVerificationTick]=useState('')
      const[imageDownLoadUrl,setImageDownLoadUrl]=useState('')
       
-      let opinionsReceivedFlag=0,whatsappPublicArticleShareLink=`whatsapp://send?text=*🌹KAYAS: ${articleHeadline1.trim()}*%0A___________________________%0A%0ASee details using the link below:%0A%0A${kayasDomainUrl}/pages/pubarticles/article/${articleParams.id}%0A%0A_Created by: ${articleAuthor}_`,style={padding:"5px"}
+      let opinionsReceivedFlag=0,whatsappPublicArticleShareLink=`whatsapp://send?text=*${articleHeadline1.trim()}*%0ASee details below. Tap the link:%0A%0A${kayasDomainUrl}/pages/pubarticles/article/${articleParams.id}%0A%0A_Created by: ${articleAuthor}_`,style={padding:"5px"}
       
      useEffect(()=>{
          

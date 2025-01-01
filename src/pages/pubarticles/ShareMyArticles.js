@@ -28,7 +28,7 @@ export function ShareMyArticles(props){
           
           }else{
             let firstArticle=resp[0]
-            setAuthorName(firstArticle.author)
+            setAuthorName(`Stories by ${firstArticle.author}`)
           resp.reverse()
           setMyArticles(ListArticles(resp))
           
@@ -63,8 +63,12 @@ export function ShareMyArticles(props){
    
             return(<div>
       <p></p>
-  <div class="blackBgOrangeColor">Stories by {authorName}</div>
-  <p></p>
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6"> <div style={{padding:"5px",fontSize:"18px",textAlign:"center",color:"black"}} dangerouslySetInnerHTML={{ __html: authorName }}/></div>
+        <div class="col-md-3"></div>
+      </div>
+
   <div class="row">{myArticles}</div>
    
     
