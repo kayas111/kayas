@@ -2,8 +2,7 @@ import {ToastAlert,IsLoggedIn } from '../Functions';
 import firebase from 'firebase/compat/app';
 import { ArticlesNav} from './PubArticleHome';
 import {useCookies} from 'react-cookie'
-import MyArticles from './MyArticles';
-import AllArticles from './AllArticles';
+
 import 'firebase/compat/storage';
 
 import React, {useState,useEffect} from 'react';
@@ -29,13 +28,19 @@ export function CreateArticle(){
 useEffect(()=>{
  if(IsLoggedIn(cookies)===true){;}else{;}
 
-
-
-
 },[])
    
-function CreateArticle(){     
-  setStatus("<div style='color:green;'>Creating please wait ......</div>") 
+function CreateArticle(){   
+  setStatus("<div style='color:orange;'>Initializing.........</div>")
+  setTimeout(()=>{
+    setStatus("<div style='color:orange;'>Gathering requirements.................</div>")
+    setTimeout(()=>{
+      setStatus("<div style='color:orange;'>Creating...........................</div>")
+  
+    },5000)
+  },5000)
+
+   
   fetch(`/getTradingDetails/${parseInt(cookies.user.contact)}`).then(res=>res.json()).then(resp=>{
 
   let traderDetailsObj=resp[0]
@@ -71,9 +76,8 @@ function CreateArticle(){
       
   if(imageFile===undefined){
     window.location.href=`/pages/pubarticles/article/${res.id}`
-    ToastAlert('toastAlert1','Successful. Please wait....',3000)
+    ToastAlert('toastAlert1','Finalizing......',5000)
     }else{
-  
       let value=0;
       setInterval(()=>{
         if(value!==94){
@@ -82,8 +86,8 @@ function CreateArticle(){
       
         }else{;}
        
-      },400)
-      setStatus(`<div style='color:green;'>Saving image.......</div>`) 
+      },450)
+      setStatus(`<div style='color:orange;'>Uploading image..........</div>`) 
   
     let imageName=`pubArticleImage_${responseObject.id}`
      let imageRef= bucket.child(`pubArticleImages/${imageName}`)
@@ -98,9 +102,9 @@ function CreateArticle(){
         headers:{'Content-type':'application/json'},
         body:JSON.stringify({contact:parseInt(responseObject.contact),articleId:responseObject.id,imageDownLoadUrl:imageDownLoadUrl})
     }).then(resp=>{
-        setStatus(`<div style='color:green;'>Image saved</div>`) 
+        setStatus(`<div style='color:orange;'>Image saved</div>`) 
         window.location.href=`/pages/pubarticles/article/${res.id}`
-        ToastAlert('toastAlert1','Successful. Please wait....',3000)
+        ToastAlert('toastAlert1','Finalizing......',5000)
      })
      
              
@@ -175,7 +179,7 @@ function CreateArticle(){
    
     </div>
      
-     <div style={{fontSize:"15px"}} dangerouslySetInnerHTML={{__html:status}}/>
+     <div style={{fontSize:"15px",fontWeight:"600"}} dangerouslySetInnerHTML={{__html:status}}/>
      <progress value={progressBarValue} max="100"  style={{width:"100%",color:"red"}}/>
      <div   onClick={
      
@@ -218,9 +222,7 @@ function CreateArticle(){
      
      </div>
 <div class='col-md-3'></div>
-<div class='col-md-3'></div>
-<div class="col-md-6"><MyArticles /></div>
-<div class='col-md-3'></div>
+
 
       </div>
          

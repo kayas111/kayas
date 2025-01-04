@@ -1,3 +1,5 @@
+import { ArticlesNav } from "./pubarticles/PubArticleHome";
+import { kayasDomainUrl } from "../Variables";
 export function SuspenseComponent(){
   return(
     <div class="SuspenseContainer">
@@ -19,33 +21,155 @@ return false;
 
 
 }
-export function ListArticles(ArrayOfArticles){
-  return (
+
+
+export async function ListOtherAuthorArticles(ArrayOfArticles,currentArticleId){
+  let authorContact= ArrayOfArticles.filter(article=>article.id===parseInt(currentArticleId))[0].contact
+  
+    let otherAuthorArticles=ArrayOfArticles.filter(article=>(article.contact===authorContact && article.id!==parseInt(currentArticleId))).reverse()
+   
+ return (ListArticles(otherAuthorArticles))
+  
     
-    ArrayOfArticles.map((articleObject)=>{
-      return(
-      <div class="col-md-4" onClick={()=>{
-        window.location.href=`/pages/pubarticles/article/${articleObject.id}`
-      }}>
+    }
+  
+    export function ListOtherArticles(ArrayOfArticles,currentArticleId){
+     
+     
+     
+      let authorContact= ArrayOfArticles.filter(article=>article.id===parseInt(currentArticleId))[0].contact
+    let otherArticles=ArrayOfArticles.filter(article=>article.contact!==authorContact).reverse()
+ return (ListArticles(otherArticles))
+      
         
-        <div class="pubArticleListItemContainer">
-        <div class="pubArticleListItemContainer2 backgroundColorHoverEffect3">
-  <div class="pubArticleListItemInstitution">{articleObject.institution}</div>
-  <div class="pubArticleListItemHeadline">{articleObject.headline1}</div>
-  <div class="pubArticleListItemViewsAndVisits">
-        <div>{articleObject.visits} views | Article {articleObject.id}</div>
+        }
+      
+
+
+export function ListAuthorArticlesPlusOthers(ArrayOfArticles,currentArticleId){
+let authorContact= ArrayOfArticles.filter(article=>article.id===parseInt(currentArticleId))[0].contact
+
+  let otherAuthorArticles=ArrayOfArticles.filter(article=>(article.contact===authorContact && article.id!==parseInt(currentArticleId))).reverse()
+  let otherArticles=ArrayOfArticles.filter(article=>article.contact!==authorContact).reverse()
+  return (ListArticles(otherAuthorArticles.concat(otherArticles)))
+
+  
+  }
+
+
+
+export function ListArticles(ArrayOfArticles){
+let style={padding:"5px"},verificationTick
+  // return (
+    
+  //   ArrayOfArticles.map((articleObject)=>{
+  //     return(
+  //     <div class="col-md-4" onClick={()=>{
+  //       window.location.href=`/pages/pubarticles/article/${articleObject.id}`
+  //     }}>
+        
+  //       <div class="pubArticleListItemContainer">
+  //       <div class="pubArticleListItemContainer2 backgroundColorHoverEffect3">
+  // <div class="pubArticleListItemInstitution">{articleObject.institution}</div>
+  // <div class="pubArticleListItemHeadline">{articleObject.headline1}</div>
+  // <div class="pubArticleListItemViewsAndVisits">
+  //       <div>{articleObject.visits} views | Article {articleObject.id}</div>
        
-        <div>Created by {articleObject.author} 0{articleObject.contact}</div>
+  //       <div>Created by {articleObject.author} 0{articleObject.contact}</div>
+  //       </div>
+  
+  
+  // </div>
+  //     </div>
+      
+      
+  //     </div>
+      
+  //     )})
+      
+      
+  //     )
+  return (
+    ArrayOfArticles.map(article=>{
+      let whatsappPublicArticleShareLink=`whatsapp://send?text=*${article.headline1.trim()}*%0ASee details below. Tap the link:%0A%0A${kayasDomainUrl}/pages/pubarticles/article/${article.id}%0A%0A_Created by: ${article.author}_`
+      
+      return(
+      <div>
+                                       
+                     
+  <div class="row">
+        <div class="col-md-3"></div>
+        
+        <div  class="col-md-6">
+        
+        
+       <div class="articleContainer">
+        <div class="articleContainer2">
+        <ArticlesNav articleAuthorContact={article.contact} articleId={article.id}/>  
+        <div class="articleHeadline" >{article.headline1}</div>
+               
+        <div style={{paddingBottom:"3px"}}>
+        <div style={{display:"flex",flexWrap:"wrap"}}>
+          <div  style={style}>
+            <div><span style={{color:"red",fontSize:"15px",fontWeight:"600"}}>{article.visits}</span>  
+          </div> 
+          
+          </div>
+    
+          <div style={style}>
+          <div class="button1"  onClick={
+        ()=>{
+         window.location.href=whatsappPublicArticleShareLink
+        }}><span class="fa fa-whatsapp"></span> Share article</div>
+                         
+          </div><p></p>
+     
+    
+    
+          </div>
+          <div style={{paddingTop:"5px"}}>
+        <div style={{fontSize:"12px"}}> Created by {article.author} (0{article.contact}) <span dangerouslySetInnerHTML={{__html:verificationTick}}/>
+        <div >{article.institution} </div>
         </div>
-  
-  
+    
+    
+    </div><p></p>
+          
+          
+           </div>   
+          
+           
+    <div style={{paddingTop:"2px"}}><img src={article.imageDownLoadUrl} class=" d-block w-100" /></div>
+    
+    <div style={{paddingTop:"5px",fontSize:"14px"}}><p></p>
+     <div  dangerouslySetInnerHTML={{__html:article.body}}/>
+     <div>Always keep it Kayas.
+      </div><p></p>
+     </div>
+     
+           
+    
+        </div>
+       </div>
+
+
+        
+        </div>
+        <div class="col-md-3"></div>
+        
+
+        </div>  
+       
+            
+   
+
+            
+
+
   </div>
-      </div></div>
-      
-      )})
-      
-      
-      )
+    
+    )})
+  )
   }
 export function getFormData(event){
   event.preventDefault();

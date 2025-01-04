@@ -1,4 +1,4 @@
-import { VerifyRegistrationAndPin,ToastAlert,ListArticles } from '../Functions';
+import { VerifyRegistrationAndPin,ToastAlert,ListArticles,ListOtherAuthorArticles,ListOtherArticles} from '../Functions';
 import firebase from 'firebase/compat/app';
 
 import 'firebase/compat/storage';
@@ -24,53 +24,41 @@ const bucket=storage.ref()
 
 export function PubArticleComp(){//clientcomponent
     let articleParams=useParams()
+    
       let formActionUrl=`/pages/pubarticles/article/${articleParams.id}`
       const[visits,setVisits]=useState('')
       const[opinions,setOpinions]=useState('')
       const[articleHeadline1,setArticleHeadline1]=useState('')
       const[articleAuthor,setArticleAuthor]=useState('')
       const[articleAuthorContact,setArticleAuthorContact]=useState('')
-      const[articleBody,setArticleBody]=useState('<div style="font-size:25px;color:black;">Please wait..........<p></p></div>')
+      const[articleBody,setArticleBody]=useState('<div style="font-size:23px;color:black;">Please wait..........<p></p></div>')
       const[opinionsStatus,setOpinionsStatus]=useState('')
       const[submissionStatus,setSubmissionStatus]=useState('')
       const[opinionsNumb,setOpinionsNumb]=useState('')
       const[articleInstitution,setArticleInstitution]=useState('')
       const[articleDoc,setArticleDoc]=useState('')
       const [details,setDetails]=useState()
-      const[authorArticles,setAuthorArticles]=useState(<div style={{paddingLeft:"15px",fontSize:"20px",color:"green",textAlign:"center"}}>
-      More stories loading.......
+      const[authorArticles,setAuthorArticles]=useState(<div style={{padding:"15px",fontSize:"15px",textAlign:"center",color:"black"}}>
+     <span style={{fontSize:"8px",padding:"20px"}} class="spinner-border" role="status"> <span style={{opacity:"0"}}>.</span> </span> <span style={{paddingBottom:"18px"}}>More stories loading.......</span>
       </div>)
+
+const[otherArticles,setOtherArticles]=useState('')
       const[verificationTick,setVerificationTick]=useState('')
      const[imageDownLoadUrl,setImageDownLoadUrl]=useState('')
       
       let opinionsReceivedFlag=0,whatsappPublicArticleShareLink=`whatsapp://send?text=*${articleHeadline1.trim()}*%0ASee details below. Tap the link:%0A%0A${kayasDomainUrl}/pages/pubarticles/article/${articleParams.id}%0A%0A_Created by: ${articleAuthor}_`,style={padding:"5px"}
       
-     useEffect(()=>{
+     useEffect(async ()=>{
          
-        fetch(`/pubarticle/${articleParams.id}`).then(res=>res.json()).then(articleDataArray=>{
+      await  fetch(`/pubarticle/${articleParams.id}`).then(res=>res.json()).then(articleDataArray=>{
                  
           if(articleDataArray.length===0){
             setArticleHeadline1("This article does not exist or has been deleted.")
             ToastAlert('toastAlert2','Does not exit or has been deleted',3000)
-            setArticleAuthor("Unknown")
             setArticleBody('<div style="font-size:20px;color:red;">This article does not exist or has been deleted.<p></p></div>')
           }else{
+           
             let articleDocument=articleDataArray[0]
-            if(articleDataArray[0].verified==='true'){ 
-              setVerificationTick('<span class="fa fa-check"></span>')
-            }else{
-              ;
-            }
-            if(articleDataArray[0].visits===undefined){
-              setVisits(0)
-            }else{
- setVisits(articleDataArray[0].visits)
-
-            }
-            if(articleDocument.imageDownLoadUrl===undefined){;}else{
-              setImageDownLoadUrl(articleDocument.imageDownLoadUrl)
-            }
-            
             setArticleDoc(articleDataArray[0])
             
             setOpinionsNumb(articleDataArray[0].pubArticleOpinions.length)
@@ -78,39 +66,95 @@ export function PubArticleComp(){//clientcomponent
             opinionsReceivedFlag=1
             setArticleInstitution(articleDataArray[0].institution)
             setArticleHeadline1(articleDataArray[0].headline1)
-          setArticleAuthor(articleDataArray[0].author)
-          setArticleAuthorContact(articleDataArray[0].contact)
+          setArticleAuthor(`Created by ${articleDataArray[0].author} - `)
+          setArticleAuthorContact(`0${articleDataArray[0].contact}`)
           setArticleBody(articleDataArray[0].body)
-          
-          fetch('/getMyArticles',{
-            method:"post",
-            headers:{'Content-type':'application/json'},
-            body:JSON.stringify({
-              contact:parseInt(articleDataArray[0].contact),
-            })
-          }).then(resp=>{
-          
-            return resp.json()}).then(resp=>{
-             
-              if(resp.length===0){
-                setAuthorArticles(`<div style='color:red;text-align:center;'>These Articles do not exist.</div>`) 
-              
-              }else{
-                let firstArticle=resp[0]
-              resp.reverse()
-             setAuthorArticles(
-              ListArticles(resp)
-              )
+            if(articleDataArray[0].verified==='true'){ 
+              setVerificationTick('<span class="fa fa-check"></span>')
+            }else{
+              ;
+            }
 
-              }
-              
-            })
+            if(articleDataArray[0].visits===undefined){
+              setVisits(0)
+            }else{
+ setVisits(articleDataArray[0].visits)
+
+            }
+
+            if(articleDocument.imageDownLoadUrl===undefined){;}else{
+              setImageDownLoadUrl(articleDocument.imageDownLoadUrl)
+            }
+            
+           
+          
         
           }
          
           
         })
          
+      
+
+        await  fetch(`/pubarticle/${articleParams.id}`).then(res=>res.json()).then(async (articleDataArray)=>{
+                 
+          if(articleDataArray.length===0){
+           }else{
+            await  fetch('/getAllArticles').then(resp=>{
+          
+              return resp.json()}).then(async (resp)=>{
+                resp.reverse()
+                if(resp.length===0){
+                  setAuthorArticles(`<div style='color:red;text-align:center;'>These Articles do not exist.</div>`) 
+                
+                }else{
+                  
+                
+             setAuthorArticles(
+                await ListOtherAuthorArticles(resp,articleParams.id)
+                )
+    
+                }
+    
+                
+    
+    
+                
+              })  
+    
+           }})
+
+
+    
+          await  fetch(`/pubarticle/${articleParams.id}`).then(res=>res.json()).then(async (articleDataArray)=>{
+                 
+            if(articleDataArray.length===0){
+             }else{
+              await fetch('/getAllArticles').then(resp=>{
+        
+                return resp.json()}).then(async (resp)=>{
+                  resp.reverse()
+                  if(resp.length===0){
+                    setOtherArticles(`<div style='color:red;text-align:center;'>These Articles do not exist.</div>`) 
+                  
+                  }else{
+                    
+                    
+                 setOtherArticles(
+                  ListOtherArticles(resp,articleParams.id)
+                  )
+    
+                  }
+                
+                
+                })
+             }})
+
+       
+        
+
+
+
         
         },[])
       
@@ -130,101 +174,108 @@ export function PubArticleComp(){//clientcomponent
                   <ArticlesNav articleAuthorContact={articleAuthorContact} articleId={articleParams.id}/>
                   
                  <div class="articleContainer">
-                  <div style={{fontSize:"23px",color:"black",paddingBottom:"5px"}}>{articleHeadline1}</div>
+                  <div class="articleContainer2">
+                    
+                  <div class="articleHeadline">{articleHeadline1}</div>
                            
-              <div style={{paddingBottom:"3px"}}>
-              <div style={{display:"flex",flexWrap:"wrap"}}>
-
-                <div  style={style}>
-                  <div><span style={{color:"red",fontSize:"15px",fontWeight:"600"}}>{visits} views</span>  
-                {/* and <span style={{color:"red"}}>{opinionsNumb}</span> comments 
-                
-                Article {articleParams.id} 
-                */}</div> 
-                
-                </div>
-
-                <div style={style}>
-                <div class="button1"  onClick={
-              ()=>{
-                window.location.href=whatsappPublicArticleShareLink
-              }}><span class="fa fa-whatsapp"></span> Share article</div>
-                               
-                </div>
-
-
-
-                </div> </div>     
-                                       
-          
-            
-<div style={{paddingTop:"2px"}}><img src={imageDownLoadUrl} class=" d-block w-100" /></div>
-          
-          <div style={{paddingTop:"5px",fontSize:"14px"}}>
-           <div  dangerouslySetInnerHTML={{__html:articleBody}}/>
-           <div>Always keep it Kayas.
-            </div><p></p>
-           </div>
-           
-                 <div style={{textAlign:"center",padding:"5px",border:"1px solid orange"}}>
-<div>Created by:</div>
-<div style={{fontSize:"18px",fontWeight:"600"}}>{articleAuthor} <span dangerouslySetInnerHTML={{__html:verificationTick}}/></div>
-<div >{articleInstitution} 0{articleAuthorContact}</div>
-
-</div><p></p>
-{/* <div  style={{display:"flex",flexWrap:"wrap"}}>
-  
-<div style={{padding:"5px"}}>
-             <div class="button1" onClick={()=>{
-                 setOpinionsStatus("Please wait ..........")
-                setTimeout(()=>{
-               if(opinionsReceivedFlag===0){
-               setOpinionsStatus("Hope your network is okay. <span style='color:red;'>Please wait.........</span>")
-               }else{
-               ;
-               }
-               
-                },5000)
-  
-                  fetch(`/pubarticleopinions/${articleParams.id}`).then(res=>res.json()).then(res=>{
-
-                    let articleOpinionsDocument=res,opinions=articleOpinionsDocument.pubArticleOpinions,position=0
-                    opinionsReceivedFlag=1
-                
-                    
-                    opinions.forEach(opinionDoc=>{
-                      position++
-                      opinionDoc.position=position
-                    })
-                
+                           <div style={{paddingBottom:"3px"}}>
+                           <div style={{display:"flex",flexWrap:"wrap"}}>
              
-                setOpinions(opinions.map((opinionObj)=>{
-                    return (<div style={{padding:"5px"}}><div style={{padding:"5px",background:"white",textAlign:"left"}}>
-                <div style={{fontSize:"15px"}}>{opinionObj.position}. {opinionObj.name} </div>
-                <div style={{paddingLeft:"17px"}}>
-                <div style={{fontSize:"12px"}}>{opinionObj.msg}</div>
-                </div></div></div>)
-                  }))
-                
-                  setOpinionsStatus('Done. See the comments below:')
+                             <div  style={style}>
+                               <div><span style={{color:"red",fontSize:"15px",fontWeight:"600"}}>{visits}</span>  
+                             {/* and <span style={{color:"red"}}>{opinionsNumb}</span> comments 
+                             
+                             Article {articleParams.id} 
+                             */}</div> 
+                             
+                             </div>
+             
+                             <div style={style}>
+                             <div class="button1"  onClick={
+                           ()=>{
+                             window.location.href=whatsappPublicArticleShareLink
+                           }}><span class="fa fa-whatsapp"></span> Share article</div>
+                                            
+                             </div>
+                  
+             
+             
+                             </div> 
+                             
+                             <div style={{padding:"5px"}}>
+        <div style={{fontSize:"12px"}}>  {articleAuthor}  {articleAuthorContact} <span dangerouslySetInnerHTML={{__html:verificationTick}}/>
+        <div >{articleInstitution}</div>
+        </div>
+    
+    
+    </div>
+                             </div>     
+                                                    
+                       
+                         
+             <div style={{paddingTop:"1px"}}><img src={imageDownLoadUrl} class=" d-block w-100" /></div>
+                       
+                       <div style={{paddingTop:"8px",fontSize:"14px"}}>
+                        <div  dangerouslySetInnerHTML={{__html:articleBody}}/>
+                        <div>Always keep it Kayas.
+                         </div><p></p>
+                        </div>
+                        
+             {/* <div  style={{display:"flex",flexWrap:"wrap"}}>
                
-                    
-                    })           
-
+             <div style={{padding:"5px"}}>
+                          <div class="button1" onClick={()=>{
+                              setOpinionsStatus("Please wait ..........")
+                             setTimeout(()=>{
+                            if(opinionsReceivedFlag===0){
+                            setOpinionsStatus("Hope your network is okay. <span style='color:red;'>Please wait.........</span>")
+                            }else{
+                            ;
+                            }
+                            
+                             },5000)
                
-                  }}>Comments ({opinionsNumb})</div>
-</div> 
-  <div style={{padding:"5px"}}>
-<div class="button1" onClick={
-              ()=>{
-                window.location.href="#authorArticles"
-              }}>  More trending stories 
-</div>
-
-</div>
-
-  </div><p></p> */}
-</div>
+                               fetch(`/pubarticleopinions/${articleParams.id}`).then(res=>res.json()).then(res=>{
+             
+                                 let articleOpinionsDocument=res,opinions=articleOpinionsDocument.pubArticleOpinions,position=0
+                                 opinionsReceivedFlag=1
+                             
+                                 
+                                 opinions.forEach(opinionDoc=>{
+                                   position++
+                                   opinionDoc.position=position
+                                 })
+                             
+                          
+                             setOpinions(opinions.map((opinionObj)=>{
+                                 return (<div style={{padding:"5px"}}><div style={{padding:"5px",background:"white",textAlign:"left"}}>
+                             <div style={{fontSize:"15px"}}>{opinionObj.position}. {opinionObj.name} </div>
+                             <div style={{paddingLeft:"17px"}}>
+                             <div style={{fontSize:"12px"}}>{opinionObj.msg}</div>
+                             </div></div></div>)
+                               }))
+                             
+                               setOpinionsStatus('Done. See the comments below:')
+                            
+                                 
+                                 })           
+             
+                            
+                               }}>Comments ({opinionsNumb})</div>
+             </div> 
+               <div style={{padding:"5px"}}>
+             <div class="button1" onClick={
+                           ()=>{
+                             window.location.href="#authorArticles"
+                           }}>  More trending stories 
+             </div>
+             
+             </div>
+             
+               </div><p></p> */}
+             
+                  </div>
+                 </div>
       
 
                      {/* <div style={{borderRadius:"10px",padding:"5px"}}>
@@ -304,15 +355,13 @@ ToastAlert('toastAlert1','Successful',3000)
 
                   </div>  
                  
-                      
-             
           
-<div style={{paddingTop:"5px"}} id="authorArticles"></div>
+<div style={{paddingTop:"0px"}} id="authorArticles"></div>
                    
           <div class="row">{authorArticles}</div>
-         
-                
-          <AllArticles/>
+          <div class="row">{otherArticles}</div>
+                      
+          
       
             </div>
               

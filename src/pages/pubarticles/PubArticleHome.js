@@ -139,7 +139,7 @@ window.location.href=`/pages/pubarticles/article/${props.articleId}`
 
             
 
-            }}><span ><span class="fa fa-minus"></span> Delete</span></div>  </div>
+            }}><span ><span class="fa fa-trash"></span> Delete</span></div>  </div>
 
 <div style={style2}>
   
@@ -171,7 +171,7 @@ window.location.href=`/pages/pubarticles/article/${props.articleId}`
             </div>
 
 
-<div><PubArticleSearchComp/></div>
+{/* <div><PubArticleSearchComp/></div> */}
 
             </div>
   
