@@ -30,7 +30,8 @@ useEffect(()=>{
 
 },[])
    
-function CreateArticle(){   
+async function  CreateArticle(){   
+  
   setStatus("<div style='color:orange;'>Initializing.........</div>")
   setTimeout(()=>{
     setStatus("<div style='color:orange;'>Gathering requirements.................</div>")
@@ -39,94 +40,117 @@ function CreateArticle(){
   
     },5000)
   },5000)
-
+  
+  
    
-  fetch(`/getTradingDetails/${parseInt(cookies.user.contact)}`).then(res=>res.json()).then(resp=>{
+  let traderDetailsObj=await fetch(`/getTradingDetails/${parseInt(cookies.user.contact)}`).then(res=>res.json()).then(resp=>{
+  return resp[0]
+            })
+ 
+if(traderDetailsObj.permissionTokensObj.createPubArticleTokens<1 || 
+              traderDetailsObj.permissionTokensObj.createPubArticleTokens>1){
+                        let payLoad={
+                          headline1:document.getElementById("articleCreateForm")[0].value.trim(),
+                          institution:traderDetailsObj.institution.trim(),
+                          author:traderDetailsObj.name.trim(),
+                          contact:parseInt(traderDetailsObj.contact),
+                          body:body.trim()
+                          
+                                }  
+   
+  let responseObject= await fetch('/createArticle',{
+          method:"post",
+          headers:{'Content-type':'application/json'},
+          body:JSON.stringify(payLoad)
+      }).then(resp=>{
+          
+          return resp.json()}).then(res=>{
+            return res
+              })
 
-  let traderDetailsObj=resp[0]
-  
-     
-           if(traderDetailsObj.permissionTokensObj.createPubArticleTokens<1 || 
-            traderDetailsObj.permissionTokensObj.createPubArticleTokens>1){
-                               
-              fetch('/createArticle',{
-        method:"post",
-        headers:{'Content-type':'application/json'},
-        body:JSON.stringify({
-  headline1:document.getElementById("articleCreateForm")[0].value.trim(),
-  institution:traderDetailsObj.institution.trim(),
-  author:traderDetailsObj.name.trim(),
-  contact:parseInt(traderDetailsObj.contact),
-  body:body.trim()
-  
-        })
-    }).then(resp=>{
-        
-        return resp.json()}).then(res=>{
-          let responseObject=res
-          if(res.limitReached===1){
-  
-  ToastAlert('toastAlert2','Maximum number of articles reached. Delete some',5000)
-  }else{
-                             
-  let imageFile=document.querySelector('#pubArticleImageInputElement').files[0]  
     
-  
-            document.getElementById("articleCreateForm").articleHeadline1.value=""
-      
-  if(imageFile===undefined){
-    window.location.href=`/pages/pubarticles/article/${res.id}`
-    ToastAlert('toastAlert1','Finalizing......',5000)
+              
+            
+  if(responseObject.limitReached===1){
+    
+    ToastAlert('toastAlert2','Maximum number of articles reached. Delete some',5000)
     }else{
-      let value=0;
-      setInterval(()=>{
-        if(value!==94){
-          value+=1
-          setProgressBarValue(value)
-      
-        }else{;}
-       
-      },450)
-      setStatus(`<div style='color:orange;'>Uploading image..........</div>`) 
-  
-    let imageName=`pubArticleImage_${responseObject.id}`
-     let imageRef= bucket.child(`pubArticleImages/${imageName}`)
-     imageRef.put(imageFile).then(resp=>{
-     imageRef.getDownloadURL({
-      orderBy:'generation',limitTo:1
-     }).then(resp=>{
-     let imageDownLoadUrl=resp;
-      
-      fetch('/addPubArticleImageUrlToArticle',{
+                               
+    let imageFile= await document.querySelector('#pubArticleImageInputElement').files[0]  
+    document.getElementById("articleCreateForm").articleHeadline1.value=""
+        
+    if(imageFile===undefined){
+      window.location.href=`/pages/pubarticles/article/${responseObject.id}`
+      ToastAlert('toastAlert1','Finalizing......',5000)
+      }else{
+
+        setStatus(`<div style='color:orange;'>Uploading image..........</div>`) 
+
+
+        let value=0;
+        setInterval(()=>{
+          if(value!==94){
+            value+=1
+            setProgressBarValue(value)
+        
+          }else{;}
+         
+        },450)
+        
+    
+      let imageName=`pubArticleImage_${responseObject.id}`
+       let imageRef= bucket.child(`pubArticleImages/${imageName}`)
+     await  imageRef.put(imageFile).then(async (resp)=>{
+
+      setStatus(`<div style='color:orange;'>Getting image URL ..........</div>`)      
+let imageDownLoadUrl=await imageRef.getDownloadURL({
+        orderBy:'generation',limitTo:1
+       }).then(resp=>{
+       return resp;
+        })
+
+fetch('/addPubArticleImageUrlToArticle',{
         method:"post",
         headers:{'Content-type':'application/json'},
         body:JSON.stringify({contact:parseInt(responseObject.contact),articleId:responseObject.id,imageDownLoadUrl:imageDownLoadUrl})
     }).then(resp=>{
         setStatus(`<div style='color:orange;'>Image saved</div>`) 
-        window.location.href=`/pages/pubarticles/article/${res.id}`
+        window.location.href=`/pages/pubarticles/article/${responseObject.id}`
         ToastAlert('toastAlert1','Finalizing......',5000)
      })
-     
-             
-     })
-     })
-     
-    }
-     
+
+
+
+
+       })
        
-  }
+      }
+       
+         
+    }
+            
+        
+              
+              
           
-      })
-      
-           }
-          else if(traderDetailsObj.permissionTokensObj.createPubArticleTokens===0) {
-            ToastAlert('toastAlert2','Maximum number of articles reached. Delete some',4000)
+
+
+
+
+
+             }
+            else if(traderDetailsObj.permissionTokensObj.createPubArticleTokens===0) {
+              ToastAlert('toastAlert2','Maximum number of articles reached. Delete some',4000)
+            }
+            else{
+              ToastAlert('toastAlert2','Error, try again',3000)
+            }            
+
+
+
+
+          
           }
-          else{
-            ToastAlert('toastAlert2','Error, try again',3000)
-          }
-  
-           })}
 
     return (<div>
            
@@ -180,7 +204,7 @@ function CreateArticle(){
     </div>
      
      <div style={{fontSize:"15px",fontWeight:"600"}} dangerouslySetInnerHTML={{__html:status}}/>
-     <progress value={progressBarValue} max="100"  style={{width:"100%",color:"red"}}/>
+     <progress value={progressBarValue} max="100"  style={{width:"100%"}}/>
      <div   onClick={
      
        ()=>{

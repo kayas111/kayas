@@ -126,12 +126,25 @@ background-color:rgb(228, 226, 226);
   background-color:rgb(255, 254, 254);
  }
  .articleHeadline{
-  font-size:22px;
+  font-size:21px;
   padding-top: 10px;
   font-weight: 600;
   
  }
+.candName{
+  font-size: 20px;
+  font-weight: 500;
+}
 
+.candContainer1{
+  padding:5px;
+}
+
+
+.candContainer2{
+  border:1px solid orange;
+  padding:5px;
+}
 .hoverEffectUnderline:hover{
   text-decoration:underline;
   color:red;
@@ -474,20 +487,26 @@ padding:3px;
   color:#5a5a5a
 }
 .pageLabel{
-  background-color: black;
-  color:orange;
-  text-align: center;
-  font-size: 15px;
-  padding:8px;
+  
+  
+  
+  font-size:20px;
+  
 }
 .button1{
   background-color:orange;
-  padding:3px;
+  padding:4px;
   font-size: 11px;
   color: black;
   border-radius: 2px;
   text-align: center;
   
+}
+.status{
+  color:orange;
+  font-weight: 600;
+  text-align: center;
+  font-size: 14px;
 }
 .button1:hover{
   

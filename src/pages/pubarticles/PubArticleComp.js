@@ -1,12 +1,12 @@
-import { VerifyRegistrationAndPin,ToastAlert,ListArticles,ListOtherAuthorArticles,ListOtherArticles} from '../Functions';
+import { VerifyRegistrationAndPin,ToastAlert,ListArticles,ListOtherAuthorArticles,ListOtherArticles, IsLoggedIn, LogIn, GetTradingDetails, DebitTraderAccountBalance} from '../Functions';
 import firebase from 'firebase/compat/app';
-
+import { useCookies } from 'react-cookie';
 import 'firebase/compat/storage';
 
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import React, {useEffect,useState} from 'react';
 import { ArticlesNav} from './PubArticleHome';
-import AllArticles from './AllArticles';
+
 import {kayasDomainUrl} from '../../Variables'
 
 firebase.initializeApp({
@@ -20,11 +20,16 @@ const storage=firebase.storage()
 const bucket=storage.ref()
 
 
+export function UpdateNumberOfArticleVisits(articleId,valueToAdd){
+  fetch(`/updateNumberOfArticleVisits/${articleId}/${valueToAdd}`).then(res=>res.json()).then(resp=>{
+    ;
+  }) 
 
+}
 
 export function PubArticleComp(){//clientcomponent
     let articleParams=useParams()
-    
+    const [cookies,setCookie,removeCookie]=useCookies(['user'])
       let formActionUrl=`/pages/pubarticles/article/${articleParams.id}`
       const[visits,setVisits]=useState('')
       const[opinions,setOpinions]=useState('')
@@ -46,10 +51,10 @@ const[otherArticles,setOtherArticles]=useState('')
       const[verificationTick,setVerificationTick]=useState('')
      const[imageDownLoadUrl,setImageDownLoadUrl]=useState('')
       
-      let opinionsReceivedFlag=0,whatsappPublicArticleShareLink=`whatsapp://send?text=*${articleHeadline1.trim()}*%0ASee details below. Tap the link:%0A%0A${kayasDomainUrl}/pages/pubarticles/article/${articleParams.id}%0A%0A_Created by: ${articleAuthor}_`,style={padding:"5px"}
+      let opinionsReceivedFlag=0,whatsappPublicArticleShareLink=`whatsapp://send?text=*${articleHeadline1.trim()}*%0ASee details below. Tap the link:%0A%0A${kayasDomainUrl}/pages/pubarticles/article/${articleParams.id}%0A%0A${articleAuthor}`,style={padding:"5px"}
       
      useEffect(async ()=>{
-         
+        
       await  fetch(`/pubarticle/${articleParams.id}`).then(res=>res.json()).then(articleDataArray=>{
                  
           if(articleDataArray.length===0){
@@ -66,7 +71,7 @@ const[otherArticles,setOtherArticles]=useState('')
             opinionsReceivedFlag=1
             setArticleInstitution(articleDataArray[0].institution)
             setArticleHeadline1(articleDataArray[0].headline1)
-          setArticleAuthor(`Created by ${articleDataArray[0].author} - `)
+          setArticleAuthor(`Created by ${articleDataArray[0].author}`)
           setArticleAuthorContact(`0${articleDataArray[0].contact}`)
           setArticleBody(articleDataArray[0].body)
             if(articleDataArray[0].verified==='true'){ 
@@ -87,7 +92,51 @@ const[otherArticles,setOtherArticles]=useState('')
             }
             
            
-          
+            UpdateNumberOfArticleVisits(articleDocument.id,1) 
+
+            
+GetTradingDetails(articleDocument.contact).then(resp=>{
+  let trader=resp,viewCost=70
+  
+  if(trader.permissionTokensObj.displayArticlesAtFreeCost==true){
+    ;
+  }else{
+   if(IsLoggedIn(cookies)==true){
+GetTradingDetails(cookies.user.contact).then(resp=>{
+  let user=resp
+  if(user.accBal<viewCost){
+  
+    if(window.confirm('Low account balance. Would you love to top up?')==true){
+    window.location.href=`/pages/deposit`
+   }else{
+     window.location.href='/pages/about'
+   }
+   }else{
+     
+    if(user.contact==articleDocument.contact){;}else{
+      DebitTraderAccountBalance(user.contact,viewCost)
+    }
+    
+   }
+})
+
+
+            }else{
+            setTimeout(()=>{
+             if(window.confirm(`Click 'OK' because you must be logged in and have atleast ${viewCost}/= on your Kayas account in order to view this article`)==true){
+               LogIn(cookies,setCookie)
+             }else{
+   window.location.href=window.location.href
+             }
+            },1000)
+            }
+  
+
+
+  }
+})
+
+
         
           }
          
@@ -96,7 +145,7 @@ const[otherArticles,setOtherArticles]=useState('')
          
       
 
-        await  fetch(`/pubarticle/${articleParams.id}`).then(res=>res.json()).then(async (articleDataArray)=>{
+    await  fetch(`/pubarticle/${articleParams.id}`).then(res=>res.json()).then(async (articleDataArray)=>{
                  
           if(articleDataArray.length===0){
            }else{
@@ -175,7 +224,9 @@ const[otherArticles,setOtherArticles]=useState('')
                   
                  <div class="articleContainer">
                   <div class="articleContainer2">
-                    
+                  <div  style={{paddingBottom:"1px"}}>
+            <span style={{color:"grey",fontSize:"13px",fontWeight:""}}>Article {articleParams.id}</span>  
+          </div> 
                   <div class="articleHeadline">{articleHeadline1}</div>
                            
                            <div style={{paddingBottom:"3px"}}>

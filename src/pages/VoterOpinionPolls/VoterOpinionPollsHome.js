@@ -5,11 +5,11 @@ import React, {useEffect,useState} from 'react'
 import { FreeRegistrationForm } from '../Home';
 
 export function OpinionPollsComp(props){
-  let componentParams=useParams(),data='',position=1
+  let componentParams=useParams(),data='',position=0
   
   const[opinionPollsSubmitStatus,setOpinionPollsSubmitStatus]=useState('')
-  const[candidates,setCandidates]=useState('<div style="color:red;font-size:20px;">Please wait........</div>')
-  const[opinionPolls,setOpinionPolls]=useState('')
+  const[candidates,setCandidates]=useState('Please wait........')
+  
   const[triggerUpdate,setTriggerUpdate]=useState(0)
   
   useEffect(()=>{
@@ -20,20 +20,29 @@ export function OpinionPollsComp(props){
        
     fetch(`/getOpinionPolls/${props.description}`).then(res=>res.json()).then(resp=>{
   let opinionPolls=resp,noOfOpinionPolls=resp.length,arrayOfGroupedOpinionPolls=[]
-  setOpinionPolls(opinionPolls)
+  
   props.candidates.forEach(candidate=>{
     
     arrayOfGroupedOpinionPolls.push({candVotedFor:candidate,candVotes:opinionPolls.filter(opinionObj=>opinionObj.candVotedFor===candidate)})
   })
       
-      
-    arrayOfGroupedOpinionPolls.forEach(candidateObj=>{
-     
-      data+=`<div style="border:5px solid white;"><div style="border-radius:9px;border:0.2px solid grey;padding:5px;"> <div style="font-size:20px;">${position}. ${candidateObj.candVotedFor}</div> <div> ${candidateObj.candVotes.length} votes out of ${opinionPolls.length} votes <span style="color:red;">(${(candidateObj.candVotes.length/noOfOpinionPolls)*100}%)</span></div></div></div>`
-      position++
-    })
+   
 
-    setCandidates(data)
+    setCandidates(arrayOfGroupedOpinionPolls.map(candidateObj=>{
+      position++
+      return (
+        <div class="candContainer1">
+<div class="candContainer2">
+<div class="candName">{position}. {candidateObj.candVotedFor}</div>
+        <div style={{paddingLeft:"20px"}}>{candidateObj.candVotes.length} votes out of {opinionPolls.length} votes <span style={{color:"red"}}>({(candidateObj.candVotes.length/noOfOpinionPolls)*100}%)</span></div>
+        
+        
+</div>
+       
+        </div>
+      )
+     
+    }))
   
     })
 
@@ -44,30 +53,32 @@ export function OpinionPollsComp(props){
   return(<div>
 <div style={{padding:"5px"}}>
   <div style={{opacity:"0.2",fontSize:"10px"}}>Description: {props.description}</div>
-<div style={{color:"red",fontSize:"22px",paddingBottom:"10px"}}>{props.heading1}</div>
-    <div style={{color:"green",borderBottom:"1px solid green",fontSize:"17px"}}>{props.heading2}</div><p></p>
-
+<div style={{fontSize:"22px",fontWeight:"600",paddingBottom:"10px"}}>{props.heading1}</div>
+    <div style={{borderBottom:"1px solid green",fontSize:"17px"}}>{props.heading2}</div><p></p>
+    
+    <div style={{fontSize:"15px"}}>{candidates}</div>
+    {/* <div style={{fontSize:"15px"}} dangerouslySetInnerHTML={{__html:candidates}}/> */}
   </div>   
     <div>
     
-      <div style={{fontSize:"15px"}} dangerouslySetInnerHTML={{__html:candidates}}/>
+      
       
       </div>
 
-    <div style={{padding:"30px"}}>  
+    <div style={{padding:"5px"}}>  
     
     <form id="opinionpollsForm">
     <div style={{paddingBottom:"8px"}}><div class="formLabel">Submit your opinion</div></div>
     <div class="mb-3">
     
-    <input type="text" class="form-control" autoComplete="off" name="candId" placeholder='Enter corresponding number e.g. 1,2,3,4'></input>
+    <input type="text" class="form-control" autoComplete="off" name="candId" placeholder='Enter number corresponding to a candidate e.g. 1,2,3,4'></input>
   <br></br>
   <input type="text" class="form-control" autoComplete="off" name="contact" placeholder='WhatsApp Contact e.g 0703852178'></input>
   
     </div>
     <div style={{fontSize:"17px"}} dangerouslySetInnerHTML={{__html:opinionPollsSubmitStatus}}/>
     <p></p>
-    <div style={{borderRadius:"18px"}} type="submit" onClick={
+    <div type="submit" onClick={
         ()=>{
     
 
@@ -106,7 +117,7 @@ export function OpinionPollsComp(props){
  }
         } 
 
-       } class="btn btn-success hovereffect"> Submit opinion</div>
+       } class="button1 hovereffect"> Submit opinion</div>
     </form></div>
 <div style={{color:"green",fontSize:"20px",padding:"5px"}}>Thanks for keeping it Kayas, please forward the polls to your groups too!</div>
 
@@ -123,7 +134,7 @@ export function KyuOpinionPolls(props){
 
 export function OpinionPoll1(props){
   return(<div>
-<OpinionPollsComp heading1="Kayas Guild presidential polls " heading2="Submit your opinion at the bottom, be honest. Who is fit for the guild presidential seat?" description="opinionpoll1" candidates={["Mayiga Victoria","Ssendagi Ibrahim","Ssemanda Mudathiru","Wandukwa Simon","Wacha Elizabeth Shakirah","Ssemaganda George","Efiti Andrew","Basalirwa Jonathan","Lubega Vincent Nsamba","Ayebale Ronald","Ssemuyaba Joshua Vitali","Kasekende Fulugensio","Ikemeri Allan Micah","Kabaale Hamis","Ariho Edmond","Mukwaya Muhammadi"]} />
+<OpinionPollsComp heading1="Makerere Guild presidential polls - Choose your candidate" heading2="Submit your opinion at the bottom, be honest. Who is fit for the guild presidential seat?" description="opinionpoll1" candidates={["Tukwasiibwe Martin","Bumba Erinest","Ssentamu Churchill James", "Rukundo John Baptist", "Ategyeka Prosper", "Odini Mark", "Wankya Ivan", "Basalirwa Ismail", "Mugabe Job" ]} />
   </div>)
   
 }

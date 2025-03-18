@@ -6,7 +6,7 @@ export function TradersCare(){
     const[setTraderNoticeStatus,setSetTraderNoticeStatus]=useState('')
     const[traders,setTraders]=useState('')
     const[traderNotice,setTraderNotice]=useState('')
-    let data='';
+    let data='',style={padding:"3px"}
     useEffect(()=>{
       fetch(`/collection_controls`).then(res=>res.json()).then(res=>{
        
@@ -28,7 +28,7 @@ export function TradersCare(){
       
     })
 
-    let style={padding:"3px"}
+    
     return(<div>
     <div style={{fontSize:"20px",color:"red",textAlign:"center"}}>Traders Care</div>
     
@@ -108,9 +108,11 @@ export function TradersCare(){
       </div>
       <div style={{fontSize:"15px"}} dangerouslySetInnerHTML={{__html:updateTraderDetailsFormStatus}}/>
       <div class="row">
-  <div class="col-6 col-md-6">  <div style={{borderRadius:"18px",fontSize:"12px"}} 
+  <div class="col-6 col-md-12">  
+  <div style={style}>
+  <div 
   onClick={()=>{
-        
+        let form=document.getElementById('updateTraderDetailsForm')
         if(Array.from(document.getElementById('updateTraderDetailsForm').contact.value).length<10||Array.from(document.getElementById('updateTraderDetailsForm').contact.value).length>10){
           setUpdateTraderDetailsFormStatus('<div style="color:red;">Enter contact of 10 digits</div>')
         } else if(Array.from(document.getElementById('updateTraderDetailsForm').fieldToUpdate.value).length<1){
@@ -139,11 +141,37 @@ export function TradersCare(){
         }
         
   
-      }}type="text" class="btn btn-success hovereffect">Update</div></div>
+      }}type="text" class="button1">Update</div>
+      </div>
+
+      <div style={style}> <div class="button1"
+      
+      onClick={()=>{
+        let form=document.getElementById('updateTraderDetailsForm')
+        setUpdateTraderDetailsFormStatus('Updating ........')
+        fetch('/updateTraderDetails',{
+          method:"post",
+          headers:{'Content-type':'application/json'},
+          body:JSON.stringify({method:'updateAsAdmin',argsObj:{traderContact:parseInt(form.contact.value.trim()),fieldToUpdate:'displayArticlesAtFreeCost',updateValue:'notApplicable'}
+    
+          }) 
+      }).then(res=>res.json()).then((resp)=>{
+        setUpdateTraderDetailsFormStatus(resp[0])
+    
+      ToastAlert('toastAlert1',`${resp.msg}`,3000)
+         
+      })
+
+      }}
+      
+      >Display articles at free cost</div></div>
+
+
+      </div>
   
   
       </div>
-    
+   
   
       </form>
       </div>

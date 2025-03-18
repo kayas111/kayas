@@ -21,9 +21,10 @@ let counter =arrayOfTrasactions.length
             <div class="col-8" style={{fontSize:"18px",fontWeight:"600"}}>{bnplTransaction.counter}. {bnplTransaction.name}</div>
             <div class="col-4">0{bnplTransaction.contact}</div>
             </div>   
-           <div>Business: {bnplTransaction.label}</div>
+           
            <div>Description: {bnplTransaction.description}</div>
-           <div style={{fontSize:"18px"}}>Bill: {bnplTransaction.bill}</div>
+           <div style={{fontSize:"18px"}}>Bill: {bnplTransaction.price}</div>
+           <div>Credit offered by: {bnplTransaction.creditOfferedBy}</div>
             </div>
            
         </div>)

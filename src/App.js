@@ -3,7 +3,7 @@ import {useCookies} from 'react-cookie'
 import {KyuOpinionPolls,OpinionPoll1,AcholiStudentsUnionPoll} from './pages/VoterOpinionPolls/VoterOpinionPollsHome';
 import {FollowingComp} from './pages/followers/FollowersHome'
 import About from './pages/About';
-import { VerifyRegistrationAndPin } from './pages/Functions';
+import { GetTradingDetails, VerifyRegistrationAndPin } from './pages/Functions';
 import Links from './pages/Links';
 import Maintenance from './pages/Maintenance';  
 import {BidsHome,ViewOffer} from './pages/bids/BidsHome';
@@ -28,30 +28,34 @@ import {NotFound} from './pages/Home';
 import {RegisterCare, AttendeeRegisters, SmsNotificationsCare} from './pages/admin/Controls';
 
 
+
  
 const Itemsele=React.lazy(()=>import('./pages/Home'));
 // const NotFound=React.lazy(()=>import('./pages/Home'));
 const QtoolHome=React.lazy(()=>import('./pages/qtool/QtoolHome')); 
 const RequestForClient=React.lazy(()=>import('./pages/qtool/RequestForClient')); 
 const BnplHome=React.lazy(()=>import('./pages/bnpl/BnplHome'));
-const VerifyAsStudent=React.lazy(()=>import('./pages/bnpl/VerifyAsStudent'));
-const BnplPromotion=React.lazy(()=>import('./pages/bnpl/BnplPromotion'));
+const SubmitStudentDetails=React.lazy(()=>import('./pages/bnpl/SubmitStudentDetails'));
+const RequestForCredit=React.lazy(()=>import('./pages/bnpl/RequestForCredit'));
+const ApproveCreditRequest=React.lazy(()=>import('./pages/bnpl/ApproveCreditRequest'));
 const CompletePromotionTransaction=React.lazy(()=>import('./pages/bnpl/CompletePromotionTransaction'));
 const FoodDeliveryHome = React.lazy(()=>import('./pages/fooddelivery/FoodDeliveryHome'));
 const RequestFoodDelivery=React.lazy(()=>import('./pages/fooddelivery/RequestFoodDelivery'));
 const FoodDeliveryRequests=React.lazy(()=>import('./pages/fooddelivery/FoodDeliveryRequests'));
-const BnplProductsAndServices=React.lazy(()=>import('./pages/bnpl/BnplProductsAndServices'));
+
 const AddTeller=React.lazy(()=>import('./pages/admin/qtool/AddTeller'));
 const BnplTransactions=React.lazy(()=>import('./pages/admin/bnpl/bnplTransactions'));
 const FoodDeliveryControls=React.lazy(()=>import('./pages/admin/FoodDeliveryControls'));
 const ClearBnplDebt=React.lazy(()=>import('./pages/admin/bnpl/ClearBnplDebt'));
 const LoginPage=React.lazy(()=>import('./pages/LoginPage'));
+
 const RegistrationPage=React.lazy(()=>import('./pages/RegistrationPage'));
 const FollowersHome=React.lazy(()=>import('./pages/followers/FollowersHome'));
 const SendMessage=React.lazy(()=>import('./pages/SendMessage'));
 const MarqueeNews=React.lazy(()=>import('./pages/admin/MarqueeNews'));
 const UsedItems=React.lazy(()=>import('./pages/UsedItems'));
 const Messager=React.lazy(()=>import('./pages/Messager'));
+const Deposit=React.lazy(()=>import('./pages/Deposit'));
 const SendFreeSms=React.lazy(()=>import('./pages/SendFreeSms'));
 const AllArticles=React.lazy(()=>import('./pages/pubarticles/AllArticles'));
 const CreateArticle=React.lazy(()=>import('./pages/pubarticles/CreateArticle'));
@@ -95,6 +99,7 @@ export function App() {
   const [cookies,setCookie,removeCookie]=useCookies(['user'])
   const [articlesNumb,setArticlesNumb]=useState('')
   const [userName,setUserName]=useState('')
+  const [accBal,setAccBal]=useState('')
   const [loginButtonText,setLoginButtonText]=useState('')
 
   const [reqNumb,setReqNumb]=useState('')
@@ -107,6 +112,10 @@ useEffect(()=>{
   }else{
   setUserName('Logged in')
   setLoginButtonText('Log out')
+  GetTradingDetails(cookies.user.contact).then(resp=>{
+    
+    setAccBal(`<span style="border:1px solid grey;padding:3px;"> Balance: ${resp.accBal}/= </span>`)
+  })
 }
 
     fetch('/collection_requests_number').then(res=>res.json()).then(res=>{
@@ -164,7 +173,7 @@ useEffect(()=>{
   
  <div style={{paddingLeft:"5px"}} class ="bg-dark">
  <div class="row" style={{color:"orange",padding:"6px"}}>
- <div class="col-6 col-sm-6 col-md-11" >
+ <div class="col-6 col-sm-6 col-md-10" >
    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
 <button  style={{color:"orange",fontSize:"15px"}} class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
@@ -196,7 +205,7 @@ useEffect(()=>{
    <a class="orangeHoverEffect nav-link"  href="/pages/pubarticles/createarticle"><span>Create Article</span></a>
    </li>
    <li class="nav-item">
-   <a class="orangeHoverEffect nav-link" href="/pages/bnpl/home"><span>Buy Now Pay Later  </span></a>
+   <a class="orangeHoverEffect nav-link" href="#"><span>Buy Now Pay Later  </span></a>
    </li>
 
   
@@ -211,7 +220,9 @@ useEffect(()=>{
 
 
    </li>
-   
+   <li class="nav-item">
+   <a class="orangeHoverEffect nav-link" href="/pages/deposit"><span>Deposit to account</span></a>
+   </li>
    <li class="nav-item">
 <a class="orangeHoverEffect nav-link" href="/pages/followershome"><span>Offline notification system</span></a> 
 
@@ -275,7 +286,7 @@ useEffect(()=>{
 </nav>
 </div>
  
-<div style={{textAlign:"right",paddingTop:"10px"}}  class="col-6 col-sm-6 col-md-1">
+<div style={{textAlign:"right",paddingTop:"10px"}}  class="col-6 col-sm-6 col-md-2">
   
   <div style={{paddingRight:"10px"}} onClick={()=> {if(cookies.user===undefined){
     let contact=window.prompt("Enter your contact")
@@ -324,7 +335,10 @@ useEffect(()=>{
     }}
     
     }>{loginButtonText}</div>
- 
+ <div style={{padding:"3px"}}>
+ <div dangerouslySetInnerHTML={{ __html: accBal }} />
+  
+ </div>
 
 
 
@@ -349,9 +363,10 @@ useEffect(()=>{
 <Route path="/pages/qtool/qtoolhome" exact component={QtoolHome}/>
 <Route path="/pages/qtool/requestforclient" exact component={RequestForClient}/>
 <Route path="/pages/bnpl/home" exact component={BnplHome}/>
-<Route path="/pages/bnpl/verifyasstudent" exact component={VerifyAsStudent}/>
-<Route path="/pages/bnpl/productsandservices" exact component={BnplProductsAndServices}/>
-<Route path="/pages/bnpl/bnplpromotion" exact component={BnplPromotion}/>
+<Route path="/pages/bnpl/submitstudentdetails" exact component={SubmitStudentDetails}/>
+
+<Route path="/pages/bnpl/requestforcredit" exact component={RequestForCredit}/>
+<Route path="/pages/bnpl/approvecreditrequest" exact component={ApproveCreditRequest}/>
 <Route path="/pages/bnpl/completepromotiontransaction" exact component={CompletePromotionTransaction}/>
 
 <Route path="/pages/fooddelivery/fooddeliveryhome" exact component={FoodDeliveryHome}/>
@@ -438,6 +453,7 @@ useEffect(()=>{
       <Route path="/pages/message/throughrecommender/:recommender" component={SendMessage}/>
       
       <Route path="/pages/messager" component={Messager}/>
+      <Route path="/pages/deposit" component={Deposit}/>
       
       <Route path="/pages/devs" component={Devs}/>
       

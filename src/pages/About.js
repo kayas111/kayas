@@ -17,7 +17,7 @@ p={textAlign:"center",fontWeight:"bold",fontSize:"17px",padding:"5px",borderRadi
 <div class="pageLabel">
 
  Services offered by Kayas 
- <div style={{fontSize:"10px",color:"white"}}>WhatsApp: 0703852178 </div>
+ 
     
     
 </div>

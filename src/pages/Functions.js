@@ -1,5 +1,7 @@
 import { ArticlesNav } from "./pubarticles/PubArticleHome";
 import { kayasDomainUrl } from "../Variables";
+import {useCookies} from 'react-cookie'
+import { setCookieOptionsObj,AppContext,user } from "../Variables";
 export function SuspenseComponent(){
   return(
     <div class="SuspenseContainer">
@@ -55,46 +57,79 @@ let authorContact= ArrayOfArticles.filter(article=>article.id===parseInt(current
 
   
   }
+  
+export function DebitTraderAccountBalance(contact,amount){
+  fetch('/debitTraderAccountBalance',{
+    method:"post",
+    headers:{'Content-type':'application/json'},
+    body:JSON.stringify({
+  contact:parseInt(contact),
+  amount:amount,
+    }) 
+  }).then(res=>res.json()).then(resp=>{
+    ;
+  })
+
+}
+
+export function LogIn(cookies,setCookie){
+ if(cookies.user===undefined){
+    let contact=window.prompt("Enter your contact")
+    if(contact===null){
+      window.location.href=window.location.href
+    }else if(Array.from(contact.trim()).length<10){
+      
+      ToastAlert('toastAlert2','Enter contact of 10 digits',4000)
+    }else{
+      let pin=window.prompt("Enter your Kayas PIN")
+      if(pin===null){
+        window.location.href=window.location.href
+      }else if(Array.from(pin.trim()).length<5){
+        
+        ToastAlert('toastAlert2','PIN must be 5 digits',4000)
+      } else{
+        
+        VerifyRegistrationAndPin(contact.trim(),pin.trim()).then(resp=>{
+        if(resp.registered===false){
+           window.alert('Number you entered is not registered')
+           window.location.href='/pages/about'
+          }else
+          
+             if(resp.pin===false){
+               
+               window.alert('PIN is incorrect')
+               window.location.href='/pages/about'
+             }else{
+               let user={name:resp.details.name,contact:resp.details.contact,role:'user'}
+               setCookie('user',user,setCookieOptionsObj)
+             
+             window.alert("Successfully logged in")
+             window.location.href=window.location.href
+         
+             }
+           })
+      }
 
 
+    }
+   
+    
+    }else{
+   
+    }
+
+    return 0;
+}
 
 export function ListArticles(ArrayOfArticles){
 let style={padding:"5px"},verificationTick
-  // return (
-    
-  //   ArrayOfArticles.map((articleObject)=>{
-  //     return(
-  //     <div class="col-md-4" onClick={()=>{
-  //       window.location.href=`/pages/pubarticles/article/${articleObject.id}`
-  //     }}>
-        
-  //       <div class="pubArticleListItemContainer">
-  //       <div class="pubArticleListItemContainer2 backgroundColorHoverEffect3">
-  // <div class="pubArticleListItemInstitution">{articleObject.institution}</div>
-  // <div class="pubArticleListItemHeadline">{articleObject.headline1}</div>
-  // <div class="pubArticleListItemViewsAndVisits">
-  //       <div>{articleObject.visits} views | Article {articleObject.id}</div>
-       
-  //       <div>Created by {articleObject.author} 0{articleObject.contact}</div>
-  //       </div>
-  
-  
-  // </div>
-  //     </div>
-      
-      
-  //     </div>
-      
-  //     )})
-      
-      
-  //     )
+ 
   return (
     ArrayOfArticles.map(article=>{
       let whatsappPublicArticleShareLink=`whatsapp://send?text=*${article.headline1.trim()}*%0ASee details below. Tap the link:%0A%0A${kayasDomainUrl}/pages/pubarticles/article/${article.id}%0A%0A_Created by: ${article.author}_`
       
       return(
-      <div>
+      <div key={article.id}>
                                        
                      
   <div class="row">
@@ -103,9 +138,14 @@ let style={padding:"5px"},verificationTick
         <div  class="col-md-6">
         
         
-       <div class="articleContainer">
+       <div  class="articleContainer">
         <div class="articleContainer2">
-        <ArticlesNav articleAuthorContact={article.contact} articleId={article.id}/>  
+        <div  style={{paddingBottom:"1px"}}>
+            <span style={{color:"grey",fontSize:"13px",fontWeight:""}}>Article {article.id}</span>  
+          </div> 
+        <ArticlesNav articleAuthorContact={article.contact} articleId={article.id}/> 
+
+        
         <div class="articleHeadline" >{article.headline1}</div>
                
         <div style={{paddingBottom:"3px"}}>
@@ -122,7 +162,11 @@ let style={padding:"5px"},verificationTick
          window.location.href=whatsappPublicArticleShareLink
         }}><span class="fa fa-whatsapp"></span> Share article</div>
                          
-          </div><p></p>
+          </div>
+          
+          
+          
+          <p></p>
      
     
     
@@ -271,7 +315,25 @@ setTimeout(()=>{
 
   }
 
+  export function PersistentToastAlert(alertClass,message){
+  
+    let body=document.querySelector('body'),alertDiv=document.createElement('div')
+    alertDiv.id='toastAlertDiv'
+    alertDiv.textContent=message
+    alertDiv.classList.add(alertClass)
+    body.appendChild(alertDiv)
+  
+    
+      }
+      export function closeToastAlert(){
+        let body=document.querySelector('body'), alertDiv=document.getElementById('toastAlertDiv')
+        //let body=document.querySelector('body'),alertDiv=document.createElement('div')
+        //alertDiv.textContent=message
+        //alertDiv.classList.add(alertClass)
+        body.removeChild(alertDiv)
+      
 
+      }
 
   export function globalReducerFunction(state,action){
     console.log(state)
