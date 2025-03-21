@@ -92,13 +92,14 @@ const[otherArticles,setOtherArticles]=useState('')
             }
             
            
-            UpdateNumberOfArticleVisits(articleDocument.id,1) 
+//            UpdateNumberOfArticleVisits(articleDocument.id,1) 
 
             
 GetTradingDetails(articleDocument.contact).then(resp=>{
   let trader=resp,viewCost=70
   
   if(trader.permissionTokensObj.displayArticlesAtFreeCost==true){
+    UpdateNumberOfArticleVisits(articleDocument.id,1)
     ;
   }else{
    if(IsLoggedIn(cookies)==true){
@@ -113,8 +114,11 @@ GetTradingDetails(cookies.user.contact).then(resp=>{
    }
    }else{
      
-    if(user.contact==articleDocument.contact){;}else{
+    if(user.contact==articleDocument.contact){;
+    //Dont add article visits when article author views own article
+    }else{
       DebitTraderAccountBalance(user.contact,viewCost)
+      UpdateNumberOfArticleVisits(articleDocument.id,1)
     }
     
    }

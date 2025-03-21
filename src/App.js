@@ -194,7 +194,7 @@ useEffect(()=>{
    </li>
       
  <li class="nav-item">
-   <a class="orangeHoverEffect nav-link" href="/pages/pubarticles/allarticles"><span>Trending stories ({articlesNumb})  </span></a>
+   <a class="orangeHoverEffect nav-link" href="/pages/pubarticles/allarticles"><span>Articles/stories ({articlesNumb})  </span></a>
    </li>
   
 
@@ -203,6 +203,9 @@ useEffect(()=>{
    </li>
    <li class="nav-item">
    <a class="orangeHoverEffect nav-link"  href="/pages/pubarticles/createarticle"><span>Create Article</span></a>
+   </li>
+   <li class="nav-item">
+   <a class="orangeHoverEffect nav-link"  href="/pages/pubarticles/MyArticles"><span>My Articles</span></a>
    </li>
    <li class="nav-item">
    <a class="orangeHoverEffect nav-link" href="#"><span>Buy Now Pay Later  </span></a>

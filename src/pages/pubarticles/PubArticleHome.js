@@ -103,7 +103,9 @@ export function ArticlesNav(props){
       <div style={style2}><div class="button1" onClick={()=>{
 
 if(IsLoggedIn(cookies)===true && parseInt(props.articleAuthorContact)===parseInt(cookies.user.contact)){
-  ToastAlert('toastAlert1','Deleting...........',8000)
+  
+  if(window.confirm(`Do you want to delete article ${props.articleId}`)==true){
+    ToastAlert('toastAlert1',`Deleting article ${props.articleId}........`,2000)
   const imageRef = ref(getStorage(), `pubArticleImages/pubArticleImage_${props.articleId}`);
   deleteObject(imageRef).then(() => {
   fetch('/deleteArticle',{
@@ -114,12 +116,13 @@ if(IsLoggedIn(cookies)===true && parseInt(props.articleAuthorContact)===parseInt
 
     }) 
 }).then(resp=>resp.json()).then(resp=>{
-  ToastAlert('toastAlert1','Successfully deleted',3000)
+  ToastAlert('toastAlert1',`Successfully deleted article ${props.articleId}`,3000)
 })
 }).catch((error) => {
    ;
 
- });
+ })
+  }else{;}
  
 
   
