@@ -10,18 +10,19 @@ return(
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
+            <div class="pageLabel">Deposit</div>
+            <div class="pageDescription">Deposit money to your Kayas account</div>
+      
 
-         <p></p>
-
-
+<p></p>
             <form method="post" id="depositForm">
-    <div style={{paddingBottom:"8px"}}><div class="formLabel">Deposit to your account</div></div>
+   
 
      <div class="mb-3">
      <div class="formInputLabel">Contact to deposit from</div>
      <input type="text" class="form-control" autoComplete="off" name="contact"  ></input>
    <br></br>
-  <br></br><div class="formInputLabel">Amount</div>
+  <div class="formInputLabel">Amount</div>
    <input type="text" class="form-control" autoComplete="off" name="amount" ></input>
    <br></br> 
    

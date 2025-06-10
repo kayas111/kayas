@@ -224,20 +224,30 @@ GetTradingDetails(cookies.user.contact).then(resp=>{
                   <div class="col-md-3"></div>
                   
                   <div  class="col-md-6">
-                  <ArticlesNav articleAuthorContact={articleAuthorContact} articleId={articleParams.id}/>
+                  
                   
                  <div class="articleContainer">
                   <div class="articleContainer2">
-                  <div  style={{paddingBottom:"1px"}}>
-            <span style={{color:"grey",fontSize:"13px",fontWeight:""}}>Article {articleParams.id}</span>  
-          </div> 
-                  <div class="articleHeadline">{articleHeadline1}</div>
-                           
+                  <div  style={{paddingBottom:"0px",textAlign:"left"}}>
+            <span style={{color:"grey",fontSize:"11px"}}>Article {articleParams.id} | {visits} views</span>  
+          </div>  
+          
+             <ArticlesNav articleAuthorContact={articleAuthorContact} articleId={articleParams.id}/>
+                   
+          
+          
+          <div class="articleHeadline">{articleHeadline1}</div>
                            <div style={{paddingBottom:"3px"}}>
                            <div style={{display:"flex",flexWrap:"wrap"}}>
-             
-                             <div  style={style}>
-                               <div><span style={{color:"red",fontSize:"15px",fontWeight:"600"}}>{visits}</span>  
+                           <div style={style}>
+                             <div class="button1"  onClick={
+                           ()=>{
+                             window.location.href=whatsappPublicArticleShareLink
+                           }}><span class="fa fa-whatsapp"></span> Share article</div>
+                                            
+                             </div>
+                                 <div  style={style}>
+                               <div> 
                              {/* and <span style={{color:"red"}}>{opinionsNumb}</span> comments 
                              
                              Article {articleParams.id} 
@@ -245,20 +255,14 @@ GetTradingDetails(cookies.user.contact).then(resp=>{
                              
                              </div>
              
-                             <div style={style}>
-                             <div class="button1"  onClick={
-                           ()=>{
-                             window.location.href=whatsappPublicArticleShareLink
-                           }}><span class="fa fa-whatsapp"></span> Share article</div>
-                                            
-                             </div>
+                             
                   
              
              
                              </div> 
                              
                              <div style={{padding:"5px"}}>
-        <div style={{fontSize:"12px"}}>  {articleAuthor}  {articleAuthorContact} <span dangerouslySetInnerHTML={{__html:verificationTick}}/>
+        <div style={{fontSize:"12px",borderBottom:"1px solid grey"}}>  {articleAuthor}  {articleAuthorContact} <span dangerouslySetInnerHTML={{__html:verificationTick}}/>
         <div >{articleInstitution}</div>
         </div>
     
@@ -268,9 +272,8 @@ GetTradingDetails(cookies.user.contact).then(resp=>{
                                                     
                        
                          
-             <div style={{paddingTop:"1px"}}><img src={imageDownLoadUrl} class=" d-block w-100" /></div>
-                       
-                       <div style={{paddingTop:"8px",fontSize:"14px"}}>
+             <div style={{paddingTop:"2px"}}><img src={imageDownLoadUrl} class=" d-block w-100" /></div>
+                       <div style={{paddingTop:"5px",fontSize:"14px"}}>
                         <div  dangerouslySetInnerHTML={{__html:articleBody}}/>
                         <div>Always keep it Kayas.
                          </div><p></p>

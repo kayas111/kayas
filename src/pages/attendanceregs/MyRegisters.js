@@ -32,14 +32,16 @@ resp.reverse()
 setMyRegisters(
 resp.map((register)=>{
 return(
-  <div class='col-sm-6 col-md-4'>
+  <div class='col-sm-6 col-md-3'>
     <div style={{padding:"5px"}}  onClick={()=>{
       window.location.href=`/pages/attendanceregs/${register.contact}/${register.registerId}`
     }}>
 
-<div style={{border:"1px solid orange",padding:"5px"}} class="backgroundColorHoverEffect3">
+<div class="divContainer1">
+<div  class="divContainer1Inner">
 <div style={{fontWeight:"600",fontSize:"15px"}} >{register.registerTitle}</div>
 <div>{register.attendees.length} contacts.</div>
+</div>
 </div>
 
 
@@ -49,7 +51,7 @@ return(
 })
 
 )
-ToastAlert('toastAlert1','Successful',3000)
+
 }
 
     
@@ -118,9 +120,10 @@ window.location.href=`/pages/attendanceregs/${parseInt(document.getElementById("
   
       <div style={{padding:"5px"}}>
         
-      <div id="myregisters" class="blackBgOrangeColor">My registers
-      <div style={{color:"white",textAlign:"center",fontSize:"10px"}}>A list of all registers created by you.</div> 
+      <div id="myregisters" class="pageLabel">My registers
+       
       </div>
+      <div class="pageDescription">A list of all registers created by you.</div>
       <div style={{paddingTop:"3px"}}class="row">{myRegisters}</div>
 
  

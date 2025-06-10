@@ -29,7 +29,7 @@ export function ControlsNav(){
           setMonitoredOpinionsNumb(res.length)
         })
        
-        fetch('/collection_controls').then(res=>res.json()).then(res=>{
+        fetch('/collection_controls_visits').then(res=>res.json()).then(res=>{
       
           setVisits(res[0].noOfVisits)
         })
@@ -88,6 +88,11 @@ return(
   <div class="nav-item">
   <a class="hovereffect nav-link" href="/pages/admin/fooddeliverycontrols"><span class="hovereffect">Food delivery controls</span></a>
   </div>
+
+  <div class="nav-item">
+  <a class="hovereffect nav-link" href="/pages/admin/deliveryservice/deliveryservicecontrols"><span class="hovereffect">Delivery  service controls</span></a>
+  </div>
+
   
 </div>
   </div>

@@ -5,7 +5,9 @@ return (<div class="cheapItemsPageContainer" style={{padding:"3px"}}>
     <div class="col-md-3"></div>
     <div class="col-md-6">
 
-    <div style={{padding:"10px",fontSize:"20px"}}>Used Items</div>
+    <div class="label">Used Items</div>
+    <div class="description">Buy cheap room items from students who have completed campus or from students who are selling off their items</div>
+    <p></p>
 <div class="usedItemsContainer2">
 <div class="usedItemsContainer1">
    <div style={{fontSize:"18px",fontWeight:"600"}} >About the items</div>

@@ -20,7 +20,9 @@ return(
 
   <div>
        
- <div style={{fontSize:"15px",color:"red",textAlign:"center",paddingBottom:"10px"}}><div style={{fontSize:"20px"}}>Who is Kayas? </div><div ><a style={{color:"green",fontSize:"15px"}}href="https://twitter.com/isaacopiokayas"><span class="fa fa-twitter hovereffect"> Follow Kayas on Twitter</span></a></div></div>
+ 
+  <div class="label"> Who is Kayas? </div>
+
  
  <div style={{padding:"3px"}}>
  <div style={{padding:"4px"}} class="row">

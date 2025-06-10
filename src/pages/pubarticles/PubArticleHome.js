@@ -86,12 +86,22 @@ setMarqueeNews(resp.map(marqueeNews=>{
 }
 
 export function ArticlesNav(props){
+
+  /**
+      <div style={style2}><div class="button1" onClick={()=>{
+         ToastAlert('toastAlert2','Not allowed',3000)
+            //  window.location.href=`/pages/pubarticles/assessmyarticles`
+            }}>
+     
+<span > Assess</span>
+</div></div>
+   */
   const [cookies]=useCookies(['user'])
-  let style2={padding:"3px"}
+  let style2={paddingRight:"5px"}
   
     return(
   <div>
-    <div style={{paddingTop:"8px",display:"flex",flexWrap:"wrap"}}>
+    <div style={{paddingTop:"5px",display:"flex",flexWrap:"wrap"}}>
       <div style={style2}>
       <a href="/pages/pubarticles/createarticle">
         <div class="button1" ><span ><span class="fa fa-plus"></span> New article</span></div>
@@ -100,28 +110,39 @@ export function ArticlesNav(props){
         </div>
 
 
-      <div style={style2}><div class="button1" onClick={()=>{
+      <div style={style2}><div class="button1" onClick={async ()=>{
 
 if(IsLoggedIn(cookies)===true && parseInt(props.articleAuthorContact)===parseInt(cookies.user.contact)){
   
   if(window.confirm(`Do you want to delete article ${props.articleId}`)==true){
     ToastAlert('toastAlert1',`Deleting article ${props.articleId}........`,2000)
   const imageRef = ref(getStorage(), `pubArticleImages/pubArticleImage_${props.articleId}`);
-  deleteObject(imageRef).then(() => {
+  
+  deleteObject(imageRef).then(() => {}).catch((error) => {
+   ;
+
+ }).then(resp=>{
+  
   fetch('/deleteArticle',{
     method:"post",
     headers:{'Content-type':'application/json'},
     body:JSON.stringify({
       articleId:parseInt(props.articleId)
-
+  
     }) 
-}).then(resp=>resp.json()).then(resp=>{
-  ToastAlert('toastAlert1',`Successfully deleted article ${props.articleId}`,3000)
-})
-}).catch((error) => {
-   ;
-
+  }).then(resp=>resp.json()).then(resp=>{
+    if(resp.acknowledged==true && resp.deletedCount==1){
+      ToastAlert('toastAlert1',`Deleted article ${props.articleId}`,3000)
+    }else{
+      ToastAlert('toastAlert2',`Not successful, try again`,3000)
+    }
+  
+  })
+  
  })
+
+
+
   }else{;}
  
 
@@ -149,14 +170,17 @@ if(IsLoggedIn(cookies)===true && parseInt(props.articleAuthorContact)===parseInt
 
 </div>  
 
-      <div style={style2}><div class="button1" onClick={()=>{
-         ToastAlert('toastAlert2','Not allowed',3000)
-            //  window.location.href=`/pages/pubarticles/assessmyarticles`
-            }}>
-     
-<span > Assess</span>
-</div></div>
+   
     
+<div style={style2}>
+  <a href="/pages/deposit">
+  <div class="button1">
+     
+<span > Deposit to account</span>
+</div>
+</a>
+
+</div>
         
             
             

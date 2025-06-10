@@ -2,6 +2,16 @@ import { ArticlesNav } from "./pubarticles/PubArticleHome";
 import { kayasDomainUrl } from "../Variables";
 import {useCookies} from 'react-cookie'
 import { setCookieOptionsObj,AppContext,user } from "../Variables";
+
+
+export async function Post(url,payLoad){
+ return (await fetch(url,{
+    method:"post",
+    headers:{'Content-type':'application/json'},
+    body:JSON.stringify(payLoad) 
+}).then(res=>res.json()).then(resp=>{return resp}))
+}
+
 export function SuspenseComponent(){
   return(
     <div class="SuspenseContainer">
@@ -92,7 +102,7 @@ export function LogIn(cookies,setCookie){
         VerifyRegistrationAndPin(contact.trim(),pin.trim()).then(resp=>{
         if(resp.registered===false){
            window.alert('Number you entered is not registered')
-           window.location.href='/pages/about'
+           window.location.href='/pages/register'
           }else
           
              if(resp.pin===false){
@@ -141,7 +151,7 @@ let style={padding:"5px"},verificationTick
        <div  class="articleContainer">
         <div class="articleContainer2">
         <div  style={{paddingBottom:"1px"}}>
-            <span style={{color:"grey",fontSize:"13px",fontWeight:""}}>Article {article.id}</span>  
+            <span style={{color:"grey",fontSize:"11px",fontWeight:""}}>Article {article.id} | {article.visits} views</span>  
           </div> 
         <ArticlesNav articleAuthorContact={article.contact} articleId={article.id}/> 
 
@@ -150,11 +160,7 @@ let style={padding:"5px"},verificationTick
                
         <div style={{paddingBottom:"3px"}}>
         <div style={{display:"flex",flexWrap:"wrap"}}>
-          <div  style={style}>
-            <div><span style={{color:"red",fontSize:"15px",fontWeight:"600"}}>{article.visits}</span>  
-          </div> 
-          
-          </div>
+         
     
           <div style={style}>
           <div class="button1"  onClick={
@@ -172,7 +178,7 @@ let style={padding:"5px"},verificationTick
     
           </div>
           <div style={{paddingTop:"5px"}}>
-        <div style={{fontSize:"12px"}}> Created by {article.author} (0{article.contact}) <span dangerouslySetInnerHTML={{__html:verificationTick}}/>
+        <div style={{fontSize:"12px",borderBottom:"1px solid grey"}}> Created by {article.author} (0{article.contact}) <span dangerouslySetInnerHTML={{__html:verificationTick}}/>
         <div >{article.institution} </div>
         </div>
     
@@ -184,8 +190,7 @@ let style={padding:"5px"},verificationTick
           
            
     <div style={{paddingTop:"2px"}}><img src={article.imageDownLoadUrl} class=" d-block w-100" /></div>
-    
-    <div style={{paddingTop:"5px",fontSize:"14px"}}><p></p>
+     <div style={{paddingTop:"5px",fontSize:"14px"}}>
      <div  dangerouslySetInnerHTML={{__html:article.body}}/>
      <div>Always keep it Kayas.
       </div><p></p>

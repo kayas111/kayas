@@ -5,20 +5,20 @@ export function RegistrationPage(){
     const[status,setStatus]=useState('')
     
     
-    return (<div>
+    return (<div style={{padding:"3px"}}>
       <div class='row'>
         <div class='col-md-3'></div>
         <div class='col-md-6'>
-
-        <div style={{padding:"10px"}}>  
+<div class="pageLabel">Register</div>
+<div class="pageDescription">Register to create an account with Kayas</div><p></p>
+       
     <form method="post" id="freeRegistrationForm">
-    <div style={{paddingBottom:"8px"}}><div class="formLabel">Register</div></div>
-
+   
      <div class="mb-3">
      <div class="formInputLabel">Your name</div>
      <input type="text" class="form-control" autoComplete="off" name="name"  ></input>
    <br></br>
-   <div class="formInputLabel">Institution/brand/organization</div>
+   <div class="formInputLabel">Description, word or phrase (Optional)</div>
    <textArea rows="2" type="text" class="form-control" autoComplete="off" name="institution"  ></textArea>
    <br></br><div class="formInputLabel">WhatsApp contact</div>
    <input type="text" class="form-control" autoComplete="off" name="contact" ></input>
@@ -28,7 +28,7 @@ export function RegistrationPage(){
    <input type="text" class="form-control" autoComplete="off" name="email" ></input>
   
    <br></br>
-   <div class="formInputLabel">PIN e.g. 12345</div>
+   <div class="formInputLabel">Create a PIN e.g. 12345</div>
      <input type="text" class="form-control" autoComplete="off" name="pin" ></input>
   
      </div>
@@ -41,10 +41,6 @@ export function RegistrationPage(){
 
 ToastAlert('toastAlert2','Enter a correct name',3000)
 
-}else if(Array.from(document.getElementById("freeRegistrationForm").institution.value).length<11)
-{
-  
-  ToastAlert('toastAlert2','Enter a valid institution name',3000)
 }
 else if(Array.from(document.getElementById("freeRegistrationForm").contact.value).length<10||Array.from(document.getElementById("freeRegistrationForm").contact.value).length>10)
         {
@@ -59,7 +55,11 @@ else if(Array.from(document.getElementById("freeRegistrationForm").contact.value
           ToastAlert('toastAlert2','Create 5 digits PIN e.g. 12345',3000)
         }
 else{
-
+  if(Array.from(document.getElementById("freeRegistrationForm").institution.value).length==0)
+  {
+    
+    document.getElementById("freeRegistrationForm").institution.value=""
+  }else{}
 ToastAlert('toastAlert1','Please wait ......',3000)
   
    fetch('/verifyUser',{
@@ -71,17 +71,19 @@ pin:document.getElementById("freeRegistrationForm").pin.value
        }) 
    }).then(res=>res.json()).then((resp)=>{
        if(resp.registered===false){
-        fetch('/collection_kayasers_registerFree',{
+let payLoad={
+  name:document.getElementById("freeRegistrationForm").name.value.trim(),
+  institution:document.getElementById("freeRegistrationForm").institution.value.trim(),
+  contact:document.getElementById("freeRegistrationForm").contact.value.trim(),
+  email:document.getElementById("freeRegistrationForm").email.value.trim(),
+  pin:document.getElementById("freeRegistrationForm").pin.value.trim()
+
+ }
+
+   fetch('/collection_kayasers_registerFree',{
        method:"post",
        headers:{'Content-type':'application/json'},
-       body:JSON.stringify({
-        name:document.getElementById("freeRegistrationForm").name.value.trim(),
-        institution:document.getElementById("freeRegistrationForm").institution.value.trim(),
-        contact:document.getElementById("freeRegistrationForm").contact.value.trim(),
-        email:document.getElementById("freeRegistrationForm").email.value.trim(),
-        pin:document.getElementById("freeRegistrationForm").pin.value.trim()
-
-       })
+       body:JSON.stringify(payLoad)
    }) .then(resp=>{
        
    
@@ -98,7 +100,7 @@ pin:document.getElementById("freeRegistrationForm").pin.value
        document.getElementById("freeRegistrationForm").email.value=""
      document.getElementById("freeRegistrationForm").pin.value=""
      fetch(`/getTradingDetails/${kayaserDetailsObj.contact}`).then(res=>res.json()).then(resp=>{
-let traderDetailsObj=resp[0]
+;
 
 
      })
@@ -127,9 +129,9 @@ let traderDetailsObj=resp[0]
 }
       } 
 
-     } class="form-submit-btn backgroundColorHovereffect"><span class="fa fa-user-circle"></span> Register</div><p></p>
+     } class="button1"><span class="fa fa-user-circle"></span> Register</div><p></p>
     
-     </form></div>
+     </form>
 
 
         </div>

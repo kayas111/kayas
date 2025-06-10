@@ -184,7 +184,7 @@ export function AttendanceRegister(){
       
           return(
               
-             <div>
+             <div style={{padding:"3px"}}>
              
            
                          
@@ -193,16 +193,15 @@ export function AttendanceRegister(){
            <div class="row">
             <div class="col-md-3"></div>
             <div class='col-md-6' >
-            <div style={{fontSize:"18px",color:"orange",padding:"5px",background:"black"}}>{registerTitle}
-            <div style={{fontSize:"11px",color:"white"}}><span>{messageesNumb}</span> contacts | Register {registerParams.id}</div></div>
+            <div class="pageLabel">{registerTitle}</div>
+            <div class="pageDescription"><span>{messageesNumb}</span> contacts | Register {registerParams.id}</div>
                          
                          <AttendenceRegisterNav/>
                          
               <div  style={{paddingTop:"15px"}}>  
-            <div class="label1">Save contact</div>
-            <div  class="label2">Add a contact to the register</div>
+            
     <form id="messengingForm" >
-    <div style={{paddingBottom:"8px"}}><div class="formLabel">Save contact</div></div>
+    <div style={{paddingBottom:"8px"}}><div class="formLabel">Add a contact to this register</div></div>
     
      
      <div class="mb-3">
@@ -287,7 +286,7 @@ export function AttendanceRegister(){
  }
  
  
-     }}type="text" class="button1"><span class="fa fa-user-circle"></span> Save contact</div>
+     }}type="text" class="button1"><span class="fa fa-user-circle"></span> Add contact</div>
      </div>
      <div style={{padding:"3px"}}>
 <div onClick={()=>{
@@ -333,15 +332,20 @@ registerDoc.attendees.forEach(attendeeObj=>{
 
 setMessagees(
 registerDoc.attendees.map(attendeeObj=>{
- return (<div style={{padding:"5px"}}>
-<div class="row contactsRegisterContactRecordContainer" >
-  
-  <div class="col-6">{attendeeObj.position}. {attendeeObj.name}</div><div class="col-6" style={{textAlign:"right"}}>
-
-
+ return (
+ 
+ <div style={{padding:"0px"}}>
+  <div class="contactsRegisterContactRecordContainer">
+  <div class="row " >
+    <div class="col-6">{attendeeObj.position}. {attendeeObj.name}</div><div class="col-6" style={{textAlign:"right"}}>
 <a  onClick={()=>{
 window.location.href=`tel:0${attendeeObj.contact}`
-}}><span class="hovereffect"><span class="fa fa-phone"></span> Call: 0{attendeeObj.contact}</span></a></div></div>
+}}><span class="hovereffect"><span class="fa fa-phone"></span> Call: 0{attendeeObj.contact}</span></a></div>
+</div>
+  </div>
+
+
+
 
 
  </div>)
@@ -467,27 +471,30 @@ setStatus('Successful. Scroll to see')
      </div>
      </form>
      
-     </div><p></p>
-     <div style={{padding:"5px",fontSize:"17px",textAlign:"center",color:"black",fontWeight:"600",background:"white"}} dangerouslySetInnerHTML={{__html:numberOfContacts}}/>
-     <div style={{background:"#e9e8e8",padding:"10px"}}>
-      {messagees}</div>
+     <div style={{background:"#e9e8e8",paddingTop:"5px"}}>
+     <div style={{fontSize:"17px",textAlign:"center",color:"black",fontWeight:"600",background:"white"}} dangerouslySetInnerHTML={{__html:numberOfContacts}}/>
+   
+   <div>{messagees}</div>
+   
+    </div>
+    
+     </div>
+     
      </div>
      <div class="col-md-3"></div>
         
-   <div style={{padding:"30px"}}><div style={{color:"red",fontSize:"20px",textAlign:"center",paddingTop:"20px",borderBottom:"1px solid red"}}>Below here is only for the Admin</div></div>
-       
-    
      <div class="col-md-3"></div>
-     <div class='col-md-6'style={{padding:"15px"}}>  
-     <div class="label1">Send a contact from this register to another register</div>
-     <div class="label2">Send a copy of a contact to another register. Enter the register ID of the register to send to.</div>
+     <div class='col-md-6'>  
+     <div style={{padding:"30px"}}><div style={{color:"red",fontSize:"20px",textAlign:"center",paddingTop:"20px",borderBottom:"1px solid red"}}>Below here is only for the Admin</div></div>
+     <div class="pageLabel">Send a contact to another register</div>
+     <div class="pageDescription">Send a contact from this register to another register. To send, enter the ID of the register to send to and enter the position that contact holds in this register</div><p></p>
   <form id="sendContactToRegister" >
   <div style={{paddingBottom:"8px"}}><div class="formLabel">Send contact to a register</div></div>
      <div style={{paddingBottom:"5px"}}>Only for the Register Admin, {registrarName} </div>
      <div style={{paddingTop:"5px"}}>Sending to: <span style={{padding:"5px"}} dangerouslySetInnerHTML={{__html:sendToContactRegisterName}}/> </div>
      <div class="mb-3">
  <input type="hidden" class="form-control" autoComplete="off" name="registrarContact" defaultValue={registrarContact} ></input>
- <div class="formInputLabel">Enter the ID of the register to send to</div>
+ <div class="formInputLabel">Enter the ID of the register to send to:</div>
  <input type="text" class="form-control" autoComplete="off" name="registerId"  
  onChange={
    ()=>{

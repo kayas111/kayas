@@ -4,16 +4,16 @@ import { setCookieOptionsObj} from '../Variables';
 import {useCookies} from 'react-cookie'
 export function LoginPage(){
     const [cookies,setCookie,removeCookie]=useCookies(['user'])
-    return (<div>
+    let [status, setStatus]=useState('')
+    return (<div style={{padding:"3px"}}>
           <div class='row'>
         <div class='col-md-3'></div>
         <div class='col-md-6'>
-
-        <div style={{padding:"10px"}}>  
+<div class="label">You need to log in</div>
+<div class="description">Log in to proceed</div><p></p>
+         
     <form method="post" id="loginForm">
-    <div style={{paddingBottom:"8px"}}><div class="formLabel">Log in</div></div>
-
-     <div class="mb-3">
+    <div class="mb-3">
  
    <br></br><div class="formInputLabel">Contact</div>
    <input type="text" class="form-control" autoComplete="off" name="contact" ></input>
@@ -23,8 +23,8 @@ export function LoginPage(){
    <div class="formInputLabel">PIN e.g. 12345</div>
      <input type="password" class="form-control" autoComplete="off" name="pin" ></input>
   
-     </div>
-      
+     </div><p></p>
+      <div class="status">{status}</div>
      <div onClick={
       ()=>{
   if(Array.from(document.getElementById("loginForm").contact.value.trim()).length<10||Array.from(document.getElementById("loginForm").contact.value.trim()).length>10)
@@ -37,7 +37,7 @@ export function LoginPage(){
         }
 else{
 
-ToastAlert('toastAlert1','Please wait ......',3000)
+setStatus('Please wait........')
   
 let contact=document.getElementById("loginForm").contact.value,pin=document.getElementById("loginForm").pin.value
  VerifyRegistrationAndPin(contact.trim(),pin.trim()).then(resp=>{
@@ -52,9 +52,11 @@ let contact=document.getElementById("loginForm").contact.value,pin=document.getE
        }else{
          let user={name:resp.details.name,contact:resp.details.contact,role:'user'}
          setCookie('user',user,setCookieOptionsObj)
-       ToastAlert('toastAlert1','Logged in',3000)
-       document.getElementById("loginForm").pin.value=""
-       document.getElementById("loginForm").contact.value=""
+       setStatus('Logging in......')
+       window.location.href=window.location.href
+      //  document.getElementById("loginForm").pin.value=""
+      //  document.getElementById("loginForm").contact.value=""
+       
        }
      })
     
@@ -66,7 +68,7 @@ let contact=document.getElementById("loginForm").contact.value,pin=document.getE
 
      } class="button1"> Log in</div><p></p>
     
-     </form></div>
+     </form>
 
 
         </div>

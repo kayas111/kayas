@@ -29,12 +29,27 @@ import {RegisterCare, AttendeeRegisters, SmsNotificationsCare} from './pages/adm
 
 
 
- 
+
+const Homepage=React.lazy(()=>import('./pages/Homepage'));
 const Itemsele=React.lazy(()=>import('./pages/Home'));
 // const NotFound=React.lazy(()=>import('./pages/Home'));
+const Model=React.lazy(()=>import('./pages/Model')); 
+const PaymentsHomepage=React.lazy(()=>import('./pages/payments/PaymentsHomepage')); 
+const CreateTicket=React.lazy(()=>import('./pages/payments/CreateTicket')); 
+const MakePayment=React.lazy(()=>import('./pages/payments/MakePayment')); 
+const MyPayments=React.lazy(()=>import('./pages/payments/MyPayments')); 
+const ApprovePayment=React.lazy(()=>import('./pages/payments/ApprovePayment')); 
+const MyTickets=React.lazy(()=>import('./pages/payments/MyTickets')); 
 const QtoolHome=React.lazy(()=>import('./pages/qtool/QtoolHome')); 
 const RequestForClient=React.lazy(()=>import('./pages/qtool/RequestForClient')); 
 const BnplHome=React.lazy(()=>import('./pages/bnpl/BnplHome'));
+const Confirm=React.lazy(()=>import('./pages/votingportal/Confirm'));
+const Beneficiaries=React.lazy(()=>import('./pages/donations/Beneficiaries'));
+const Donate=React.lazy(()=>import('./pages/donations/Donate'));
+const DeliveryServiceHome=React.lazy(()=>import('./pages/deliveryservice/DeliveryServiceHome'));
+const VotingPortalHome=React.lazy(()=>import('./pages/votingportal/VotingPortalHome'));
+const Cat1=React.lazy(()=>import('./pages/votingportal/Cat1'));
+const Cat2=React.lazy(()=>import('./pages/votingportal/Cat2'));
 const SubmitStudentDetails=React.lazy(()=>import('./pages/bnpl/SubmitStudentDetails'));
 const RequestForCredit=React.lazy(()=>import('./pages/bnpl/RequestForCredit'));
 const ApproveCreditRequest=React.lazy(()=>import('./pages/bnpl/ApproveCreditRequest'));
@@ -45,6 +60,7 @@ const FoodDeliveryRequests=React.lazy(()=>import('./pages/fooddelivery/FoodDeliv
 
 const AddTeller=React.lazy(()=>import('./pages/admin/qtool/AddTeller'));
 const BnplTransactions=React.lazy(()=>import('./pages/admin/bnpl/bnplTransactions'));
+const DeliveryServiceControls=React.lazy(()=>import('./pages/admin/deliveryservice/DeliveryServiceControls'));
 const FoodDeliveryControls=React.lazy(()=>import('./pages/admin/FoodDeliveryControls'));
 const ClearBnplDebt=React.lazy(()=>import('./pages/admin/bnpl/ClearBnplDebt'));
 const LoginPage=React.lazy(()=>import('./pages/LoginPage'));
@@ -130,10 +146,13 @@ useEffect(()=>{
     
     
     fetch('/getAllArticles').then(res=>res.json()).then(res=>{
-      setArticlesNumb(res.length)
+      setArticlesNumb(`(${res.length})`)
       })
       
- 
+      fetch('/increment_website_visits').then(res=>res.json()).then(res=>{
+      
+       
+      })
 
    
   },[])
@@ -189,23 +208,43 @@ useEffect(()=>{
  <li class="nav-item">
 <a class="orangeHoverEffect nav-link" href="/pages/register"><span>Register </span></a>
    </li>
- <li class="nav-item">
-   <a class="orangeHoverEffect nav-link" href="/pages/about"><span>Services by Kayas</span></a>
+   <li class="nav-item">
+   <a class="orangeHoverEffect nav-link" href="/pages/deposit"><span>Deposit to my account</span></a>
+   </li>
+
+   <li class="nav-item">
+   <a class="orangeHoverEffect nav-link"  href="#" onClick={()=>{
+ if(cookies.user===undefined){
+   ToastAlert('toastAlert2','You are not logged in',3000)
+   
+   
+   } else {
+   window.location.href=`/pages/accountdetails`
+   ToastAlert('toastAlert1','Openning account....',3000)
+   
+   } 
+   
+
+   
+   }} ><span>My account</span></a>
    </li>
       
+    <li class="nav-item">
+   <a class="orangeHoverEffect nav-link" href="/pages/attendanceregs/createattendanceregister"><span>Contacts</span></a>
+   </li> 
  <li class="nav-item">
-   <a class="orangeHoverEffect nav-link" href="/pages/pubarticles/allarticles"><span>Articles/stories ({articlesNumb})  </span></a>
+   <a class="orangeHoverEffect nav-link" href="/pages/pubarticles/allarticles"><span>Articles/stories {articlesNumb}  </span></a>
    </li>
   
 
-   <li class="nav-item">
-   <a class="orangeHoverEffect nav-link" href="/pages/attendanceregs/createattendanceregister"><span>Contacts</span></a>
-   </li>
    <li class="nav-item">
    <a class="orangeHoverEffect nav-link"  href="/pages/pubarticles/createarticle"><span>Create Article</span></a>
    </li>
    <li class="nav-item">
    <a class="orangeHoverEffect nav-link"  href="/pages/pubarticles/MyArticles"><span>My Articles</span></a>
+   </li>
+   <li class="nav-item active">
+   <a class="orangeHoverEffect nav-link" href="/pages/message"><span>Send message to Kayas</span></a>
    </li>
    <li class="nav-item">
    <a class="orangeHoverEffect nav-link" href="#"><span>Buy Now Pay Later  </span></a>
@@ -223,15 +262,15 @@ useEffect(()=>{
 
 
    </li>
-   <li class="nav-item">
-   <a class="orangeHoverEffect nav-link" href="/pages/deposit"><span>Deposit to account</span></a>
-   </li>
+  
    <li class="nav-item">
 <a class="orangeHoverEffect nav-link" href="/pages/followershome"><span>Offline notification system</span></a> 
 
 
    </li>
-
+   <li class="nav-item">
+   <a class="orangeHoverEffect nav-link" href="/pages/about"><span>Services by Kayas</span></a>
+   </li>
    
  
 
@@ -242,29 +281,12 @@ useEffect(()=>{
   
  
   
-   <li class="nav-item">
-   <a class="orangeHoverEffect nav-link"  href="#" onClick={()=>{
- if(cookies.user===undefined){
-   ToastAlert('toastAlert2','You are not logged in',3000)
    
-   
-   } else {
-   window.location.href=`/pages/accountdetails`
-   ToastAlert('toastAlert1','Openning account....',3000)
-   
-   } 
-   
-
-   
-   }} ><span>Account</span></a>
-   </li>
   
    <li class="nav-item">
    <a class="orangeHoverEffect nav-link"  href="#"><span>Loans</span></a> 
    </li>
-   <li class="nav-item active">
-   <a class="orangeHoverEffect nav-link" href="/pages/message"><span>Send message</span></a>
-   </li>
+   
    <li class="nav-item">
    <a class="orangeHoverEffect nav-link" href="/pages/brocode"><span>Who is Kayas?</span></a> 
    </li>
@@ -363,12 +385,20 @@ useEffect(()=>{
 
 
 <Switch>
+<Route path="/pages/payments/paymentshomepage" exact component={PaymentsHomepage}/>
+<Route path="/pages/payments/makepayment" exact component={MakePayment}/>
+<Route path="/pages/payments/mypayments" exact component={MyPayments}/>
+<Route path="/pages/payments/approvepayment/:ticketId" exact component={ApprovePayment}/>
+<Route path="/pages/payments/mytickets" exact component={MyTickets}/>
+<Route path="/pages/payments/createticket" exact component={CreateTicket}/>
+<Route path="/pages/deliveryservice/deliveryservicehome" exact component={DeliveryServiceHome}/>
 <Route path="/pages/qtool/qtoolhome" exact component={QtoolHome}/>
 <Route path="/pages/qtool/requestforclient" exact component={RequestForClient}/>
 <Route path="/pages/bnpl/home" exact component={BnplHome}/>
 <Route path="/pages/bnpl/submitstudentdetails" exact component={SubmitStudentDetails}/>
 
 <Route path="/pages/bnpl/requestforcredit" exact component={RequestForCredit}/>
+<Route path="/pages/homepage" exact component={Homepage}/>
 <Route path="/pages/bnpl/approvecreditrequest" exact component={ApproveCreditRequest}/>
 <Route path="/pages/bnpl/completepromotiontransaction" exact component={CompletePromotionTransaction}/>
 
@@ -390,7 +420,10 @@ useEffect(()=>{
       <Route path="/advertise/client10/:recommender" exact component={Client10}/>
       <Route path="/advertise/client11/:recommender" exact component={Client11}/>
       <Route path="/advertise/client12/:recommender" exact component={Client12}/>
-      
+      <Route path="/pages/votingportal/votingportalhome" component={VotingPortalHome}/>
+      <Route path="/pages/votingportal/confirm" component={Confirm}/>
+      <Route path="/pages/votingportal/cat1" component={Cat1}/>
+      <Route path="/pages/votingportal/cat2" component={Cat2}/>
            
       <Route path="/pages/attendanceregs/:registrar/:id" component={AttendanceRegister}/>
       <Route path="/pages/attendanceregs/myregisters" component={ MyRegisters }/>
@@ -429,10 +462,13 @@ useEffect(()=>{
       <Route path="/pages/admin/addteller" component={AddTeller}/>            
       <Route path="/pages/admin/controls" component={ControlsHome}/>
       <Route path="/pages/admin/marqueenews" exact component={MarqueeNews}/>
+      <Route path="/pages/donations/beneficiaries" exact component={Beneficiaries}/>
+      <Route path="/pages/donations/donate/:reason" exact component={Donate}/>
       
       <Route path="/pages/admin/requests" component={Requests}/>
 
       <Route path="/pages/admin/bnpl/bnpltransactions" component={BnplTransactions}/>
+      <Route path="/pages/admin/deliveryservice/deliveryservicecontrols" component={DeliveryServiceControls}/>
       <Route path="/pages/admin/fooddeliverycontrols" component={FoodDeliveryControls}/>
       <Route path="/pages/admin/bnpl/clearbnpldebt" component={ClearBnplDebt}/>
       
@@ -449,6 +485,7 @@ useEffect(()=>{
       
       <Route path="/pages/register" component={RegistrationPage}/>
       <Route path="/pages/useditems" component={UsedItems}/>
+      <Route path="/pages/model" component={Model}/>
       
       
       
@@ -462,7 +499,7 @@ useEffect(()=>{
       
       <Route path="/pages/followershome" exact component={FollowersHome}/>
       <Route path="/pages/following/:contact/:categoryId" exact component={FollowingComp}/>
-      <Route path="" exact component={About}/>
+      <Route path="" exact component={Homepage}/>
       </Switch>
      
       
@@ -521,7 +558,7 @@ export function Basenavele(){
   
   return (
     <div class="basenave">
-      
+     
 <div class="row">
  <div><span class="fa fa-whatsapp"> </span> WhatsApp: 0703852178</div>
  <div><span class="fa fa-phone"> </span> Telephone: 0703852178/0773367078</div>
@@ -541,5 +578,7 @@ export function Basenavele(){
      
   );
 }
+
+
 
 export default App

@@ -23,7 +23,15 @@ export function AllArticles(props){
  },[])
  
  
-         return(<div>
+         return(<div style={{padding:"5px"}}>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                <div class="label">All articles</div>
+            <div class="description">All articles created on Kayas</div>
+                </div>
+                <div class="col-md-3"></div>
+            </div><p></p>
           <div class="row">{articles}</div>
        </div>)
        }

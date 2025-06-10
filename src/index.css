@@ -114,21 +114,23 @@ padding: 5px;
   box-shadow:0px 0px 8px black;
 }
  .articleContainer{
-padding:4px;
+padding:8px;
 padding-bottom: 12px;
 
 background-color:rgb(228, 226, 226);
 
  }
  .articleContainer2{
-  
-  padding:4px;
+  border-radius: 3px;
+  padding:10px;
   background-color:rgb(255, 254, 254);
+  
  }
  .articleHeadline{
-  font-size:21px;
+  font-size:22px;
   padding-top: 10px;
   font-weight: 600;
+  
   
  }
 .candName{
@@ -447,14 +449,40 @@ font-weight:bold;
 
   
   }
+  .divContainer1{
+    
+    padding: 1px;
+  }
+  .divContainer1Inner{
+    border: 0px solid black;
+    color: black;
+    padding: 4px;
+    background-color: orange;
+  }
+  .divContainer1Inner:hover{
+    background-color: orange;
+    border: 3px solid orange;
+    color: white;
+  }
+
+
   
+
+ 
+
   form{
     padding:8px;
-    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.685);
+    /*box-shadow: 0px 0px 3px rgba(255, 153, 0, 0.685);*/
+    border: 2.5px solid rgb(0, 0, 0);
     background-color:rgb(252, 252, 252);
     
     border-radius: 2px;
     
+  }
+  form input[type="text"],
+  form textarea[type="text"]{
+    border: 1px solid grey;
+    border-radius: 0px;
   }
   .form-control{
     border:1px solid rgba(0, 0, 0, 0.164);
@@ -486,31 +514,111 @@ padding:3px;
 .test{
   color:#5a5a5a
 }
+
 .pageLabel{
-  
-  
-  
+text-align: center;
+  font-weight: 600;
+  padding: 2px;
   font-size:20px;
+  }
+
+.pageDescription{
+  text-align: center;
+    font-size: 12px;
+    padding: 2px;
+    border-bottom: 1px solid black;
+    
+  }
+
+.label{
+text-align: center;
+  font-weight: 600;
+  padding: 2px;
+  font-size:20px;
+  }
+
+.description{
+  text-align: center;
+    font-size: 12px;
+    padding: 2px;
+    border-bottom: 1px solid black;
+    
+  }
+
+.candidateName{
+  padding-left: 5px;
+ 
+}
+
+.radioCont1{
+  border: 0px solid orange;
+  padding-top: 10px;
+}
+
+.selectionProperty{
+  font-size: 15px;
+}
+.radioCont2{
+  border: 1px solid orange;
+  padding: 5px;
+}
+
+.button2{
+  background-color:red;
+  padding:3px;
+  font-size: 11px;
+  color: white;
+  border-radius: 1px;
+  text-align: center;
+  border: 0px;
   
 }
+
+
+
 .button1{
   background-color:orange;
-  padding:4px;
+  padding:3px;
   font-size: 11px;
   color: black;
-  border-radius: 2px;
+  border-radius: 1px;
   text-align: center;
+  border: 0px;
   
 }
+
+.button1:hover{
+  cursor: pointer;
+}
+
+
+
 .status{
-  color:orange;
+  color:green;
   font-weight: 600;
   text-align: center;
-  font-size: 14px;
+  font-size: 13px;
 }
 .button1:hover{
   
   color:white;
+}
+.beneficiaryContainer2{
+  padding: 3px;
+  border: 1px solid orange;
+}
+
+.beneficiaryContainer1{
+  padding: 4px;
+  
+}
+.orangeBorderDiv{
+  border: 3px solid orange;
+  padding: 3px;
+}
+.blackBorderDiv{
+  border: 3px solid black;
+  padding: 3px;
 }
 .blackBgOrangeColor{
   background-color: black;
@@ -552,11 +660,11 @@ background-color: white;
 
 .contactsRegisterContactRecordContainer{
   background-color: white;
-  border-radius: 2px;
+  
   
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.521);
   
-  padding: 2px;
+  padding: 5px;
 }
 .pubArticleListItemViewsAndVisits{
   font-size: 11px;

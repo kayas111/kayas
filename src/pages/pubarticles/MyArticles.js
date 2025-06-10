@@ -63,7 +63,9 @@ if(IsLoggedIn(cookies)===true){
                 <p></p>
                 <div class="row">
                     <div class="col-md-3"></div>
-                    <div class="col-md-6"><div class="blackBgOrangeColor">Your articles</div>
+                    <div class="col-md-6">
+                        <div class="label">My articles</div>
+                        <div class="description">All articles created by you</div><p></p>
                     <div style={{display:"flex",flexWrap:"wrap",padding:"5px"}}>
                 
                   <div class="button1" onClick={()=>{

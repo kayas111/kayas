@@ -152,14 +152,16 @@ fetch('/addPubArticleImageUrlToArticle',{
           
           }
 
-    return (<div>
+    return (<div style={{padding:"3px"}}>
            
 
       <div className ="row">
 <div class='col-md-3'></div>
 <div class='col-md-6'>
-<ArticlesNav/>
-  <div style={{padding:"8px"}}>
+  <div class="pageLabel">Create an article</div>
+  <div class="pageDescription">Create information that people can read online. Attach a photo where necessary</div>
+<div style={{paddingBottom:"5px",paddingTop:"10px"}}><ArticlesNav/></div>
+  
     <form method="post" id="articleCreateForm" action="#">
 
     <div style={{paddingBottom:"8px"}}><div class="formLabel">Create article.</div></div>
@@ -234,10 +236,10 @@ fetch('/addPubArticleImageUrlToArticle',{
         }
 
        }
-     } class="form-submit-btn backgroundColorHovereffect">Create Article</div><p></p>
+     } class="button1">Create Article</div><p></p>
     
      </form>
-     </div>
+     
      
      
      

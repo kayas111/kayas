@@ -51,11 +51,13 @@ export function TradingAccount(){
   let componentParams=useParams()
    componentParams.recommender=componentParams.trader
   let [updateTrigger,setUpdateTrigger]=useState(0)
-  
+  const[traderName,setTraderName]=useState('')
   const[traderContact,setTraderContact]=useState('')
   const[traderAccBal,setTraderAccBal]=useState('')
   const[traderCashOutBal,setTraderCashOutBal]=useState('')
   const[traderNotice,setTraderNotice]=useState('')
+  const[deliveryServiceAvailabilityStatus,setDeliveryServiceAvailabilityStatus]=useState('')
+  const[deliveryServiceAvailability,setDeliveryServiceAvailability]=useState('')
   
   const [cookies]=useCookies(['user'])
   
@@ -104,12 +106,17 @@ window.location.href='/pages/about'
         }else{
 
           let traderDetailsObj=resp[0]
-          
+          console.log(traderDetailsObj)
           setTraderAccBal(traderDetailsObj.accBal)
           setTraderCashOutBal(traderDetailsObj.cashOutBal)
           setTraderContact(traderDetailsObj.contact)
-        
-    
+          setTraderName(traderDetailsObj.name)
+        if(traderDetailsObj.deliveryService.isAvailable==true){
+          setDeliveryServiceAvailability('You are available, you will now receive orders')
+        }else{
+          setDeliveryServiceAvailability('You are not available, you will not receive orders')
+        }
+          
           if(traderDetailsObj.freeSmsObj.allowFreeSmsSending===1){
             setAllowPeopleToSendFreeSmsValue('Yes')
           }else{
@@ -145,29 +152,20 @@ window.location.href='/pages/about'
   
 
 return(
-<div>
+<div style={{padding:"3px"}}>
 
-<div class="row" style={{padding:"10px"}}>
+<div class="row" >
+<div class="col-md-3" ></div>
+<div class="col-md-6" >  
 
-<div class="col-md-6" style={{padding:"5px"}}>  
-<div style={{padding:"5px",background:"black"}}>
-<div style={{color:"orange",padding:"4px"}}>Account balance: <span style={{fontSize:"20px"}}>{traderAccBal} shs</span></div>
-<div style={{color:"white",padding:"4px"}}>Payment from Kayas: <span style={{fontSize:"20px"}}>{traderCashOutBal} shs</span></div>
+<div class="pageLabel">{traderName}</div>
+<div class="pageDescription">{traderNotice}</div>
+<div style={{paddingTop:"5px"}}>
+
+<div >Payment from Kayas: <span>{traderCashOutBal} shs</span></div>
 </div>
 
-<div style={{paddingTop:"10px"}}>{traderNotice}</div><p></p>
-<div className='label1'>How Kayas pays you</div>
-    <div>
-<ol>
-  <li>Each article you create is 150 shs.</li>
-  <li>Everytime you share your article, you get paid a certain percentage but the more people you share to, the more the percentage.</li>
-<li>To create an article, <span style={{color:"green",fontSize:"20px"}} onClick={()=>{
-  window.location.href='/pages/pubarticles/createarticle'
-  ToastAlert('toastAlert1','Please wait.....',3000)
-}}>tap here</span></li>
-</ol>
-    </div>
-
+<p></p>
 <form id="traderNoticeForm">
 <div style={{paddingBottom:"8px"}}><div class="formLabel" >Send Kayas a message</div></div>
     <div class="mb-3">
@@ -195,58 +193,89 @@ return(
       }
     }}><span class="fa fa-envelope"></span> send</div>
     </form>
+<p></p>
+
+    <div class="blackBorderDiv">
+      
+      <div class="formLabel">Delivery service</div>
+    <div style={{textAlign:"center",padding:"5px",fontSize:"14px"}}>{deliveryServiceAvailability}</div>
+    <div class="status">{deliveryServiceAvailabilityStatus}</div>
+<div class="button1"
+onClick={()=>{
+  setDeliveryServiceAvailabilityStatus('Changing.....')
+  fetch('/updateTraderDetails',{
+    method:"post",
+    headers:{'Content-type':'application/json'},
+    body:JSON.stringify({method:'updateAsKayaser',argsObj:{traderContact:parseInt(cookies.user.contact),fieldToUpdate:'isAvailable',updateValue:'notApplicable'}
+
+    }) 
+}).then(res=>res.json()).then(resp=>{
+  if(resp.success==true){
+    setDeliveryServiceAvailabilityStatus('Successful')
+  }else{
+    setDeliveryServiceAvailabilityStatus('Try again.')
+  }
+})
+}}
+>Change</div>
     </div>
-   
-    <div style={{padding:"5px"}} class="col-md-6">
+
+
+
+    <div  >
      
+<p></p>
+     <form id="traderSettingsForm">
+     <div style={{paddingBottom:"8px"}}><div class="formLabel" >Settings</div></div>
+         <div class="mb-3">
+         <div style={{padding:"5px"}}>People can send free SMS through your account: <span style={{color:"red"}}>{allowPeopleToSendFreeSmsValue}</span> | <span  style={{color:"green"}} onClick={()=>{
+                        
+         if(allowPeopleToSendFreeSmsValue==='Yes'){
+           UpdateTraderDetails({method:"updateAsKayaser",argsObj:{traderContact:parseInt(cookies.user.contact),fieldToUpdate:'allowFreeSmsSending',updateValue:0}})
+         }else{
+           UpdateTraderDetails({method:"updateAsKayaser",argsObj:{traderContact:parseInt(cookies.user.contact),fieldToUpdate:'allowFreeSmsSending',updateValue:1}})
+         }
+         
+         
+                  
+       
+         }}>Change</span>
+       
+         
+         
+         </div>
+         <div style={{padding:"5px",paddingBottom:"8px"}}>Current Free SMS notice: <span style={{color:"red"}}>{freeSmsNoticeValue}</span> | <span  style={{color:"green"}} onClick={()=>{
+     
+     
+     UpdateTraderDetails({method:"updateAsKayaser",argsObj:{traderContact:parseInt(cookies.user.contact),fieldToUpdate:'freeSmsNotice',updateValue:document.getElementById('traderSettingsForm').freeSmsNoticeMessage.value.trim()}})
+     
+     
+     
+     
+     }}>Change</span>
+     
+     
+     
+     </div>
+     <textarea rows="3" type="text" class="form-control" autoComplete="off" name="freeSmsNoticeMessage" placeholder='Type your new notice message here'></textarea>
+     
+     
+     
+     
+     
+       </div>
+       
+         </form>
+         
+     
+     
+     
+     
+         </div>
 
-<form id="traderSettingsForm">
-<div style={{paddingBottom:"8px"}}><div class="formLabel" >Settings</div></div>
-    <div class="mb-3">
-    <div style={{padding:"5px"}}>People can send free SMS through your account: <span style={{color:"red"}}>{allowPeopleToSendFreeSmsValue}</span> | <span  style={{color:"green"}} onClick={()=>{
-                   
-    if(allowPeopleToSendFreeSmsValue==='Yes'){
-      UpdateTraderDetails({method:"updateAsKayaser",argsObj:{traderContact:parseInt(cookies.user.contact),fieldToUpdate:'allowFreeSmsSending',updateValue:0}})
-    }else{
-      UpdateTraderDetails({method:"updateAsKayaser",argsObj:{traderContact:parseInt(cookies.user.contact),fieldToUpdate:'allowFreeSmsSending',updateValue:1}})
-    }
-    
-    
-             
-  
-    }}>Change</span>
-  
-    
-    
     </div>
-    <div style={{padding:"5px",paddingBottom:"8px"}}>Current Free SMS notice: <span style={{color:"red"}}>{freeSmsNoticeValue}</span> | <span  style={{color:"green"}} onClick={()=>{
-
-
-UpdateTraderDetails({method:"updateAsKayaser",argsObj:{traderContact:parseInt(cookies.user.contact),fieldToUpdate:'freeSmsNotice',updateValue:document.getElementById('traderSettingsForm').freeSmsNoticeMessage.value.trim()}})
-
-
-
-
-}}>Change</span>
-
-
-
-</div>
-<textarea rows="3" type="text" class="form-control" autoComplete="off" name="freeSmsNoticeMessage" placeholder='Type your new notice message here'></textarea>
-
-
-
-
-
-  </div>
-  
-    </form>
+    <div class="col-md-3" ></div>
     
-
-
-
-
-    </div>
 </div>
 
 

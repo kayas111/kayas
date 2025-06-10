@@ -2,8 +2,8 @@
 
  
 export function About(){
-let v={padding:"5px"},x={border:"1.5px solid orange",textAlign:"center",padding:"5px"},
-p={textAlign:"center",fontWeight:"bold",fontSize:"17px",padding:"5px",borderRadius:"5px"}
+let v={padding:"5px"},x={borderBottom:"1.5px solid orange",textAlign:"center",padding:"5px"},
+p={textAlign:"center",fontSize:"17px",padding:"5px",borderRadius:"5px"}
  return( 
 
 <div style={{padding:"5px"}}>
