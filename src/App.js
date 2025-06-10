@@ -485,7 +485,7 @@ useEffect(()=>{
       
       <Route path="/pages/register" component={RegistrationPage}/>
       <Route path="/pages/useditems" component={UsedItems}/>
-      <Route path="/pages/model" component={Model}/>
+      <Route path="/pages/nutrientsmodel/model" component={Model}/>
       
       
       
