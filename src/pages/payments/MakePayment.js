@@ -23,12 +23,14 @@ export function MakePayment(){
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="label">Make payment</div>
-            <div class="description">Pay for a service or ticket. Enter the ID, search and pay</div><p></p>
+            <div class="description">Pay for a service or ticket. Enter the ID, search and pay</div>  
+            <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
+                    <div class="btn btn-success btn-sm">Back to menu</div></a></div><p></p>
     
             <form  method="post" id="makePaymentForm" action="#">
           
-            <div class="formInputLabel">Enter ticket/service ID (name of ticket) and search for it</div>
-          <input type="text" name='ticketId' class="form-control" autoComplete="off" /><p></p>
+            <div class="formInputLabel">Search for ticket/service ID (name of ticket) before paying</div>
+          <input type="text" name='ticketId' class="form-control" placeholder='Enter ticket ID or name and search' autoComplete="off" /><p></p>
           
           
           
@@ -36,7 +38,7 @@ export function MakePayment(){
     
     <div class="status">{searchStatus}</div>
     
-          <div  class="button1"
+          <div  class="btn btn-success btn-sm"
           
           onClick={()=>{
             let form=document.getElementById('makePaymentForm'),ticketId=form.ticketId.value.trim()
@@ -84,10 +86,10 @@ export function MakePayment(){
                             
                  <div style={{paddingTop:"10px",paddingBottom:"3px"}}> {ticket} </div>
     <p></p>
-    <div class="formInputLabel">Create a payment secret code or word (You will be asked for this secret to confirm your payment)</div>
+    <div class="formInputLabel">Create your payment secret code or word (You will be asked for this secret to confirm your payment)</div>
                  <input type="text" name='paymentSecretCode' class="form-control" autoComplete="off" /><p></p>
     <div class="status">{payStatus}</div>
-           <div   class=" button1"
+           <div   class="btn btn-success btn-sm"
            onClick={()=>{
          
                 
@@ -137,9 +139,7 @@ export function MakePayment(){
           
            </form>
     
-           <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="btn btn-success btn-sm">Back to menu</div></a></div>
-    
+         
     
         </div>
         <div class="col-md-3"></div>

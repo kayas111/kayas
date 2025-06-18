@@ -129,7 +129,7 @@ let payLoad={
 }
       } 
 
-     } class="button1"><span class="fa fa-user-circle"></span> Register</div><p></p>
+     } class="btn btn-success btn-sm"><span class="fa fa-user-circle"></span> Register</div><p></p>
     
      </form>
 

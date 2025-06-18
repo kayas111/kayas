@@ -15,12 +15,12 @@ export function LoginPage(){
     <form method="post" id="loginForm">
     <div class="mb-3">
  
-   <br></br><div class="formInputLabel">Contact</div>
+   <br></br><div class="formInputLabel">Your contact</div>
    <input type="text" class="form-control" autoComplete="off" name="contact" ></input>
 
   
    <br></br>
-   <div class="formInputLabel">PIN e.g. 12345</div>
+   <div class="formInputLabel">Your Kayas PIN that you created</div>
      <input type="password" class="form-control" autoComplete="off" name="pin" ></input>
   
      </div><p></p>
@@ -66,7 +66,7 @@ let contact=document.getElementById("loginForm").contact.value,pin=document.getE
 }
       } 
 
-     } class="button1"> Log in</div><p></p>
+     } class="btn btn-success btn-sm"> Log in</div><p></p>
     
      </form>
 

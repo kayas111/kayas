@@ -36,9 +36,12 @@ let paymentDetails=resp.reverse()
           setMyPayments( paymentDetails.map((paymentDetail)=>(
             <div class="divContainer1">
 <div class="divContainer1Inner">
-<div style={{fontSize:"15px",fontWeight:"600"}}>Ticket ID: {paymentDetail.ticketId}</div>
-<div>Amount paid: {paymentDetail.amount} shs</div>
+<div style={{fontSize:"15px",fontWeight:"600"}}>Ticket ID: {paymentDetail.ticketId} </div>
 <div>Payment secret code: {paymentDetail.paymentSecretCode}</div>
+<div>Amount paid: {paymentDetail.amount} shs</div>
+
+<div><span style={{background:"green",borderRadius:"2px",padding:"3px",color:"white"}}>{paymentDetail.paymentApproved==true?"Served":"Not served"}</span></div>
+
 
 </div>
 
@@ -56,13 +59,15 @@ let paymentDetails=resp.reverse()
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="label">My payments</div>
-            <div class="description">All current valid payments made by you</div><p></p>
+            <div class="description">A list of all your payments bothe served and not served</div>
+            
+            <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
+                    <div class="btn btn-success btn-sm">Back to menu</div></a></div>
+    
+            <p></p>
     
           
     <div>{myPayments}</div>
-    
-    <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="btn btn-success btn-sm">Back to menu</div></a></div>
     
         </div>
         <div class="col-md-3"></div>

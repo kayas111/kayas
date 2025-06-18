@@ -17,8 +17,12 @@ if(IsLoggedIn(cookies)==true){
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="label">Create tickets/service</div>
-            <div class="description">Create tickets/service that people will pay for or buy</div><p></p>
+            <div class="description">Create tickets/service that people will pay for or buy</div>
     
+            <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
+                    <div class="btn btn-success btn-sm">Back to menu</div></a></div>
+    
+    <p></p>
             <form  method="post" id="createTicketForm" action="#">
           
             <div class="formInputLabel">Create ticket/service ID (unique word or phrase to identify your tickets/service)</div>
@@ -31,7 +35,7 @@ if(IsLoggedIn(cookies)==true){
           <input type="text"  name='amount' class="form-control" autoComplete="off" /><p></p>
           <div class="status">{status}</div>
     
-          <div   class=" button1"  onClick={()=>{
+          <div   class="btn btn-success btn-sm"  onClick={()=>{
             
             let form=document.getElementById('createTicketForm'), 
             ticketId=form.ticketId.value.trim(), 
@@ -79,10 +83,7 @@ payments:[]
           
            </form>
     
-           <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="btn btn-success btn-sm">Back to menu</div></a></div>
-    
-    
+           
         </div>
         <div class="col-md-3"></div>
     </div>

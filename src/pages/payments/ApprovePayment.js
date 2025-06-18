@@ -33,8 +33,10 @@ setTicketId( <div style={{paddingTop:"70px",paddingBottom:"70px"}}>
         
        <div id="ticketId" style={{textAlign:"center", background:"orange",padding:"3px",color:"black",fontSize:"15px"}}>{resp[0].ticketId}</div>
             <p></p>
-      
-        <input type="text" id="paymentSecretCode" class="form-control" placeholder='Enter payment secret code' autoComplete='off' />
+            <input type="text" id="contact" class="form-control" placeholder='Enter contact of ticket buyer' autoComplete='off' />
+       
+      <p></p>
+        <input type="text" id="paymentSecretCode" class="form-control" placeholder='Payment secret code of buyer' autoComplete='off' />
        
         </div>)
 
@@ -51,8 +53,8 @@ setTicketId( <div style={{paddingTop:"70px",paddingBottom:"70px"}}>
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="label">Approve a payment</div>
-            <div class="description">Verify whether a ticket was paid for</div>
-    
+            <div class="description">Verify and approve whether a ticket was paid for</div>
+    <p></p>
           <div>{ticketId}</div>
   
  <div class="status">{status}</div>
@@ -60,12 +62,17 @@ setTicketId( <div style={{paddingTop:"70px",paddingBottom:"70px"}}>
         <div class="btn btn-success btn-sm"
                     onClick={()=>{
                         
-                        let paymentSecretCode=document.getElementById("paymentSecretCode").value.trim()
+                        let paymentSecretCode=document.getElementById("paymentSecretCode").value.trim(),
+                         contact=document.getElementById("contact").value.trim()
+                        
+                        if(Array.from(contact).length<10 || Array.from(contact).length>10){
+                            ToastAlert('toastAlert2','Enter contact of 10 digits starting with zero',3000)
+                        } else
                         if(Array.from(paymentSecretCode).length<1){
                             ToastAlert('toastAlert2','Enter a payment secret code to verify',3000)
                         }else{
                             setStatus('Please wait........')
-let payLoad={ticketId:document.getElementById('ticketId').innerText.trim(),paymentSecretCode:paymentSecretCode}
+let payLoad={ticketId:document.getElementById('ticketId').innerText.trim(),paymentSecretCode:paymentSecretCode,contact:contact}
 
 Post('/approveticketpayment',payLoad).then(resp=>{
   

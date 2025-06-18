@@ -53,13 +53,15 @@ let ticketDetails=resp.reverse()
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="label">My tickets</div>
-            <div class="description"> Select a ticket to approve a payment made for it.</div><p></p>
-    <div>{myTickets}</div>
-    
-    <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
+            <div class="description"> Select a ticket to approve a payment made for it.</div>
+            <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
                     <div class="btn btn-success btn-sm">Back to menu</div></a></div>
     
-        </div>
+      
+            <p></p>
+    <div>{myTickets}</div>
+    
+     </div>
         <div class="col-md-3"></div>
     </div>
         </div>)

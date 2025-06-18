@@ -91,7 +91,7 @@ let payLoad={
 }
       } 
 
-     } class="button1"><span class="fa fa-money"></span> Deposit</div><p></p>
+     } class="btn btn-success btn-sm"><span class="fa fa-money"></span> Deposit</div><p></p>
     
      </form>
 

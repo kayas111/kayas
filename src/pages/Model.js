@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react';
 
-import * as tf from '@tensorflow/tfjs';
+
 
 import {
     BarChart,      // Main container for the bar chart
@@ -119,13 +119,7 @@ return predictionAnimationId
  let style={padding:"3px",width:"70px"}
 
 useEffect(async ()=>{
-    // try {
-    //     const loadedModel = await tf.loadLayersModel('/model/model.json');
-    //     console.log('Model loaded successfully');
    
-    //   } catch (error) {
-    //     console.error('Error loading model:', error);
-    //   }
        
 
 
@@ -302,81 +296,83 @@ Enter the ingredient proportions according to the Key above
 <div class="formInputLabel">21</div>
 <input type="text" class="form-control" autoComplete="off" name="21" />
 </div>
-
-<div style={{fontSize:"20px",fontWeight:"600"}}>Total: {total}%</div>
-
+<p></p>
 
 
 
 </div>
 </form>
 
-
-
-
-</div>
-
-
-
-
-</div>
-
-
-            <div onClick={()=>{
+<div style={{fontSize:"20px",fontWeight:"600"}}>Total: {total}%</div>
+<div onClick={()=>{
           
-let form=document.getElementById('modelForm'),features=[]
-const inputs = form.querySelectorAll('input')
-
-  inputs.forEach(input=>{
-
-            features.push(parseFloat(input.value))
+          let form=document.getElementById('modelForm'),features=[]
+          const inputs = form.querySelectorAll('input')
+          
+            inputs.forEach(input=>{
+          
+                      features.push(parseFloat(input.value))
+                      
+                  })
+             
+             setTotal(features.reduce((acc, val) => acc + val, 0));
+          
+          
+          
+                  if(features.includes(NaN)){
+          ToastAlert('toastAlert2','Fill in all values correctly, there is an error',5000)
+                  }else{
+                      if(total>101){
+                          ToastAlert('toastAlert2','Total of ingredient compositions should be less than 101%',3500)
+                      }else{
+                          
+                   
+                      window.location.href='#'
+                      setValueME(50)
+                      setValueMet(50)
+                      setValueCa(50)
+                      setValueP_Avail(50)
+                      setValueLys(50)
+                      setValueCP(50)
+                      setFill('orange')
+                      ToastAlert('toastAlert1','Predicting....',2000)
+                     
+          
+                      features.push(100)
+                        Post('/predictNutrients',{
+                            features:features
+                        }).then(resp=>{
+                 console.log(resp)
+                         
+                         let factor =40
+                            setValueLys(resp.Lysine*factor)
+                            setValueME(resp.ME)
+                            setValueMet(resp.Methionine*factor)
+                            setValueCa(resp.Calcium*factor)
+                            setValueP_Avail(resp.P_avail*factor)
+                            setValueCP(resp.CP*factor)
+                            setFill('green')
+                            ToastAlert('toastAlert1','Successfull',2000)
+                        })
             
-        })
-   
-   setTotal(features.reduce((acc, val) => acc + val, 0));
+                   
+                      }
+                   }
+                  
+          
+                     }}class="button1">Predict</div>
 
 
 
-        if(features.includes(NaN)){
-ToastAlert('toastAlert2','Fill in all values correctly, there is an error',5000)
-        }else{
-            if(total>101){
-                ToastAlert('toastAlert2','Total of ingredient compositions should be less than 101%',3500)
-            }else{
-                
-         
-            window.location.href='#'
-            setValueME(50)
-            setValueMet(50)
-            setValueCa(50)
-            setValueP_Avail(50)
-            setValueLys(50)
-            setValueCP(50)
-            setFill('orange')
+</div>
+
+
+
+
+</div>
+
+
            
-
-            features.push(100)
-              Post('/predictNutrients',{
-                  features:features
-              }).then(resp=>{
-               
-               resp.ME=resp.ME-5520
-               
-                  setValueLys(resp.Lysine)
-                  setValueME(resp.ME)
-                  setValueMet(resp.Methionine)
-                  setValueCa(resp.Calcium)
-                  setValueP_Avail(resp.P_avail)
-                  setValueCP(resp.CP)
-                  setFill('green')
-              })
-  ToastAlert('toastAlert1','Successfull',2000)
-         
-            }
-         }
-        
-
-           }}class="button1">Predict</div>
 
             </div>
             <div class="col-md-3"></div>

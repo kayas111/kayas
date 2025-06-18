@@ -24,7 +24,7 @@ export function PaymentsHomepage(){
 <div class="divContainer1">
     <a href="/pages/payments/mytickets"><div class="divContainer1Inner"><span class="r"></span>  Approve a payment</div></a>
 </div>
-
+<div style={{paddingBottom:"100px"}}></div>
 
 
 
