@@ -23,7 +23,7 @@ export function SuspenseComponent(){
 
 export function IsLoggedIn(cookies){
 if(cookies.user===undefined){
-  ToastAlert('toastAlert2','You are not logged in, please log in',4000);
+ ToastAlert('toastAlert2','You are not logged in, please log in',2000);
 
 return false;
 }else{

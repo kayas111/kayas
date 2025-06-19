@@ -25,7 +25,7 @@ export function MakePayment(){
             <div class="label">Make payment</div>
             <div class="description">Pay for a service or ticket. Enter the ID, search and pay</div>  
             <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="btn btn-success btn-sm">Back to menu</div></a></div><p></p>
+                    <div class="button1">Back to menu</div></a></div><p></p>
     
             <form  method="post" id="makePaymentForm" action="#">
           
@@ -38,7 +38,7 @@ export function MakePayment(){
     
     <div class="status">{searchStatus}</div>
     
-          <div  class="btn btn-success btn-sm"
+          <div  class="button1"
           
           onClick={()=>{
             let form=document.getElementById('makePaymentForm'),ticketId=form.ticketId.value.trim()
@@ -89,7 +89,7 @@ export function MakePayment(){
     <div class="formInputLabel">Create your payment secret code or word (You will be asked for this secret to confirm your payment)</div>
                  <input type="text" name='paymentSecretCode' class="form-control" autoComplete="off" /><p></p>
     <div class="status">{payStatus}</div>
-           <div   class="btn btn-success btn-sm"
+           <div   class="button1"
            onClick={()=>{
          
                 
@@ -97,7 +97,7 @@ export function MakePayment(){
             if(searchSuccessful===false){
                 ToastAlert('toastAlert2','Search before making a payment',3000)
             }else{
-    setPayStatus('Please wait......')
+    
     paymentDetails.ticketId=ticketDetails.ticketId
     paymentDetails.amount=ticketDetails.amount
     paymentDetails.name=cookies.user.name
@@ -107,6 +107,7 @@ export function MakePayment(){
     if(Array.from(paymentSecretCode).length<3){
         ToastAlert('toastAlert2','Create a payment secret code of atleast 3 characters',4000)
     }else{
+        setPayStatus('Please wait......')
         paymentDetails.paymentSecretCode=paymentSecretCode
         
         GetTradingDetails(cookies.user.contact).then(traderDetails=>{

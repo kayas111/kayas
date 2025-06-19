@@ -20,7 +20,7 @@ if(IsLoggedIn(cookies)==true){
             <div class="description">Create tickets/service that people will pay for or buy</div>
     
             <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="btn btn-success btn-sm">Back to menu</div></a></div>
+                    <div class="button1">Back to menu</div></a></div>
     
     <p></p>
             <form  method="post" id="createTicketForm" action="#">
@@ -35,7 +35,7 @@ if(IsLoggedIn(cookies)==true){
           <input type="text"  name='amount' class="form-control" autoComplete="off" /><p></p>
           <div class="status">{status}</div>
     
-          <div   class="btn btn-success btn-sm"  onClick={()=>{
+          <div   class="button1"  onClick={()=>{
             
             let form=document.getElementById('createTicketForm'), 
             ticketId=form.ticketId.value.trim(), 

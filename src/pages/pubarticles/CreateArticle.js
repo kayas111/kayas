@@ -32,11 +32,11 @@ useEffect(()=>{
    
 async function  CreateArticle(){   
   
-  setStatus("<div style='color:orange;'>Initializing.........</div>")
+  setStatus("Initializing.........")
   setTimeout(()=>{
-    setStatus("<div style='color:orange;'>Gathering requirements.................</div>")
+    setStatus("Gathering requirements.................")
     setTimeout(()=>{
-      setStatus("<div style='color:orange;'>Creating...........................</div>")
+      setStatus("Creating...........................")
   
     },5000)
   },5000)
@@ -81,10 +81,10 @@ if(traderDetailsObj.permissionTokensObj.createPubArticleTokens<1 ||
         
     if(imageFile===undefined){
       window.location.href=`/pages/pubarticles/article/${responseObject.id}`
-      ToastAlert('toastAlert1','Finalizing......',5000)
+      setStatus(`Finalizing.......`) 
       }else{
 
-        setStatus(`<div style='color:orange;'>Uploading image..........</div>`) 
+        setStatus(`Uploading image..........`) 
 
 
         let value=0;
@@ -102,7 +102,7 @@ if(traderDetailsObj.permissionTokensObj.createPubArticleTokens<1 ||
        let imageRef= bucket.child(`pubArticleImages/${imageName}`)
      await  imageRef.put(imageFile).then(async (resp)=>{
 
-      setStatus(`<div style='color:orange;'>Getting image URL ..........</div>`)      
+      setStatus(`Getting image URL ..........`)      
 let imageDownLoadUrl=await imageRef.getDownloadURL({
         orderBy:'generation',limitTo:1
        }).then(resp=>{
@@ -114,7 +114,7 @@ fetch('/addPubArticleImageUrlToArticle',{
         headers:{'Content-type':'application/json'},
         body:JSON.stringify({contact:parseInt(responseObject.contact),articleId:responseObject.id,imageDownLoadUrl:imageDownLoadUrl})
     }).then(resp=>{
-        setStatus(`<div style='color:orange;'>Image saved</div>`) 
+        setStatus(`Image saved`) 
         window.location.href=`/pages/pubarticles/article/${responseObject.id}`
         ToastAlert('toastAlert1','Finalizing......',5000)
      })
@@ -164,7 +164,7 @@ fetch('/addPubArticleImageUrlToArticle',{
   
     <form method="post" id="articleCreateForm" action="#">
 
-    <div style={{paddingBottom:"8px"}}><div class="formLabel">Create article.</div></div>
+    
        <div class="mb-3">
      <div class="formInputLabel">Type headline</div>
      <textarea rows="3" type="text" class="form-control" autoComplete="off" name="articleHeadline1"></textarea>
@@ -205,7 +205,7 @@ fetch('/addPubArticleImageUrlToArticle',{
    
     </div>
      
-     <div style={{fontSize:"15px",fontWeight:"600"}} dangerouslySetInnerHTML={{__html:status}}/>
+   <div class="status">{status}</div>
      <progress value={progressBarValue} max="100"  style={{width:"100%"}}/>
      <div   onClick={
      

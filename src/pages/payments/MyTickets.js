@@ -36,7 +36,7 @@ let ticketDetails=resp.reverse()
 <div style={{fontSize:"15px",fontWeight:"600"}}>Ticket ID: {ticketDetail.ticketId}</div>
 <div>Number of tickets sold: {ticketDetail.payments.length}</div>
 <div>Amount per ticket: {ticketDetail.amount} shs</div>
-<a href={`/pages/payments/approvepayment/${ticketDetail.ticketId}`}><div style={{paddingTop:"3px"}}><div class="btn btn-success btn-sm">Approve a payment</div></div></a>
+<a href={`/pages/payments/approvepayment/${ticketDetail.ticketId}`}><div style={{paddingTop:"3px"}}><div class="button1">Approve a payment</div></div></a>
 </div>
 
             </div>
@@ -55,7 +55,7 @@ let ticketDetails=resp.reverse()
             <div class="label">My tickets</div>
             <div class="description"> Select a ticket to approve a payment made for it.</div>
             <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="btn btn-success btn-sm">Back to menu</div></a></div>
+                    <div class="button1">Back to menu</div></a></div>
     
       
             <p></p>

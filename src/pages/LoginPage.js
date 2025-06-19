@@ -66,7 +66,7 @@ let contact=document.getElementById("loginForm").contact.value,pin=document.getE
 }
       } 
 
-     } class="btn btn-success btn-sm"> Log in</div><p></p>
+     } class="button1"> Log in</div><p></p>
     
      </form>
 

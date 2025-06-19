@@ -29,7 +29,7 @@ setTicketId( <div style={{paddingTop:"70px",paddingBottom:"70px"}}>
 
        }else{
     
-        setTicketId( <div style={{paddingTop:"10px",paddingBottom:"30px"}}>
+        setTicketId( <div style={{paddingTop:"10px",paddingBottom:"10px"}}>
         
        <div id="ticketId" style={{textAlign:"center", background:"orange",padding:"3px",color:"black",fontSize:"15px"}}>{resp[0].ticketId}</div>
             <p></p>
@@ -54,12 +54,15 @@ setTicketId( <div style={{paddingTop:"70px",paddingBottom:"70px"}}>
         <div class="col-md-6">
             <div class="label">Approve a payment</div>
             <div class="description">Verify and approve whether a ticket was paid for</div>
+            <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
+                    <div class="button1">Back to menu</div></a></div>
+    
     <p></p>
           <div>{ticketId}</div>
   
  <div class="status">{status}</div>
-    <div style={{textAlign:"center"}}>
-        <div class="btn btn-success btn-sm"
+    <div>
+        <div class="button1"
                     onClick={()=>{
                         
                         let paymentSecretCode=document.getElementById("paymentSecretCode").value.trim(),
@@ -83,10 +86,8 @@ Post('/approveticketpayment',payLoad).then(resp=>{
                     
                     >Verify & approve</div>
                     </div>
+   <div style={{paddingBottom:"100px"}}></div>
    
-    <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="btn btn-success btn-sm">Back to menu</div></a></div>
-    
         </div>
         <div class="col-md-3"></div>
     </div>

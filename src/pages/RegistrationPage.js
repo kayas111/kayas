@@ -28,7 +28,7 @@ export function RegistrationPage(){
    <input type="text" class="form-control" autoComplete="off" name="email" ></input>
   
    <br></br>
-   <div class="formInputLabel">Create a PIN e.g. 12345</div>
+   <div class="formInputLabel">Create your Kayas PIN of 5 digits</div>
      <input type="text" class="form-control" autoComplete="off" name="pin" ></input>
   
      </div>
@@ -129,7 +129,7 @@ let payLoad={
 }
       } 
 
-     } class="btn btn-success btn-sm"><span class="fa fa-user-circle"></span> Register</div><p></p>
+     } class="button1"><span class="fa fa-user-circle"></span> Register</div><p></p>
     
      </form>
 

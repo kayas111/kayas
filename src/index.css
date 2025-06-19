@@ -450,7 +450,6 @@ font-weight:bold;
   
   }
   .divContainer1{
-    
     padding: 1px;
   }
   .divContainer1Inner{
@@ -461,7 +460,7 @@ font-weight:bold;
   }
   .divContainer1Inner:hover{
     background-color: orange;
-    border: 3px solid orange;
+    padding: 4px;
     color: white;
   }
 
@@ -577,18 +576,23 @@ text-align: center;
 
 
 .button1{
-  background-color:orange;
-  padding:3px;
+  background-color:#198754;
+  padding:4px;
   font-size: 11px;
-  color: black;
-  border-radius: 1px;
+  color: white;
+  border-radius: 2px;
   text-align: center;
-  border: 0px;
+  
+  display: inline-block;
+  width: auto;
   
 }
 
 .button1:hover{
   cursor: pointer;
+  color: white;
+    background-color:rgb(0, 197, 0) ;
+  border-radius: 2px;
 }
 
 
@@ -596,8 +600,11 @@ text-align: center;
 .status{
   color:green;
   font-weight: 600;
-  text-align: center;
-  font-size: 13px;
+  text-align: left;
+  font-size: 14px;
+  padding-top:2px;
+  padding-bottom:2px ;
+  
 }
 .button1:hover{
   
@@ -678,10 +685,10 @@ background-color: white;
   
   
 height: 15%;
-font-size: 15px;
+font-size: 12px;
 position:fixed;
 border-radius: 0px 0px 5px 5px;
-top:0%;
+top:40%;
 left: 0%;
 right: 0%;
 text-align:center;
@@ -690,13 +697,11 @@ text-align:center;
 .toastAlert2{
   background-color:rgb(226, 0, 0);
   padding-top: 30px;
-  
-  
   color: white;
 height: 15%;
 font-size: 12px;
 position:fixed;
-top:0%;
+top:40%;
 left: 0%;
 right: 0%;
 text-align:center;

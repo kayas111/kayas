@@ -41,7 +41,7 @@ export function SendMessage(props){
    
       </div>
       <div style={{fontSize:"17px"}} dangerouslySetInnerHTML={{__html:requestStatus}}/>
-      <div class="form-submit-btn" onClick={()=>{
+      <div class="button1" onClick={()=>{
   if(Array.from(document.getElementById('requestForm').name.value).length<2){
     ToastAlert('toastAlert2','Enter correct name',3000)
     

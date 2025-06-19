@@ -24,7 +24,7 @@ return(
    <br></br>
   <div class="formInputLabel">Amount</div>
    <input type="text" class="form-control" autoComplete="off" name="amount" ></input>
-   <br></br> 
+ 
    
   
      </div>
@@ -91,7 +91,7 @@ let payLoad={
 }
       } 
 
-     } class="btn btn-success btn-sm"><span class="fa fa-money"></span> Deposit</div><p></p>
+     } class="button1"><span class="fa fa-money"></span> Deposit</div><p></p>
     
      </form>
 

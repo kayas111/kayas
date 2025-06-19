@@ -27,7 +27,7 @@ export function MyPayments(){
                     <div class="btn btn-success btn-sm">Make payment</div></a></div>
 
                 <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="btn btn-success btn-sm">Back to menu</div></a></div>
+                    <div class="button1">Back to menu</div></a></div>
                 </div>
             )
         }else{
@@ -59,10 +59,10 @@ let paymentDetails=resp.reverse()
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="label">My payments</div>
-            <div class="description">A list of all your payments bothe served and not served</div>
+            <div class="description">A list of all your payments both served and not served</div>
             
             <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="btn btn-success btn-sm">Back to menu</div></a></div>
+                    <div class="button1">Back to menu</div></a></div>
     
             <p></p>
     
