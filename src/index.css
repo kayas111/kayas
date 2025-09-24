@@ -1,13 +1,36 @@
+
+
+
+
+
+
+footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+
 body {
+  flex: 1; /* take all remaining space */
+  height: 100%;
   margin: 0;
   font-family:'Arial',sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 13px;
   background-color: #00000011;
+  
+  
 
 
 }
+.mainContent{
+  min-height:82vh;
+  
+}
+
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -109,15 +132,16 @@ padding: 5px;
   
 }
 .AdComponentDiv{
-  padding-bottom:5px;border-radius:3px;
+  padding:3px;border-radius:3px;
   background-color: white;
-  box-shadow:0px 0px 8px black;
+  box-shadow:0px 0px 0px black;
+  
 }
  .articleContainer{
-padding:8px;
-padding-bottom: 12px;
+padding:5px;
 
-background-color:rgb(228, 226, 226);
+
+background-color:rgb(235, 235, 235);
 
  }
  .articleContainer2{
@@ -130,9 +154,37 @@ background-color:rgb(228, 226, 226);
   font-size:22px;
   padding-top: 10px;
   font-weight: 600;
+ 
   
   
  }
+
+ .ListArticleHeadline{
+  font-size:17px;
+  padding-top:2px;
+  font-weight: 600;
+  color: black;
+  
+  
+ }
+ .ListArticleHeadlineAndOthers{
+  color: black;
+ 
+ }
+.ListArticleHeadlineAndOthers:hover{
+  color: orange;
+
+
+}
+ .ListArticleHeadline:hover{
+  font-size:17px;
+  padding-top:2px;
+  font-weight: 600;
+  color: orange;
+  
+  
+ }
+
 .candName{
   font-size: 20px;
   font-weight: 500;
@@ -239,7 +291,8 @@ nav-link1{
 .basenave{
   background:black;
   color:white;
-  padding:20px;
+  padding:10px;
+  text-align: left;
   
 }
 .carmsgcolor{
@@ -326,7 +379,7 @@ font-weight:bold;
 
 
 .SuspenseContainer{
-font-size: 25px;
+font-size: 15px;
 padding-top:250px;
 background-color: black;
 text-align: center;
@@ -422,8 +475,8 @@ font-weight:bold;
   
   .item-price{
    font-size:16px;
-  color:orange;
-  font-size:18px;
+  color:rgb(243, 158, 0);
+  font-size:16px;
   padding-top:0px;
   font-weight:bold;
   
@@ -487,7 +540,7 @@ font-weight:bold;
     border:1px solid rgba(0, 0, 0, 0.164);
   }
   .formInputLabel{
-        font-size:14px;
+        font-size:13px;
         font-weight: 600;
         color:black;
         
@@ -509,31 +562,58 @@ padding:3px;
   
   
  }
+.allArticlesCont1{
+padding:3px;
+border: 0px solid red;
 
+}
+.allArticlesCont1:hover{
+color: orange;
+}
+.allArticlesCont2{
+padding: 4px;
+border: 1px solid grey;
+background-color: white;
+border-radius: 2px;
+}
 .test{
   color:#5a5a5a
 }
 
+
 .pageLabel{
-text-align: center;
+text-align: left;
   font-weight: 600;
-  padding: 2px;
-  font-size:20px;
+  padding: 0px;
+  font-size:18px;
   }
 
 .pageDescription{
-  text-align: center;
+  text-align: left;
     font-size: 12px;
-    padding: 2px;
-    border-bottom: 1px solid black;
-    
-  }
+    padding: 0px;
+    opacity: 0.8;
+    }
+
+    .bold{
+      text-align: left;
+        font-weight: 600;
+        padding: 0px;
+        font-size:14px;
+        }
+      
+      .light{
+        text-align: left;
+          font-size: 12px;
+          padding: 0px;
+          opacity: 0.8;
+          }
 
 .label{
-text-align: center;
+  text-align: center;
   font-weight: 600;
   padding: 2px;
-  font-size:20px;
+  font-size:18px;
   }
 
 .description{
@@ -580,7 +660,7 @@ text-align: center;
   padding:4px;
   font-size: 11px;
   color: white;
-  border-radius: 2px;
+  border-radius: 4px;
   text-align: center;
   
   display: inline-block;
@@ -624,7 +704,7 @@ text-align: center;
   padding: 3px;
 }
 .blackBorderDiv{
-  border: 3px solid black;
+  border: 2.5px solid rgb(0, 0, 0);
   padding: 3px;
 }
 .blackBgOrangeColor{
@@ -679,19 +759,21 @@ background-color: white;
 }
 
 .toastAlert1{
-  background-color:green;
+    background-color:green;
   color: white;
   padding-top: 30px;
+
   
   
 height: 15%;
 font-size: 12px;
 position:fixed;
 border-radius: 0px 0px 5px 5px;
-top:40%;
-left: 0%;
-right: 0%;
+top:25%;
+left: 1%;
+right: 1%;
 text-align:center;
+border-radius: 10px;
 }
 
 .toastAlert2{
@@ -701,10 +783,12 @@ text-align:center;
 height: 15%;
 font-size: 12px;
 position:fixed;
-top:40%;
-left: 0%;
-right: 0%;
+top:25%;
+left: 1%;
+right: 1%;
 text-align:center;
+border-radius: 10px;
+
 }
 .label1{
   font-size:15px;

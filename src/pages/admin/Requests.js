@@ -40,7 +40,7 @@ return(
     <div style={{fontSize:"15px"}} dangerouslySetInnerHTML={{__html:requestManagementFormStatus}}/>
     <div style={{borderRadius:"18px"}} onClick={()=>{
       
-      if(Array.from(document.getElementById('requestManagementForm').requestId.value).length<24||Array.from(document.getElementById('requestManagementForm').requestId.value).length>24){
+      if(Array.from(document.getElementById('requestManagementForm').requestId.value.trim()).length<24||Array.from(document.getElementById('requestManagementForm').requestId.value.trim()).length>24){
         setRequestManagementFormStatus('<div style="color:red;">Enter correct ID</div>')
       }else{
         setRequestManagementFormStatus('Clearing......')

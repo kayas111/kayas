@@ -4,6 +4,7 @@ import { ToastAlert,IsLoggedIn, Post, GetTradingDetails } from '../Functions';
 import {LoginPage} from '../LoginPage'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import {useCookies} from 'react-cookie'
+import { PaymentsNav } from './PaymentsNav';
 
 export function ApprovePayment(){
     const [cookies]=useCookies(['user'])
@@ -52,10 +53,9 @@ setTicketId( <div style={{paddingTop:"70px",paddingBottom:"70px"}}>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <div class="label">Approve a payment</div>
-            <div class="description">Verify and approve whether a ticket was paid for</div>
-            <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="button1">Back to menu</div></a></div>
+            <div class="pageLabel">Approve a payment</div>
+            <div class="pageDescription">Verify and approve whether a ticket was paid for</div>
+           <PaymentsNav/>
     
     <p></p>
           <div>{ticketId}</div>

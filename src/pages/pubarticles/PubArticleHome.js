@@ -6,7 +6,7 @@ import 'firebase/compat/storage';
 import {useCookies} from 'react-cookie'
 //import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import React, {useEffect,useState} from 'react';
-
+import { Link } from "react-router-dom";
 import axios from 'axios'
 
 firebase.initializeApp({
@@ -103,10 +103,9 @@ export function ArticlesNav(props){
   <div>
     <div style={{paddingTop:"5px",display:"flex",flexWrap:"wrap"}}>
       <div style={style2}>
-      <a href="/pages/pubarticles/createarticle">
-        <div class="button1" ><span ><span class="fa fa-plus"></span> New article</span></div>
-        
-        </a>
+     
+        <a href='/pages/pubarticles/createarticle'><div class="button1" ><span ><span class="fa fa-plus"></span> New article</span></div></a>
+
         </div>
 
 
@@ -115,7 +114,7 @@ export function ArticlesNav(props){
 if(IsLoggedIn(cookies)===true && parseInt(props.articleAuthorContact)===parseInt(cookies.user.contact)){
   
   if(window.confirm(`Do you want to delete article ${props.articleId}`)==true){
-    ToastAlert('toastAlert1',`Deleting article ${props.articleId}........`,2000)
+    ToastAlert('toastAlert1',`Deleting article ${props.articleId}. Wait for confirmation message........`,2000)
   const imageRef = ref(getStorage(), `pubArticleImages/pubArticleImage_${props.articleId}`);
   
   deleteObject(imageRef).then(() => {}).catch((error) => {
@@ -170,19 +169,7 @@ if(IsLoggedIn(cookies)===true && parseInt(props.articleAuthorContact)===parseInt
 
 </div>  
 
-   
-    
-<div style={style2}>
-  <a href="/pages/deposit">
-  <div class="button1">
-     
-<span > Deposit to account</span>
-</div>
-</a>
-
-</div>
-        
-            
+         
             
             
             

@@ -2,10 +2,10 @@ import {ToastAlert,IsLoggedIn } from '../Functions';
 import firebase from 'firebase/compat/app';
 import { ArticlesNav} from './PubArticleHome';
 import {useCookies} from 'react-cookie'
-
+import React, {useState,useEffect} from 'react';
 import 'firebase/compat/storage';
 
-import React, {useState,useEffect} from 'react';
+
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 firebase.initializeApp({
@@ -236,7 +236,7 @@ fetch('/addPubArticleImageUrlToArticle',{
         }
 
        }
-     } class="button1">Create Article</div><p></p>
+     } class="btn btn-success" style={{width:"100%"}}>Create Article</div><p></p>
     
      </form>
      

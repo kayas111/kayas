@@ -26,8 +26,12 @@ export function SendMessage(props){
       
       <div class='row'>
         <div class='col-md-3'></div>
-        <div class='col-md-6'> <form id='requestForm' >
-      <div style={{paddingBottom:"8px"}}><div class="formLabel">Send message</div></div>
+        <div class='col-md-6'> 
+        <div class="pageLabel">Send message to Kayas</div>
+      <div class="pageDescription">Send a message to Kayas</div><p></p>
+        
+        <form id='requestForm' >
+      
   
       <div class="mb-3">
         <div class="formInputLabel">Name</div>
@@ -41,7 +45,7 @@ export function SendMessage(props){
    
       </div>
       <div style={{fontSize:"17px"}} dangerouslySetInnerHTML={{__html:requestStatus}}/>
-      <div class="button1" onClick={()=>{
+      <div class="btn btn-success" style={{width:"100%"}} onClick={()=>{
   if(Array.from(document.getElementById('requestForm').name.value).length<2){
     ToastAlert('toastAlert2','Enter correct name',3000)
     

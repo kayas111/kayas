@@ -2,7 +2,7 @@
 
  
 export function About(){
-let v={padding:"5px"},x={borderBottom:"1.5px solid orange",textAlign:"center",padding:"5px"},
+let v={padding:"0px"},x={paddingBottom:"8px"},
 p={textAlign:"center",fontSize:"17px",padding:"5px",borderRadius:"5px"}
  return( 
 
@@ -18,16 +18,14 @@ p={textAlign:"center",fontSize:"17px",padding:"5px",borderRadius:"5px"}
 
  Services offered by Kayas 
  
-    
-    
 </div>
 
-
+<p></p>
 </div>
 <div style={v}  class="col-md-12">
 <div style={x}>
-<div style={p}>Bulk SMS</div>
-<div>
+<div class="bold">Bulk SMS</div>
+<div class="light">
     Send an SMS messsage to many contacts at once instantly. You can also get the system and send the SMS by yourself.
 </div>
 
@@ -38,8 +36,8 @@ p={textAlign:"center",fontSize:"17px",padding:"5px",borderRadius:"5px"}
 
 <div style={v}  class="col-md-12">
 <div style={x}>
-<div style={p}>Delivery services</div>
-<div>
+<div class="bold">Delivery services</div>
+<div class="light">
     All student room products/items e.g. mattress, dressing mirrors, basins, e.t.c can be delivered to your door step after purchase. 
 </div>
 
@@ -50,8 +48,8 @@ p={textAlign:"center",fontSize:"17px",padding:"5px",borderRadius:"5px"}
 
 <div style={v}  class="col-md-12">
 <div style={x}>
-<div style={p}>Quick phone call system</div>
-<div>
+<div class="bold">Quick phone call system</div>
+<div class="light">
     A system that allows you make quicker phone calls to many contacts which saves time.
 </div>
 
@@ -60,8 +58,8 @@ p={textAlign:"center",fontSize:"17px",padding:"5px",borderRadius:"5px"}
 
 <div style={v}  class="col-md-12">
 <div style={x}>
-<div style={p}>Cheaper used items</div>
-<div>
+<div class="bold">Cheaper used items</div>
+<div class="light">
     Get good items like tables, carpets, TVs, etc being sold by students at very cheap prices. WhatsApp Kayas on 0703852178 to join the items group for updates.
 </div>
 

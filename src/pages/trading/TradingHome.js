@@ -152,7 +152,7 @@ window.location.href='/pages/about'
   
 
 return(
-<div style={{padding:"3px"}}>
+<div style={{padding:"4px"}}>
 
 <div class="row" >
 <div class="col-md-3" ></div>
@@ -162,18 +162,18 @@ return(
 <div class="pageDescription">{traderNotice}</div>
 <div style={{paddingTop:"5px"}}>
 
-<div >Payment from Kayas: <span>{traderCashOutBal} shs</span></div>
+<div >Payout balance: <span>{traderCashOutBal} shs</span></div>
 </div>
 
 <p></p>
 <form id="traderNoticeForm">
-<div style={{paddingBottom:"8px"}}><div class="formLabel" >Send Kayas a message</div></div>
+<div class="bold" >Send message to Kayas</div>
     <div class="mb-3">
     
     <textarea rows="5" type="text" class="form-control" autoComplete="off" name="msg" placeholder='Enter message to notify Kayas. Include neccessary contacts if there is need.' ></textarea>
   </div>
   
-    <div type="text" class="button1" onClick={()=>{
+    <div type="text" style={{width:"100%"}} class="btn btn-success" onClick={()=>{
       if((Array.from(document.getElementById('traderNoticeForm').msg.value.trim())).length<1){
         ToastAlert('toastAlert2','Enter a message',3000)
       }else{
@@ -197,10 +197,11 @@ return(
 
     <div class="blackBorderDiv">
       
-      <div class="formLabel">Delivery service</div>
-    <div style={{textAlign:"center",padding:"5px",fontSize:"14px"}}>{deliveryServiceAvailability}</div>
+      <div class="bold">Delivery service</div>
+      <div class="light">Turn on or off your visibility</div>
+    <div style={{textAlign:"left",paddingTop:"5px",fontSize:"14px"}}>{deliveryServiceAvailability}</div>
     <div class="status">{deliveryServiceAvailabilityStatus}</div>
-<div class="button1"
+<div style={{width:"100%"}} class="btn btn-success"
 onClick={()=>{
   setDeliveryServiceAvailabilityStatus('Changing.....')
   fetch('/updateTraderDetails',{
@@ -226,7 +227,7 @@ onClick={()=>{
      
 <p></p>
      <form id="traderSettingsForm">
-     <div style={{paddingBottom:"8px"}}><div class="formLabel" >Settings</div></div>
+     <div class="bold" >Free SMS settings</div>
          <div class="mb-3">
          <div style={{padding:"5px"}}>People can send free SMS through your account: <span style={{color:"red"}}>{allowPeopleToSendFreeSmsValue}</span> | <span  style={{color:"green"}} onClick={()=>{
                         

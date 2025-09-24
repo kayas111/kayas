@@ -61,15 +61,15 @@ export function ShareMyArticles(props){
 
     },[])
    
-            return(<div>
-      <p></p>
-      <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6"> <div style={{padding:"5px",fontSize:"18px",textAlign:"center",color:"black"}} dangerouslySetInnerHTML={{ __html: authorName }}/></div>
-        <div class="col-md-3"></div>
-      </div>
+            return(<div style={{padding:"3px"}} >
+      
+      <div class="pageLabel"> Trending stories</div>
+      <div class="light">Select the information to read details</div><br></br>
+<div class="row">
+   
+  {myArticles}</div>
 
-  <div class="row">{myArticles}</div>
+  
    
     
             </div>)

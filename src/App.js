@@ -1,16 +1,17 @@
+import { Link } from 'react-router-dom';
 import React,{useEffect,useState,Suspense} from 'react'
 import {useCookies} from 'react-cookie'
 import {KyuOpinionPolls,OpinionPoll1,AcholiStudentsUnionPoll} from './pages/VoterOpinionPolls/VoterOpinionPollsHome';
 import {FollowingComp} from './pages/followers/FollowersHome'
 import About from './pages/About';
-import { GetTradingDetails, VerifyRegistrationAndPin } from './pages/Functions';
+import { GetTradingDetails, VerifyRegistrationAndPin,SuspenseComponent } from './pages/Functions';
 import Links from './pages/Links';
 import Maintenance from './pages/Maintenance';  
 import {BidsHome,ViewOffer} from './pages/bids/BidsHome';
 import Brocode from './pages/Brocode';  
 import {ClientBusinesses,Client1,Client2,Client3,Client4,Client5,Client6,Client7,Client8,Client9,Client10,Client11,Client12} from './pages/ClientBusinesses'; 
 import Quotes from './pages/Quotes';
-import logo from './logo2.png';
+import logo from './logo.png';
 import Devs from './pages/Devs';
 import {TradingHome,TradingAccount} from './pages/trading/TradingHome';
 
@@ -125,12 +126,13 @@ useEffect(()=>{
     setUserName('Not logged in')
     setLoginButtonText('Log in')
     
+    
   }else{
   setUserName('Logged in')
   setLoginButtonText('Log out')
   GetTradingDetails(cookies.user.contact).then(resp=>{
+    setAccBal(`<a href="/pages/deposit"><span  class="backgroundColorHoverEffectGreen" style="border:1px solid grey;padding:3px; color:orange;"> Balance: ${resp.accBal}/= </span></a>`)
     
-    setAccBal(`<span style="border:1px solid grey;padding:3px;"> Balance: ${resp.accBal}/= </span>`)
   })
 }
 
@@ -165,12 +167,7 @@ useEffect(()=>{
 
 
     <BrowserRouter >
-  <Suspense fallback={
-  <div class="SuspenseContainer">
-      <div><span style={{fontSize:"8px"}} class="spinner-border" role="status"></span></div>
-   <div>Kayas</div> 
-    </div>
-}> 
+  <Suspense fallback={<SuspenseComponent/>}> 
 <div class="navigation"> 
        
        <nav  class="navbar-expand-sm navbar-light bg-black" >
@@ -178,10 +175,82 @@ useEffect(()=>{
      <div  class="row">
        <div class="col-12" style={{textAlign:"center"}}>
      <div class='row'>
-<div style={{color:"grey",textAlign:"left",fontSize:"7px",opacity:"0.6"}} class='col-3 col-md-5'>{reqNumb}</div>
-<div class='col-6 col-md-2'><img src={logo} class="d-block w-100" alt="..."  /></div>
-<div style={{color:"grey",textAlign:"right",fontSize:"7px",opacity:"0.6"}} class='col-3 col-md-5'>{kayasersNumb}
+
+<div style={{paddingBottom:"10px"}} class='col-2 col-md-1'><img style={{paddingTop:"8px"}} src={logo} class="d-block w-100" alt="..."  /></div>
+
+<div class='col-10 col-md-11'>
+<div style={{textAlign:"right",paddingBottom:"5px"}}>
+<div style={{color:"grey",textAlign:"right",fontSize:"7px",opacity:"0.7"}}>{reqNumb} / {kayasersNumb}
 </div>
+<div style={{color:"orange"}} dangerouslySetInnerHTML={{ __html: accBal }} />
+  <div style={{padding:"5px"}}>
+ 
+ </div>
+  <div class="button1" style={{paddingRight:"10px"}} onClick={()=> {if(cookies.user===undefined){
+    let contact=window.prompt("Enter your contact that is registered on Kayas")
+    if(contact===null){
+      ;
+    }else if(Array.from(contact.trim()).length<10){
+      
+      ToastAlert('toastAlert2','Contact must be 10 digits e.g. 0703852178',4000)
+    }else{
+      let pin=window.prompt("Enter your Kayas PIN")
+      if(pin===null){
+        ;
+      }else if(Array.from(pin.trim()).length<5){
+        
+        ToastAlert('toastAlert2','PIN must be 5 digits',4000)
+      } else{
+        VerifyRegistrationAndPin(contact.trim(),pin.trim()).then(resp=>{
+        if(resp.registered===false){
+          window.alert('Your contact is not registered with Kayas. Select "OK" to register and then proceed with logging in.')
+          window.location.href='/pages/register' 
+
+          }else
+          
+             if(resp.pin===false){
+               ToastAlert('toastAlert2','Incorrect PIN. Try again',3000)
+              //  window.location.href="/pages/homepage"
+             }else{
+               let user={name:resp.details.name,contact:resp.details.contact,role:'user'}
+               
+             if(window.confirm('Select "OK" to complete logging in')==true){
+              setCookie('user',user,setCookieOptionsObj)
+             window.location.reload()
+             ToastAlert('toastAlert1','Login successful',3500)
+             }else{
+ToastAlert('toastAlert2','Login cancelled',2000)
+             }
+             
+             
+         
+             }
+           })
+      }
+
+
+    }
+    // window.location.href='/pages/login'
+    
+    
+    
+    }else{
+     removeCookie("user",setCookieOptionsObj)
+     //window.location.href="/pages/login"
+     ToastAlert('toastAlert1','Logged out',3000)
+    }}
+    
+    }>{loginButtonText}</div>
+ 
+
+
+
+
+</div>
+
+</div>
+
+
 </div>
      </div>
       
@@ -190,9 +259,9 @@ useEffect(()=>{
   </nav>
     
   
- <div style={{paddingLeft:"5px"}} class ="bg-dark">
+ <div style={{paddingLeft:"0px"}} class ="bg-dark">
  <div class="row" style={{color:"orange",padding:"6px"}}>
- <div class="col-6 col-sm-6 col-md-10" >
+ <div class="col-6 col-sm-6 col-md-12" >
    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
 <button  style={{color:"orange",fontSize:"15px"}} class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
@@ -201,13 +270,17 @@ useEffect(()=>{
 
 <div  class="navbar-collapse justify-content-md-right collapse navB" id="navbarsExample08" >
 
- <ul  class="navbar-nav" style={{display:"flex",flexWrap:"wrap",justifyContent:"center"}}>
+ <ul  class="navbar-nav" style={{display:"flex",flexWrap:"wrap",justifyContent:"left"}}>
   
-  
-
- <li class="nav-item">
+  <li class="nav-item">
 <a class="orangeHoverEffect nav-link" href="/pages/register"><span>Register </span></a>
    </li>
+
+   <li class="nav-item">
+   <a  class="orangeHoverEffect nav-link" href="/advertise/items/0703852178"><span>Campus shopping guide</span></a>
+   </li>
+ 
+
    <li class="nav-item">
    <a class="orangeHoverEffect nav-link" href="/pages/deposit"><span>Deposit to my account</span></a>
    </li>
@@ -227,10 +300,12 @@ useEffect(()=>{
 
    
    }} ><span>My account</span></a>
-   </li>
-      
+   </li> 
+   <li class="nav-item">
+   <a class="orangeHoverEffect nav-link" href="/pages/payments/paymentshomepage"><span>Tickets & payments</span></a>
+   </li> 
     <li class="nav-item">
-   <a class="orangeHoverEffect nav-link" href="/pages/attendanceregs/createattendanceregister"><span>Contacts</span></a>
+   <a class="orangeHoverEffect nav-link" href="/pages/attendanceregs/createattendanceregister"><span>Bulk SMS & Calls</span></a>
    </li> 
  <li class="nav-item">
    <a class="orangeHoverEffect nav-link" href="/pages/pubarticles/allarticles"><span>Articles/stories {articlesNumb}  </span></a>
@@ -253,10 +328,7 @@ useEffect(()=>{
   
   
  
-   <li class="nav-item">
-   <a  class="orangeHoverEffect nav-link" href="/advertise/items/0703852178"><span>Brand new items</span></a>
-   </li>
- 
+   
    <li class="nav-item">
 <a class="orangeHoverEffect nav-link" href="/pages/usedItems"><span>Used items</span></a> 
 
@@ -311,64 +383,7 @@ useEffect(()=>{
 </nav>
 </div>
  
-<div style={{textAlign:"right",paddingTop:"10px"}}  class="col-6 col-sm-6 col-md-2">
-  
-  <div style={{paddingRight:"10px"}} onClick={()=> {if(cookies.user===undefined){
-    let contact=window.prompt("Enter your contact")
-    if(contact===null){
-      ;
-    }else if(Array.from(contact.trim()).length<10){
-      
-      ToastAlert('toastAlert2','Enter contact of 10 digits',4000)
-    }else{
-      let pin=window.prompt("Enter your Kayas PIN")
-      if(pin===null){
-        ;
-      }else if(Array.from(pin.trim()).length<5){
-        
-        ToastAlert('toastAlert2','PIN must be 5 digits',4000)
-      } else{
-        VerifyRegistrationAndPin(contact.trim(),pin.trim()).then(resp=>{
-        if(resp.registered===false){
-           ToastAlert('toastAlert2','Not registered. Tap menu to register',3000)
-          }else
-          
-             if(resp.pin===false){
-               
-               ToastAlert('toastAlert2','Incorrect PIN',3000)
-             }else{
-               let user={name:resp.details.name,contact:resp.details.contact,role:'user'}
-               setCookie('user',user,setCookieOptionsObj)
-             
-             window.alert("Successfully logged in")
-             window.location.href=window.location.href
-         
-             }
-           })
-      }
 
-
-    }
-    // window.location.href='/pages/login'
-    
-    
-    
-    }else{
-     removeCookie("user",setCookieOptionsObj)
-     //window.location.href="/pages/login"
-     ToastAlert('toastAlert1','Logged out',3000)
-    }}
-    
-    }>{loginButtonText}</div>
- <div style={{padding:"3px"}}>
- <div dangerouslySetInnerHTML={{ __html: accBal }} />
-  
- </div>
-
-
-
-
-</div>
 
 </div>
 
@@ -507,7 +522,7 @@ useEffect(()=>{
       </Suspense>
 
    
-    <Basenavele />
+    {/* <Basenavele /> */}
     
  
   
@@ -557,23 +572,25 @@ export function Basenavele(){
 
   
   return (
-    <div class="basenave">
+    <footer class="basenave">
      
 <div class="row">
- <div><span class="fa fa-whatsapp"> </span> WhatsApp: 0703852178</div>
- <div><span class="fa fa-phone"> </span> Telephone: 0703852178/0773367078</div>
- <div><span class="fa fa-envelope"> </span> Email: kayasforyou@gmail.com</div>
-<div><span class="fa fa-copyright"></span> Copyright 2024 KAYAS.</div>
+  <div><span class="fa fa-copyright"></span> Copyright 2024 KAYAS.</div>
+ <div><span class="fa fa-whatsapp"> </span> 0703852178 | <span class="fa fa-phone"> </span> 0773367078</div>
+ 
+ <div><span class="fa fa-envelope"> </span> kayasforyou@gmail.com </div>
+
 <div>EgoBal {egoSmsAccBal}/{tradersTotalCredit} TTC</div>
 <div>Sms service <span dangerouslySetInnerHTML={{__html: smsService}}/></div>
-<div>BnplDailyPromos {totalBnplDailyPromotions}</div>
+
+
 
 
 
 
 </div>
 
-    </div>
+    </footer>
 
      
   );

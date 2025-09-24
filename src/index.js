@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App';
+import {App,Basenavele} from './App';
+
 
 import reportWebVitals from './reportWebVitals';
 
@@ -21,7 +22,13 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-
+ReactDOM.render(
+  <React.StrictMode>
+      <Basenavele />
+    </React.StrictMode>,
+  
+    document.getElementById('footer')
+  );
 
 reportWebVitals();
 

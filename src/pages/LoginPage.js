@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { ToastAlert,VerifyRegistrationAndPin } from "./Functions"
 import { setCookieOptionsObj} from '../Variables';
+import {RegistrationPage} from "./RegistrationPage"
 import {useCookies} from 'react-cookie'
 export function LoginPage(){
     const [cookies,setCookie,removeCookie]=useCookies(['user'])
@@ -9,8 +10,8 @@ export function LoginPage(){
           <div class='row'>
         <div class='col-md-3'></div>
         <div class='col-md-6'>
-<div class="label">You need to log in</div>
-<div class="description">Log in to proceed</div><p></p>
+<div class="pageLabel">You need to log in</div>
+<div class="pageDescription">Log in to proceed</div><p></p>
          
     <form method="post" id="loginForm">
     <div class="mb-3">
@@ -20,7 +21,7 @@ export function LoginPage(){
 
   
    <br></br>
-   <div class="formInputLabel">Your Kayas PIN that you created</div>
+   <div class="formInputLabel">Enter your Kayas PIN that you created while you were registering for Kayas</div>
      <input type="password" class="form-control" autoComplete="off" name="pin" ></input>
   
      </div><p></p>
@@ -69,13 +70,14 @@ let contact=document.getElementById("loginForm").contact.value,pin=document.getE
      } class="button1"> Log in</div><p></p>
     
      </form>
+<p></p>
 
 
         </div>
         <div class='col-md-3'></div>
       </div>
      
-    
+      <RegistrationPage/>
     </div>)
 }
 

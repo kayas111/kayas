@@ -3,6 +3,9 @@ import { kayasDomainUrl } from "../Variables";
 import {useCookies} from 'react-cookie'
 import { setCookieOptionsObj,AppContext,user } from "../Variables";
 
+import React, { useState, useEffect, useRef } from "react";
+import { List } from "react-window";
+
 
 export async function Post(url,payLoad){
  return (await fetch(url,{
@@ -15,8 +18,9 @@ export async function Post(url,payLoad){
 export function SuspenseComponent(){
   return(
     <div class="SuspenseContainer">
-    <div><span style={{fontSize:"8px"}} class="spinner-border" role="status"></span></div>
- <div>Kayas</div> 
+      
+    <div><span style={{fontSize:"5px"}} class="spinner-border" role="status"></span></div>
+ <div>Please wait.....</div> 
   </div>
   )
 }
@@ -84,12 +88,12 @@ export function DebitTraderAccountBalance(contact,amount){
 
 export function LogIn(cookies,setCookie){
  if(cookies.user===undefined){
-    let contact=window.prompt("Enter your contact")
+    let contact=window.prompt("Enter your contact that is registered on Kayas")
     if(contact===null){
       window.location.href=window.location.href
     }else if(Array.from(contact.trim()).length<10){
       
-      ToastAlert('toastAlert2','Enter contact of 10 digits',4000)
+      ToastAlert('toastAlert2','Contact must be 10 digits e.g. 0703852178',4000)
     }else{
       let pin=window.prompt("Enter your Kayas PIN")
       if(pin===null){
@@ -101,19 +105,19 @@ export function LogIn(cookies,setCookie){
         
         VerifyRegistrationAndPin(contact.trim(),pin.trim()).then(resp=>{
         if(resp.registered===false){
-           window.alert('Number you entered is not registered')
+           window.alert('Your contact is not registered with Kayas. Select "OK" to register and then proceed with logging in.')
            window.location.href='/pages/register'
           }else
           
              if(resp.pin===false){
                
-               window.alert('PIN is incorrect')
+               window.alert('Incorrect PIN. Try again')
                window.location.href='/pages/about'
              }else{
                let user={name:resp.details.name,contact:resp.details.contact,role:'user'}
                setCookie('user',user,setCookieOptionsObj)
              
-             window.alert("Successfully logged in")
+             window.alert("Login successful")
              window.location.href=window.location.href
          
              }
@@ -131,70 +135,114 @@ export function LogIn(cookies,setCookie){
     return 0;
 }
 
-export function ListArticles(ArrayOfArticles){
+export function ListArticles2(ArrayOfArticles){
+const [visibleData, setVisibleData] = useState([]);
+const allDataRef = useRef([]);
+
+// useEffect(() => {
+//   allDataRef.current = ArrayOfArticles;    // store full data
+//   setVisibleData(ArrayOfArticles);         // tell React we have data
+// }, []);
+
+
 let style={padding:"5px"},verificationTick
- 
-  return (
+   return (
+    <List
+      height={500}                // viewport height in pixels
+      itemCount={visibleData.length} // total number of items
+      itemSize={35}               // height of each row (fixed)
+      width={400}                 // viewport width in pixels
+    >
+      {({ index, style }) => (
+
+        <div style={style}>{visibleData[index]}
+         {/* <div key={article.id} class="col-md-4">
+        <div  class="articleContainer">
+        <div class="articleContainer2">
+
+        <div>
+            <span style={{color:"grey",fontSize:"11px",fontWeight:""}}>Article {article.id} | {article.visits} views</span>  
+          </div> 
+               
+          <a class="ListArticleHeadlineAndOthers" href={`/pages/pubarticles/article/${article.id}`}>
+              
+          <div class="ListArticleHeadline" >{article.headline1}</div>
+                
+        <div style={{paddingBottom:"3px"}}>
+       <div style={{paddingTop:"4px"}}>
+        <div style={{fontSize:"12px"}}> 
+        Created by {article.author} (0{article.contact}) 
+        <span dangerouslySetInnerHTML={{__html:verificationTick}}/>
+        <div >{article.institution} </div>
+        </div>
+       </div>
+        </div>  
+     
+        </a>
+       
+  <ArticlesNav articleAuthorContact={article.contact}  articleId={article.id}/>
+     
+           
+    
+        </div>
+       </div>
+
+
+        
+        </div> */}
+        
+        
+        
+        </div>
+
+
+      )}
+    </List>
+  )
+
+
+
+
+}
+
+
+
+
+
+export function ListArticles(ArrayOfArticles){
+
+
+let style={padding:"5px"},verificationTick
+   return (
     ArrayOfArticles.map(article=>{
       let whatsappPublicArticleShareLink=`whatsapp://send?text=*${article.headline1.trim()}*%0ASee details below. Tap the link:%0A%0A${kayasDomainUrl}/pages/pubarticles/article/${article.id}%0A%0A_Created by: ${article.author}_`
       
       return(
-      <div key={article.id}>
-                                       
-                     
-  <div class="row">
-        <div class="col-md-3"></div>
-        
-        <div  class="col-md-6">
-        
-        
-       <div  class="articleContainer">
+            <div key={article.id} class="col-md-4">
+        <div  class="articleContainer">
         <div class="articleContainer2">
-        <div  style={{paddingBottom:"1px"}}>
+
+        <div>
             <span style={{color:"grey",fontSize:"11px",fontWeight:""}}>Article {article.id} | {article.visits} views</span>  
           </div> 
-        <ArticlesNav articleAuthorContact={article.contact} articleId={article.id}/> 
-
-        
-        <div class="articleHeadline" >{article.headline1}</div>
                
+          <a class="ListArticleHeadlineAndOthers" href={`/pages/pubarticles/article/${article.id}`}>
+              
+          <div class="ListArticleHeadline" >{article.headline1}</div>
+                
         <div style={{paddingBottom:"3px"}}>
-        <div style={{display:"flex",flexWrap:"wrap"}}>
-         
-    
-          <div style={style}>
-          <div class="button1"  onClick={
-        ()=>{
-         window.location.href=whatsappPublicArticleShareLink
-        }}><span class="fa fa-whatsapp"></span> Share article</div>
-                         
-          </div>
-          
-          
-          
-          <p></p>
-     
-    
-    
-          </div>
-          <div style={{paddingTop:"5px"}}>
-        <div style={{fontSize:"12px",borderBottom:"1px solid grey"}}> Created by {article.author} (0{article.contact}) <span dangerouslySetInnerHTML={{__html:verificationTick}}/>
+       <div style={{paddingTop:"4px"}}>
+        <div style={{fontSize:"12px"}}> 
+        Created by {article.author} (0{article.contact}) 
+        <span dangerouslySetInnerHTML={{__html:verificationTick}}/>
         <div >{article.institution} </div>
         </div>
-    
-    
-    </div><p></p>
-          
-          
-           </div>   
-          
-           
-    <div style={{paddingTop:"2px"}}><img src={article.imageDownLoadUrl} class=" d-block w-100" /></div>
-     <div style={{paddingTop:"5px",fontSize:"14px"}}>
-     <div  dangerouslySetInnerHTML={{__html:article.body}}/>
-     <div>Always keep it Kayas.
-      </div><p></p>
-     </div>
+       </div>
+        </div>  
+     
+        </a>
+       
+  <ArticlesNav articleAuthorContact={article.contact}  articleId={article.id}/>
      
            
     
@@ -204,22 +252,22 @@ let style={padding:"5px"},verificationTick
 
         
         </div>
-        <div class="col-md-3"></div>
-        
-
-        </div>  
-       
-            
-   
-
-            
+      
+          
 
 
-  </div>
+ 
     
     )})
   )
+
+
+
+
   }
+
+
+
 export function getFormData(event){
   event.preventDefault();
   return (Object.fromEntries(new FormData(event.currentTarget)))

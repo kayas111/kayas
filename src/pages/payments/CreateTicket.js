@@ -3,6 +3,7 @@ import React, {useEffect,useState} from 'react'
 import { ToastAlert,IsLoggedIn, Post } from '../Functions';
 import {useCookies} from 'react-cookie'
 import {LoginPage} from '../LoginPage'
+import { PaymentsNav } from './PaymentsNav';
 export function CreateTicket(){
     const [cookies,setCookie,removeCookie]=useCookies(['user'])
 let [status,setStatus]=useState(''), ticketServiceFee=500
@@ -16,11 +17,10 @@ if(IsLoggedIn(cookies)==true){
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <div class="label">Create tickets/service</div>
-            <div class="description">Create tickets/service that people will pay for or buy</div>
+            <div class="pageLabel">Create tickets/service</div>
+            <div class="pageDescription">Create tickets/service that people will pay for or buy</div>
     
-            <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="button1">Back to menu</div></a></div>
+           <PaymentsNav/>
     
     <p></p>
             <form  method="post" id="createTicketForm" action="#">
@@ -35,7 +35,7 @@ if(IsLoggedIn(cookies)==true){
           <input type="text"  name='amount' class="form-control" autoComplete="off" /><p></p>
           <div class="status">{status}</div>
     
-          <div   class="button1"  onClick={()=>{
+          <div   class="btn btn-success" style={{width:"100%"}}  onClick={()=>{
             
             let form=document.getElementById('createTicketForm'), 
             ticketId=form.ticketId.value.trim(), 

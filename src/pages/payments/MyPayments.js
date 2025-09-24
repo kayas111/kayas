@@ -3,6 +3,7 @@ import React, {useEffect,useState} from 'react'
 import { ToastAlert,IsLoggedIn, Post, GetTradingDetails } from '../Functions';
 import {LoginPage} from '../LoginPage'
 import {useCookies} from 'react-cookie'
+import { PaymentsNav } from './PaymentsNav';
 
 export function MyPayments(){
     const [cookies]=useCookies(['user'])
@@ -23,11 +24,7 @@ export function MyPayments(){
                         
                     </div>
                 </div>
-                <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/makepayment">
-                    <div class="btn btn-success btn-sm">Make payment</div></a></div>
-
-                <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="button1">Back to menu</div></a></div>
+               
                 </div>
             )
         }else{
@@ -58,11 +55,10 @@ let paymentDetails=resp.reverse()
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <div class="label">My payments</div>
-            <div class="description">A list of all your payments both served and not served</div>
+            <div class="pageLabel">My payments</div>
+            <div class="pageDescription">A list of all your payments both served and not served</div>
             
-            <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="button1">Back to menu</div></a></div>
+       <PaymentsNav/>
     
             <p></p>
     

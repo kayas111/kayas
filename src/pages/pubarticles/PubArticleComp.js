@@ -2,6 +2,7 @@ import { VerifyRegistrationAndPin,ToastAlert,ListArticles,ListOtherAuthorArticle
 import firebase from 'firebase/compat/app';
 import { useCookies } from 'react-cookie';
 import 'firebase/compat/storage';
+import {Redirect} from 'react-router-dom';
 
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import React, {useEffect,useState} from 'react';
@@ -29,6 +30,7 @@ export function UpdateNumberOfArticleVisits(articleId,valueToAdd){
 
 export function PubArticleComp(){//clientcomponent
     let articleParams=useParams()
+    
     const [cookies,setCookie,removeCookie]=useCookies(['user'])
       let formActionUrl=`/pages/pubarticles/article/${articleParams.id}`
       const[visits,setVisits]=useState('')
@@ -36,7 +38,7 @@ export function PubArticleComp(){//clientcomponent
       const[articleHeadline1,setArticleHeadline1]=useState('')
       const[articleAuthor,setArticleAuthor]=useState('')
       const[articleAuthorContact,setArticleAuthorContact]=useState('')
-      const[articleBody,setArticleBody]=useState('<div style="font-size:23px;color:black;">Please wait..........<p></p></div>')
+      const[articleBody,setArticleBody]=useState('<div style="font-size:18px;color:black;background:orange;padding:30px;text-align:center;">Please wait..........<p></p></div>')
       const[opinionsStatus,setOpinionsStatus]=useState('')
       const[submissionStatus,setSubmissionStatus]=useState('')
       const[opinionsNumb,setOpinionsNumb]=useState('')
@@ -96,7 +98,7 @@ const[otherArticles,setOtherArticles]=useState('')
 
             
 GetTradingDetails(articleDocument.contact).then(resp=>{
-  let trader=resp,viewCost=70
+  let trader=resp,viewCost=30
   
   if(trader.permissionTokensObj.displayArticlesAtFreeCost==true){
     UpdateNumberOfArticleVisits(articleDocument.id,1)
@@ -107,10 +109,11 @@ GetTradingDetails(cookies.user.contact).then(resp=>{
   let user=resp
   if(user.accBal<viewCost){
   
-    if(window.confirm('Low account balance. Would you love to top up?')==true){
+    if(window.confirm(`Your Kayas account balance is low. Click "OK" to top up atleast ${viewCost}/= and be able to read this information.`)==true){
     window.location.href=`/pages/deposit`
    }else{
-     window.location.href='/pages/about'
+     window.location.href='/pages/pubarticles/allarticles'
+     
    }
    }else{
      
@@ -127,7 +130,7 @@ GetTradingDetails(cookies.user.contact).then(resp=>{
 
             }else{
             setTimeout(()=>{
-             if(window.confirm(`Click 'OK' because you must be logged in and have atleast ${viewCost}/= on your Kayas account in order to view this article`)==true){
+             if(window.confirm(`Click 'OK' to login and be able to read this information.`)==true){
                LogIn(cookies,setCookie)
              }else{
    window.location.href=window.location.href
@@ -179,29 +182,29 @@ GetTradingDetails(cookies.user.contact).then(resp=>{
 
 
     
-          await  fetch(`/pubarticle/${articleParams.id}`).then(res=>res.json()).then(async (articleDataArray)=>{
+          // await  fetch(`/pubarticle/${articleParams.id}`).then(res=>res.json()).then(async (articleDataArray)=>{
                  
-            if(articleDataArray.length===0){
-             }else{
-              await fetch('/getAllArticles').then(resp=>{
+          //   if(articleDataArray.length===0){
+          //    }else{
+          //     await fetch('/getAllArticles').then(resp=>{
         
-                return resp.json()}).then(async (resp)=>{
-                  resp.reverse()
-                  if(resp.length===0){
-                    setOtherArticles(`<div style='color:red;text-align:center;'>These Articles do not exist.</div>`) 
+          //       return resp.json()}).then(async (resp)=>{
+          //         resp.reverse()
+          //         if(resp.length===0){
+          //           setOtherArticles(`<div style='color:red;text-align:center;'>These Articles do not exist.</div>`) 
                   
-                  }else{
+          //         }else{
                     
                     
-                 setOtherArticles(
-                  ListOtherArticles(resp,articleParams.id)
-                  )
+          //        setOtherArticles(
+          //         ListOtherArticles(resp,articleParams.id)
+          //         )
     
-                  }
+          //         }
                 
                 
-                })
-             }})
+          //       })
+          //    }})
 
        
         
@@ -209,7 +212,7 @@ GetTradingDetails(cookies.user.contact).then(resp=>{
 
 
         
-        },[])
+        },[articleParams.id])
       
       
       //return statement
@@ -233,8 +236,7 @@ GetTradingDetails(cookies.user.contact).then(resp=>{
           </div>  
           
              <ArticlesNav articleAuthorContact={articleAuthorContact} articleId={articleParams.id}/>
-                   
-          
+                 
           
           <div class="articleHeadline">{articleHeadline1}</div>
                            <div style={{paddingBottom:"3px"}}>
@@ -417,7 +419,7 @@ ToastAlert('toastAlert1','Successful',3000)
 <div style={{paddingTop:"0px"}} id="authorArticles"></div>
                    
           <div class="row">{authorArticles}</div>
-          <div class="row">{otherArticles}</div>
+          
                       
           
       

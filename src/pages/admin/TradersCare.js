@@ -152,19 +152,40 @@ export function TradersCare(){
         fetch('/updateTraderDetails',{
           method:"post",
           headers:{'Content-type':'application/json'},
+          body:JSON.stringify({method:'updateAsAdmin',argsObj:{traderContact:parseInt(form.contact.value.trim()),fieldToUpdate:'sendSmsWithoutTag',updateValue:'notApplicable'}
+    
+          }) 
+      }).then(res=>res.json()).then((resp)=>{
+        setUpdateTraderDetailsFormStatus(resp[0])
+    
+      ToastAlert('toastAlert1',`${resp.msg}`,4000)
+         
+      })
+
+      }}
+      
+      >Send SMS without tag</div></div>
+      <div style={style}> <div class="button1"
+      
+      onClick={()=>{
+        let form=document.getElementById('updateTraderDetailsForm')
+        setUpdateTraderDetailsFormStatus('Updating ........')
+        fetch('/updateTraderDetails',{
+          method:"post",
+          headers:{'Content-type':'application/json'},
           body:JSON.stringify({method:'updateAsAdmin',argsObj:{traderContact:parseInt(form.contact.value.trim()),fieldToUpdate:'displayArticlesAtFreeCost',updateValue:'notApplicable'}
     
           }) 
       }).then(res=>res.json()).then((resp)=>{
         setUpdateTraderDetailsFormStatus(resp[0])
     
-      ToastAlert('toastAlert1',`${resp.msg}`,3000)
+      ToastAlert('toastAlert1',`${resp.msg}`,4000)
          
       })
 
       }}
       
-      >Display articles at free cost</div></div>
+      > Display articles at free cost</div></div>
 
 <div style={style}> <div class="button1"
       

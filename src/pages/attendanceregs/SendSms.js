@@ -4,11 +4,11 @@ import {useCookies} from 'react-cookie'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { AttendenceRegisterNav } from './AttendanceRegsHome';
 import { kayasDomainUrl } from '../../Variables';
-
+import { Link } from 'react-router-dom';
 
 export function SendSms(){
 
-    let registerParams=useParams(),charactersPerSms=149
+    let registerParams=useParams(),charactersPerSms=150
     
      const[status,setStatus]=useState('')
      const [cookies]=useCookies(['user'])
@@ -28,12 +28,13 @@ export function SendSms(){
        const[messagees,setMessagees]=useState('')
        const[registrarContact,setRegistrarContact]=useState('')
        const[institution,setInstitution]=useState('')
-       const[registerTitle,setRegisterTitle]=useState('Please wait......')
+       const[registerTitle,setRegisterTitle]=useState('')
        const[accBal,setAccBal]=useState('calculating......')
        const[charLength,setCharLength]=useState('')
        const[noOfSms,setNoOfSms]=useState('')
        const[smsUnitCost,setSmsUnitCost]=useState('')
-       const[smsCost,setSmsCost]=useState('calculating.....')
+       const[smsCost,setSmsCost]=useState('')
+       const[smsTagAlert,setSmsTagAlert]=useState('')
      
        const [attendeeRegisterMessageStatus,setAttendeeRegisterMessageStatus]=useState('')
        
@@ -73,7 +74,7 @@ export function SendSms(){
             
              setRegistrarName(registerDataDoc.name)
              setInstitution(registerDataDoc.institution)
-             setRegisterTitle(registerDataDoc.registerTitle)
+             setRegisterTitle(`Send SMS to ${registerDataDoc.registerTitle}`)
              setRegistrarContact(registerDataDoc.contact)
          
 
@@ -125,130 +126,159 @@ export function SendSms(){
  
             
          })
-         fetch(`/getTradingDetails/${registerParams.registrarContact}`).then(res=>res.json()).then((resp)=>{
+
  
+ fetch(`/getTradingDetails/${registerParams.registrarContact}`).then(res=>res.json()).then((resp)=>{
  setAccBal(resp[0].accBal)
  setSendSmsTokens(resp[0].permissionTokensObj.sendSmsTokens)
  
+ resp[0].permissionTokensObj.sendSmsWithoutTag==false? setSmsTagAlert('The tag "#KayasSMS" will automatically be appended at the end of the SMS'): setSmsTagAlert('')
+ 
          })
  
- IsLoggedIn(cookies)
+ 
          },[])
   
  
 
 
 
-    return (<div>
+    return (<div style={{padding:"3px"}}>
 <div class="row">
 <div class="col-md-3"></div>
 <div class='col-md-6'style={{padding:"15px"}}>  
-<AttendenceRegisterNav/>
-      
-  <br></br>
-  <form id="setAttendeeRegisterSmsForm" >
-  <div style={{paddingBottom:"8px"}}><div class="formLabel">Send SMS to {registerTitle}
-  <div style={{color:"white"}}>{messageesNumb} contacts</div></div>
-   </div>
-  
+<div class="pageLabel">{registerTitle}</div>
+  <div class="pageDescription" style={{textAlign:"left"}}>{messageesNumb} contacts</div><p></p>
+  <div style={{textAlign:"left",fontSize:"18px"}}>Cost: <span style={{color:"red"}}>{smsCost} Shs.</span></div>
+   <p></p>
 
-     
- 
+  <form id="setAttendeeRegisterSmsForm" >
+   
      <div class="mb-3">
  <input type="hidden" class="form-control" autoComplete="off" name="contact" defaultValue={registrarContact} ></input>
- <div >Account balance: <span style={{color:"red",fontSize:"15px"}}>{accBal}/=</span></div>
- <div >SMS Rate: <span style={{fontSize:"15px",color:"red"}}>{charactersPerSms}</span> characters per contact = <span style={{fontSize:"15px",color:"red"}}>{smsUnitCost}/=</span> </div>
- <div>Cost for <span style={{fontSize:"15px",color:"red"}}>{charLength}</span> characters to <span style={{fontSize:"15px",color:"red"}}>{messageesNumb}</span> contacts = <span style={{fontSize:"15px",color:"red"}}>{smsCost}/=</span></div>
- <div>Sending times left: <span style={{color:"red"}}>{sendSmsTokens}</span> </div>
+ <div class="bold">SMS rate</div>
+ <div class="light"><span >{charactersPerSms}</span> characters per contact = <span >{smsUnitCost}/=</span> </div>
  <p></p>
- <div style={{textAlign:"right"}}>
-    <div class="btn btn-sm btn-warning"
-       onClick={()=>{document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value=''}}>Clear message</div></div>
+ <div class="bold">Sending times left: <span class="light">{sendSmsTokens}</span></div>
+ 
+ <p></p>
+ <div class="formInputLabel">Type message:</div>
+ <div>Number of characters: <span style={{color:"red"}}>{charLength}</span> <span><span style={{textAlign:"right",paddingLeft:"20px"}}>
+    <div class="btn btn-danger btn-sm"
+       onClick={()=>{document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value=''}}>Clear message</div></span>
      
- <div class="formInputLabel">Enter message</div>
- <textarea rows="5" type="text" class="form-control" autoComplete="off" name="smsmessage" onChange={()=>{
+ </span></div><p></p>
+ <textarea rows="10" type="text" class="form-control" autoComplete="off" name="smsmessage" onChange={()=>{
    setCharLength(Array.from(document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value.trim()).length)
    setNoOfSms(NoOfSmsCalculator(Array.from(document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value.trim()).length))
    setSmsCost(NoOfSmsCalculator(Array.from(document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value.trim()).length)*smsUnitCost*messageesNumb)
  }} ></textarea>
-
+<div style={{paddingTop:"10px"}} class="bold">{smsTagAlert}</div>
       </div>
       <div style={{fontSize:"12px"}}>
     </div>
-     
+    <div style={{padding:"5px"}}>
+     <div onClick={()=>{
+      
+if(IsLoggedIn(cookies)==true){
+  if(parseInt(accBal)<parseInt(smsCost)){
+    ToastAlert('toastAlert2','Low account balance. Contact Kayas 0703852178',6000)
+  }else{
+    if(window.confirm("Press OK to confirm")===true){
+      
+    
+    ToastAlert('toastAlert1','Sending. Wait for confirmation message.....',5000)
+      
+            
+   
+
+
+  fetch(`/getTradingDetails/${registerParams.registrarContact}`).then(res=>res.json()).then((resp)=>{
+let traderDetails=resp[0],smsMessage=document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value
+if(traderDetails.permissionTokensObj.sendSmsWithoutTag==false){
+  smsMessage=smsMessage+' #KayasSMS'
+}else{
+;
+}
+
+fetch('/sendAttendeeRegisterSms',{
+  method:"post",
+  headers:{'Content-type':'application/json'},
+  body:JSON.stringify({
+    registrarContact:parseInt(cookies.user.contact),
+smsmessage:smsMessage,
+registerId:parseInt(registerParams.registerId),
+smsCost:smsCost
+
+  }) 
+
+ 
+}).then(res=>res.json()).then(resp=>{
+
+ToastAlert('toastAlert1',`${resp[0]}`,4000)
+fetch(`/getTradingDetails/${registerParams.registrarContact}`).then(res=>res.json()).then((resp)=>{
+
+
+  setAccBal(resp[0].accBal)
+  setSendSmsTokens(resp[0].permissionTokensObj.sendSmsTokens)
+          })
+
+
+})
+
+
+
+            })
+
+
+
+  
+    }else{
+;
+    }
+  }
+
+}else{}
+
+     }}type="text" style={{width:"100%"}} class="btn btn-success">Send SMS</div>
+ </div>
     
      <div style={{display:"flex",flexWrap:"wrap"}}>
        <div style={{padding:"5px"}}>
      <div onClick={()=>{
-       ToastAlert('toastAlert1','Setting......',2000)
-       fetch('/setAttendeeRegisterSms',{
-         method:"post",
-         headers:{'Content-type':'application/json'},
-         body:JSON.stringify({
-           registrarContact:parseInt(cookies.user.contact),
-    smsmessage:document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value,
-    registerId:parseInt(registerParams.registerId)
-   
-         }) 
-     }).then(res=>res.json()).then(resp=>{
-       
-       ToastAlert('toastAlert1',`${resp[0]}`,3000)
+     if(IsLoggedIn(cookies)==true){
+      if(parseInt(cookies.user.contact)!=parseInt(registerParams.registrarContact)){
+        ToastAlert('toastAlert2',`Not allowed. You do not own this contacts register`,3000)
+      }else{  ToastAlert('toastAlert1','Setting, please wait......',3000)
+      fetch('/setAttendeeRegisterSms',{
+        method:"post",
+        headers:{'Content-type':'application/json'},
+        body:JSON.stringify({
+          registrarContact:parseInt(cookies.user.contact),
+   smsmessage:document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value,
+   registerId:parseInt(registerParams.registerId)
+  
+        }) 
+    }).then(res=>res.json()).then(resp=>{
+      
+      ToastAlert('toastAlert1',`${resp[0]}`,3000)
 
-     })
+    })
+}
+    
 
+     }else{
+
+     }
 
      }}type="text" class="button1">Save SMS</div>
  </div>
+ 
  <div style={{padding:"5px"}}>
-     <div onClick={()=>{
-      if(parseInt(accBal)<parseInt(smsCost)){
-        ToastAlert('toastAlert2','Low account balance. Contact Kayas',3000)
-      }else{
-        if(window.confirm("Press OK to confirm")===true){
-          
-        
-        ToastAlert('toastAlert1','Sending.........',4000)
-          
-                
-        fetch('/sendAttendeeRegisterSms',{
-          method:"post",
-          headers:{'Content-type':'application/json'},
-          body:JSON.stringify({
-            registrarContact:parseInt(cookies.user.contact),
-     smsmessage:document.getElementById("setAttendeeRegisterSmsForm").smsmessage.value,
-     registerId:parseInt(registerParams.registerId),
-     smsCost:smsCost
-    
-          }) 
-      }).then(res=>res.json()).then(resp=>{
-        
-        ToastAlert('toastAlert1',`${resp[0]}`,3000)
-        fetch(`/getTradingDetails/${registerParams.registrarContact}`).then(res=>res.json()).then((resp)=>{
+     
 
-
-          setAccBal(resp[0].accBal)
-          setSendSmsTokens(resp[0].permissionTokensObj.sendSmsTokens)
-                  })
-
-
-      })
-
-
-      
-        }else{
-;
-        }
-      }
-     }}type="text" class="button1">Send SMS</div>
- </div>
- <div style={{padding:"5px"}}>
-     <div onClick={()=>{
-                ToastAlert('toastAlert1','Please wait.........',3000)
-          
-            window.location.href=`/pages/attendanceregs/${parseInt(cookies.user.contact)}/${registerParams.registerId}`
-             
-      
-     }}type="text" class="button1">Back to register</div>
+     <Link to={`/pages/attendanceregs/${parseInt(registerParams.registrarContact)}/${registerParams.registerId}`
+           }><div type="text" class="button1">Back to register</div></Link>
  </div>
  </div>
  

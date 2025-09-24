@@ -5,7 +5,7 @@ export function RegistrationPage(){
     const[status,setStatus]=useState('')
     
     
-    return (<div style={{padding:"3px"}}>
+    return (<div style={{padding:"4px"}}>
       <div class='row'>
         <div class='col-md-3'></div>
         <div class='col-md-6'>
@@ -33,7 +33,7 @@ export function RegistrationPage(){
   
      </div>
       <div style={{fontSize:"17px"}} dangerouslySetInnerHTML={{__html:status}}/>
-     <div onClick={
+     <div style={{width:"100%"}} onClick={
       ()=>{
   
 
@@ -92,7 +92,7 @@ let payLoad={
      let kayaserDetailsObj=res
      
      window.alert('Successful')
-     window.location.href=window.location.href
+     //window.location.href=window.location.href
      document.getElementById("freeRegistrationForm").name.value=""
      document.getElementById("freeRegistrationForm").institution.value=""
    
@@ -129,7 +129,7 @@ let payLoad={
 }
       } 
 
-     } class="button1"><span class="fa fa-user-circle"></span> Register</div><p></p>
+     } class="btn btn-success"><span class="fa fa-user-plus"></span> Register</div><p></p>
     
      </form>
 

@@ -1,12 +1,17 @@
 
 
 
-import React, {useEffect,useState} from 'react'
+import React, {useEffect,useState,useRef} from 'react'
 import { ToastAlert,IsLoggedIn } from '../Functions';
 import {useCookies} from 'react-cookie'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { AttendenceRegisterNav } from './AttendanceRegsHome';
 import { kayasDomainUrl } from '../../Variables';
+import { Link } from 'react-router-dom';
+
+
+
+
 
 
 export function AttendanceRegister(){
@@ -64,7 +69,7 @@ export function AttendanceRegister(){
        let data="",whatsappAttendanceRegisterShareLink=`whatsapp://send?text=*${registerTitle}*%0A%0ATap link below to register:%0A${kayasDomainUrl}/pages/attendanceregs/${registerParams.registrar}/${registerParams.id}%0A%0A*Thank you.*`,
        kayasWhatsappGroupLink='https://chat.whatsapp.com/BU6aMsNR6jL5x11rcWc9HZ'
       useEffect(()=>{
-      
+      window.location.href="#"
          fetch(`/attendanceregs/${registerParams.registrar}/${registerParams.id}`).then(res=>res.json()).then(registerDataDoc=>{
                 
            if(registerDataDoc.presence===0){
@@ -102,7 +107,10 @@ export function AttendanceRegister(){
  
          },[])
   
- 
+      
+{/* <div onClick={()=>{
+ window.location.href=`/pages/sendsmsattendanceregs/${registerParams.registrar}/${registerParams.id}`
+     }}type="text" class="button1"><span class="fa fa-envelope"></span> Send SMS</div> */}
        
        //return statement
            /*    <div class='col-md-6'style={{padding:"30px"}}>  
@@ -181,7 +189,130 @@ export function AttendanceRegister(){
      
      </div>*/
       
+    
+     function DisplayContacts(registerParams){
       
+      if(IsLoggedIn(cookies)===true){
+     
+      if(parseInt(cookies.user.contact)==parseInt(registerParams.registrar)){
+        setStatus('Fetching contacts, please wait......')
+        fetch(`/attendeesMessage/${registerParams.registrar}/${registerParams.id}`).then(res=>res.json()).then(res=>{
+       
+ 
+ 
+ fetch(`/attendees/${registerParams.registrar}/${registerParams.id}`).then(res=>res.json()).then(res=>{
+ let responseDoc=res,position=1,registerDoc=responseDoc.registerDoc
+ 
+ contactsReceivedFlag=1
+          setMessageesNumb(responseDoc.registerDoc.attendees.length)
+          let num=1
+        
+ if(responseDoc.closed===true){
+ ToastAlert('toastAlert2','Register closed. Contact Kayas',3000)
+ }else{
+ 
+ 
+ registerDoc.attendees.forEach(attendeeObj=>{
+  attendeeObj.position=position
+  position++
+ })
+ 
+ 
+ setMessagees(
+ registerDoc.attendees.map(attendeeObj=>{
+  return (
+  
+  <div style={{padding:"0px"}}>
+   <div class="contactsRegisterContactRecordContainer">
+   <div class="row " >
+     <div class="col-6">{attendeeObj.position}. {attendeeObj.name}</div>
+     
+     <div class="col-5" style={{textAlign:"right"}}>
+ <a  onClick={()=>{
+ window.location.href=`tel:0${attendeeObj.contact}`
+ }}><span class="hovereffect"><span class="fa fa-phone"></span> Call: 0{attendeeObj.contact}</span></a></div>
+    
+    
+     <div class="col-1" style={{textAlign:"center"}}>
+ <a  onClick={()=>{
+ 
+ 
+ if(window.confirm(`Select "OK" to delete 0${attendeeObj.contact}`)==true){
+   
+   ToastAlert('toastAlert1',`Deleting 0${attendeeObj.contact}, wait for confirmation message.....`,3000)
+   fetch('/removeFromAttendeesRegister',{
+     method:"post",
+     headers:{"Content-type":"application/json"},
+     body:JSON.stringify({contact:parseInt(attendeeObj.contact),registrarContact:registrarContact,registerId:parseInt(registerParams.id)})
+   }).then(res=>res.json()).then(res=>{
+ if(res.registerPresent===0){
+   
+   ToastAlert('toastAlert1',`You can not proceed with the action because the Regsiter is not present`,2000)
+ }else{
+   
+  if(res.attendeeInList===0){
+   ToastAlert('toastAlert2','Contact is not in the list',3000)
+ }else{
+ if(res.success===1){
+   ToastAlert('toastAlert1','Deleted Successfully',3000)
+   setMessageesNumb(messageesNumb-1)
+   DisplayContacts(registerParams)
+ 
+   
+ }else{
+   ToastAlert('toastAlert1','Error occured, try again',3000)
+   
+ 
+ }
+ 
+ 
+ }
+ 
+ }
+ 
+   })
+ 
+   
+ }else{}
+ 
+ 
+ }}><span class="hovereffect"><span class="fa fa-trash"></span></span></a></div>
+ 
+ 
+ 
+ </div>
+ 
+   </div>
+ 
+ 
+ 
+ 
+ 
+  </div>)
+ }))
+ setNumberOfContacts(`${registerDoc.attendees.length} contacts`)
+ setStatus('Successful. Scroll to see')
+ 
+ }
+ 
+ 
+ 
+ 
+          })
+ 
+ 
+        })
+      }else{
+        ToastAlert('toastAlert2','Not allowed. You are not the owner',4000)
+      }
+      
+      
+      
+      
+       }else{;}
+    }
+
+
           return(
               
              <div style={{padding:"3px"}}>
@@ -193,16 +324,19 @@ export function AttendanceRegister(){
            <div class="row">
             <div class="col-md-3"></div>
             <div class='col-md-6' >
-            <div class="pageLabel">{registerTitle}</div>
-            <div class="pageDescription"><span>{messageesNumb}</span> contacts | Register {registerParams.id}</div>
+            <AttendenceRegisterNav/><p></p>
+            <div class="pageLabel" >{messageesNumb} contacts <span style={{paddingLeft:"10px"}}>ID: {registerParams.id}</span></div>
+            <div style={{fontSize:"15px"}}>{registerTitle}</div>
+          
                          
-                         <AttendenceRegisterNav/>
+                    
                          
-              <div  style={{paddingTop:"15px"}}>  
+              <div  style={{paddingTop:"20px"}}>  
             
     <form id="messengingForm" >
-    <div style={{paddingBottom:"8px"}}><div class="formLabel">Add a contact to this register</div></div>
-    
+    <div class="bold">Save your contact</div>
+    <div class="light">Enter your name (optional) and contact then save.</div>
+    <p></p>
      
      <div class="mb-3">
      <div class="formInputLabel">Name (optional)</div>
@@ -213,10 +347,10 @@ export function AttendanceRegister(){
   <div class="row">
   
    <div>
-   <div style={{padding:"5px",fontSize:"15px",color:"green"}} dangerouslySetInnerHTML={{__html:status}}/>
-   <div style={{display:"flex",flexWrap:"wrap"}}>
-     <div style={{padding:"3px"}}>
-     <div onClick={()=>{
+   
+   <div class="status">{status}</div>
+   <div style={{padding:"3px"}}>
+     <div style={{width:'100%'}} onClick={()=>{
  let name;
  if(Array.from(document.getElementById('messengingForm').contact.value.trim()).length<10||Array.from(document.getElementById('messengingForm').contact.value.trim()).length>10){
  ToastAlert('toastAlert2','Enter contact of 10 digits',3000)
@@ -286,103 +420,23 @@ export function AttendanceRegister(){
  }
  
  
-     }}type="text" class="button1"><span class="fa fa-user-circle"></span> Add contact</div>
+     }}type="text" class="btn btn-success"><span class="fa fa-save"></span> Save</div>
      </div>
+
+<div style={{paddingTop:"8px"}} class="bold">Other options</div>
+   <div style={{display:"flex",flexWrap:"wrap"}}>
+    
      <div style={{padding:"3px"}}>
 <div onClick={()=>{
- 
- if(IsLoggedIn(cookies)===true){
-
-  
-  setTimeout(()=>{
-    if(contactsReceivedFlag===0){
-      ToastAlert('toastAlert1','Gaining network, please wait......',8000)
-    }else{
-    ;
-    }
-     
-    
-    
-       },11500)
-  
-  
-   
-       setStatus('Getting contacts, please wait......')
-       fetch(`/attendeesMessage/${registerParams.registrar}/${registerParams.id}`).then(res=>res.json()).then(res=>{
-      
-let message=res.message
-
-fetch(`/attendees/${registerParams.registrar}/${registerParams.id}`).then(res=>res.json()).then(res=>{
-let responseDoc=res,position=1,registerDoc=responseDoc.registerDoc
-
-contactsReceivedFlag=1
-         setMessageesNumb(responseDoc.registerDoc.attendees.length)
-         let num=1
-       
-if(responseDoc.closed===true){
-ToastAlert('toastAlert2','Register closed. Contact Kayas',3000)
-}else{
-
-
-registerDoc.attendees.forEach(attendeeObj=>{
- attendeeObj.position=position
- position++
-})
-
-
-setMessagees(
-registerDoc.attendees.map(attendeeObj=>{
- return (
- 
- <div style={{padding:"0px"}}>
-  <div class="contactsRegisterContactRecordContainer">
-  <div class="row " >
-    <div class="col-6">{attendeeObj.position}. {attendeeObj.name}</div><div class="col-6" style={{textAlign:"right"}}>
-<a  onClick={()=>{
-window.location.href=`tel:0${attendeeObj.contact}`
-}}><span class="hovereffect"><span class="fa fa-phone"></span> Call: 0{attendeeObj.contact}</span></a></div>
-</div>
-  </div>
-
-
-
-
-
- </div>)
-}))
-setNumberOfContacts(`${registerDoc.attendees.length} contacts`)
-setStatus('Successful. Scroll to see')
-
-}
-
-
-
-
-         })
-
-
-       })
-
-
-
-
-     
-    
-    
-    
-      
-
-
-
-
- }else{;}
-
-     }}type="text" class="button1"><span class="fa fa-eye"></span> Display contacts</div>
+  DisplayContacts(registerParams)
+}}type="text" class="button1"><span class="fa fa-eye"></span> Display contacts</div>
 </div>
 <div style={{padding:"3px"}}>
-<div onClick={()=>{
- window.location.href=`/pages/sendsmsattendanceregs/${registerParams.registrar}/${registerParams.id}`
-     }}type="text" class="button1"><span class="fa fa-envelope"></span> Send SMS</div>
+  <Link to={`/pages/sendsmsattendanceregs/${registerParams.registrar}/${registerParams.id}`}>
+  <div class="button1"><span class="fa fa-envelope"></span> Send SMS</div>
+  </Link>
+  
+
 </div>
 <div style={{padding:"3px"}}>
 <div onClick={()=>{
@@ -485,11 +539,11 @@ setStatus('Successful. Scroll to see')
         
      <div class="col-md-3"></div>
      <div class='col-md-6'>  
-     <div style={{padding:"30px"}}><div style={{color:"red",fontSize:"20px",textAlign:"center",paddingTop:"20px",borderBottom:"1px solid red"}}>Below here is only for the Admin</div></div>
-     <div class="pageLabel">Send a contact to another register</div>
+     <div style={{padding:"10px"}}><div style={{color:"red",fontSize:"20px",textAlign:"center",paddingTop:"20px",borderBottom:"1px solid red"}}>Below is for only the Admin</div></div>
+     <div class="pageLabel">Share a contact to another register</div>
      <div class="pageDescription">Send a contact from this register to another register. To send, enter the ID of the register to send to and enter the position that contact holds in this register</div><p></p>
   <form id="sendContactToRegister" >
-  <div style={{paddingBottom:"8px"}}><div class="formLabel">Send contact to a register</div></div>
+  <div style={{paddingBottom:"8px"}}><div class="formLabel">Share a contact to another register</div></div>
      <div style={{paddingBottom:"5px"}}>Only for the Register Admin, {registrarName} </div>
      <div style={{paddingTop:"5px"}}>Sending to: <span style={{padding:"5px"}} dangerouslySetInnerHTML={{__html:sendToContactRegisterName}}/> </div>
      <div class="mb-3">
@@ -575,7 +629,7 @@ setStatus('Successful. Scroll to see')
 
  }else{;}
        
-       }}type="text" class="button1">Send</div>
+       }}type="text"  style={{width:"100%"}} class="btn btn-success">Send</div>
      </form>
      
      </div>
@@ -592,21 +646,9 @@ setStatus('Successful. Scroll to see')
            <div class="row"style={{textAlign:"center",padding:"20px",fontSize:"15px"}}>
            
           <div class="col-md-3"></div>
-          <div class="col-md-6"><div style={{borderRadius:"40px",border:"1px solid green",padding:"5px"}}>
-          <a style={{color:"green",fontSize:""}} href='/pages/brocode'>
-               <span  class="hovereffect">Get to know Kayas </span> </a><br></br>
-              <a style={{color:"green",fontSize:""}} href="https://twitter.com/isaacopiokayas">
-               <span  class="hovereffect">Follow Kayas on Twitter, tap here <span  class="fa fa-twitter"></span></span> </a>
-              <br></br>
-              <a style={{color:"green",fontSize:""}} href={kayasWhatsappGroupLink}>
-               <span  class="hovereffect">Join Kayas WhatsApp group, tap here <span  class="fa fa-whatsapp"></span></span> </a>
-               <br></br>
-              
-             
+          <div class="col-md-6">
                
-               </div>
-               
-               <div style={{padding:"10px"}}>Share to WhatsApp friends or Groups <br></br> <a style={{color:"green"}} href={whatsappAttendanceRegisterShareLink}><span  class="btn btn-warning hovereffect"><span class='fa fa-whatsapp'></span> Share this Register</span></a></div>
+               <div style={{padding:"3px"}}>Share to WhatsApp friends or Groups <br></br> <a style={{color:"green"}} href={whatsappAttendanceRegisterShareLink}><span  class="button1"><span class='fa fa-whatsapp'></span> Share this Register</span></a></div>
                
                </div>
            

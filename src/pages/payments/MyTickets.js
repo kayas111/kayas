@@ -3,6 +3,8 @@ import React, {useEffect,useState} from 'react'
 import { ToastAlert,IsLoggedIn, Post} from '../Functions';
 import {LoginPage} from '../LoginPage'
 import {useCookies} from 'react-cookie'
+import { PaymentsNav } from './PaymentsNav';
+import {Link} from 'react-router-dom';
 
 export function MyTickets(){
     const [cookies]=useCookies(['user'])
@@ -36,7 +38,7 @@ let ticketDetails=resp.reverse()
 <div style={{fontSize:"15px",fontWeight:"600"}}>Ticket ID: {ticketDetail.ticketId}</div>
 <div>Number of tickets sold: {ticketDetail.payments.length}</div>
 <div>Amount per ticket: {ticketDetail.amount} shs</div>
-<a href={`/pages/payments/approvepayment/${ticketDetail.ticketId}`}><div style={{paddingTop:"3px"}}><div class="button1">Approve a payment</div></div></a>
+<Link to={`/pages/payments/approvepayment/${ticketDetail.ticketId}`}><div style={{paddingTop:"3px"}}><div class="button1">Approve a payment</div></div></Link>
 </div>
 
             </div>
@@ -52,10 +54,9 @@ let ticketDetails=resp.reverse()
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <div class="label">My tickets</div>
-            <div class="description"> Select a ticket to approve a payment made for it.</div>
-            <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="button1">Back to menu</div></a></div>
+            <div class="pageLabel">My tickets</div>
+            <div class="pageDescription"> Select a ticket to approve a payment made for it.</div>
+           <PaymentsNav/>
     
       
             <p></p>

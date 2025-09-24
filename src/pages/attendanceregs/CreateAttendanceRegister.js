@@ -18,17 +18,17 @@ export function CreateAttendanceRegister(){
 <AttendenceRegisterNav/>
 <p></p>
          <form method="post" id="attendanceRegisterCreateForm" action="#">
-      <div style={{paddingBottom:"8px"}}><div class="formLabel">Create register</div></div>
-      
+      <div class="bold">New contact register</div>
+      <div class="light">Type a name to create a new register and save contacts to it.</div>
+      <p></p>
        <div class="mb-3">
         <div class="formInputLabel">Name of register</div>
        <textarea rows="2" type="text" class="form-control" autoComplete="off" name="attendanceRegisterTitle" ></textarea>
-     
-     <br></br>
+  
      
        </div>
        
-       <div style={{fontSize:"17px",paddingBottom:"10px"}} dangerouslySetInnerHTML={{__html:status}}/>
+       <div style={{fontSize:"17px",paddingBottom:"3px"}} dangerouslySetInnerHTML={{__html:status}}/>
        <div  onClick={
        
          ()=>{
@@ -52,7 +52,7 @@ if(IsLoggedIn(cookies)===true){
        
          if(traderDetailsObj.permissionTokensObj.createAttendanceRegisterTokens>0){
                              
-           ToastAlert('toastAlert1','Creating............',3000)
+           ToastAlert('toastAlert1','Creating............',7000)
       
            fetch('/createAttendanceRegister',{
        method:"post",
@@ -71,7 +71,7 @@ if(IsLoggedIn(cookies)===true){
        ToastAlert('toastAlert2','Limit reached, cant create more registers',3000)
       }else{
        if(res.success===1){
-         ToastAlert('toastAlert1','Successful, please wait......',3000)
+         ToastAlert('toastAlert1','Successful, please wait......',5000)
          document.getElementById("attendanceRegisterCreateForm").attendanceRegisterTitle.value=""
      
          window.location.href=`/pages/attendanceregs/${res.contact}/${res.registerId}`
@@ -102,7 +102,7 @@ if(IsLoggedIn(cookies)===true){
 }else{}
 
          }
-       } class="form-submit-btn button1">Create register</div><p></p>
+       } class="btn btn-success" style={{width:"100%"}}>Create register</div><p></p>
       
        </form>
        </div></div>

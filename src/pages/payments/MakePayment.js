@@ -3,6 +3,7 @@ import React, {useEffect,useState} from 'react'
 import { ToastAlert,IsLoggedIn, Post, GetTradingDetails } from '../Functions';
 import {LoginPage} from '../LoginPage'
 import {useCookies} from 'react-cookie'
+import { PaymentsNav } from './PaymentsNav';
 
 export function MakePayment(){
     const [cookies]=useCookies(['user'])
@@ -22,14 +23,15 @@ export function MakePayment(){
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <div class="label">Make payment</div>
-            <div class="description">Pay for a service or ticket. Enter the ID, search and pay</div>  
-            <div style={{textAlign:"center",paddingTop:"20px"}}><a href="/pages/payments/paymentshomepage">
-                    <div class="button1">Back to menu</div></a></div><p></p>
+            <div class="pageLabel">Make payment</div>
+            <div class="pageDescription">Pay for a service or ticket. Enter the ID, search and pay</div>  
+          
+        <PaymentsNav/>
+          <p></p>
     
             <form  method="post" id="makePaymentForm" action="#">
           
-            <div class="formInputLabel">Search for ticket/service ID (name of ticket) before paying</div>
+            <div class="formInputLabel">Search for ticket/service ID (name of ticket) then pay</div>
           <input type="text" name='ticketId' class="form-control" placeholder='Enter ticket ID or name and search' autoComplete="off" /><p></p>
           
           
@@ -38,7 +40,7 @@ export function MakePayment(){
     
     <div class="status">{searchStatus}</div>
     
-          <div  class="button1"
+          <div style={{width:"100%"}} class="btn btn-success"
           
           onClick={()=>{
             let form=document.getElementById('makePaymentForm'),ticketId=form.ticketId.value.trim()
@@ -86,10 +88,11 @@ export function MakePayment(){
                             
                  <div style={{paddingTop:"10px",paddingBottom:"3px"}}> {ticket} </div>
     <p></p>
-    <div class="formInputLabel">Create your payment secret code or word (You will be asked for this secret to confirm your payment)</div>
+    <div class="formInputLabel">Create a payment secret code/word and then pay.</div>
+    <div class="light">Don't forget the payment secret code, you will be asked for it to confirm your payment.</div>
                  <input type="text" name='paymentSecretCode' class="form-control" autoComplete="off" /><p></p>
     <div class="status">{payStatus}</div>
-           <div   class="button1"
+           <div  style={{width:"100%"}} class="btn btn-success"
            onClick={()=>{
          
                 
@@ -112,21 +115,18 @@ export function MakePayment(){
         
         GetTradingDetails(cookies.user.contact).then(traderDetails=>{
             
-            // if(traderDetails.accBal<paymentDetails.amount){
+            if(traderDetails.accBal<paymentDetails.amount){
     
-            //     setPayStatus('Kayas account balance is low. Tap menu and deposit to your Kayas account')
-            // }else{
+                setPayStatus('Tap menu and select deposit to your Kayas account because your account balance is low.')
+            }else{
     
-            //     setPayStatus('Paying........')
-            //     Post('/payForTicket',paymentDetails).then(resp=>{
-            //         setPayStatus(resp.msg)
-            //     })
+                setPayStatus('Paying........')
+                Post('/payForTicket',paymentDetails).then(resp=>{
+                    setPayStatus(resp.msg)
+                })
     
-            // }
-            setPayStatus('Paying........')
-            Post('/payForTicket',paymentDetails).then(resp=>{
-                setPayStatus(resp.msg)
-            })
+            }
+           
 
 
         })

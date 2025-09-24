@@ -19,7 +19,8 @@ return(
    
 
      <div class="mb-3">
-     <div class="formInputLabel">Contact to deposit from</div>
+     <div class="formInputLabel">Airtel number to deposit from</div>
+     <div style={{color:"red",fontSize:"11px"}}>Only Airtel money is supported for now. Make sure the money is on any Airtel number</div>
      <input type="text" class="form-control" autoComplete="off" name="contact"  ></input>
    <br></br>
   <div class="formInputLabel">Amount</div>
@@ -37,12 +38,13 @@ if(IsLoggedIn(cookies)==true){
     beneficiary.name=cookies.user.name
     beneficiary.contact=cookies.user.contact
     
-    let form=document.getElementById("depositForm")
-        if(Array.from(form.contact.value.trim()).length<10 || Array.from(form.contact.value).length>10){
+    let form=document.getElementById("depositForm"), contact=form.contact.value.trim()
+        if(Array.from(contact).length<10 || Array.from(contact).length>10){
 
 ToastAlert('toastAlert2','Enter contact of 10 digits',3000)
 
-}else  if((parseInt(form.amount.value.trim())>0)==false){
+} 
+else  if((parseInt(form.amount.value.trim())>0)==false){
 
     ToastAlert('toastAlert2','Enter a valid amount',4000)
     
@@ -62,8 +64,10 @@ ToastAlert('toastAlert2','Enter contact of 10 digits',3000)
         ToastAlert('toastAlert2','Enter an amount without commas',4000)
 
     }
+   
+else if (Array.from(contact)[2]==0 || Array.from(contact)[2]==4 || Array.from(contact)[2]==5 ){
 
-else{
+
 
 setStatus('Please wait.....')
 let payLoad={
@@ -86,12 +90,17 @@ let payLoad={
    )
  
  
-}}else{
+}
+
+else{
+    ToastAlert('toastAlert2','The contact must be an airtel number.',4000)  
+}
+}else{
     ;
 }
       } 
 
-     } class="button1"><span class="fa fa-money"></span> Deposit</div><p></p>
+     } class="btn btn-success" style={{width:"100%"}}><span class="fa fa-money"></span> Deposit</div><p></p>
     
      </form>
 

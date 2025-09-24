@@ -23,14 +23,14 @@ if(IsLoggedIn(cookies)===true){
         })
     }).then(resp=>{
         
-        return resp.json()}).then(resp=>{
+        return resp.json()}).then(async (resp)=>{
     if(resp.length===0){
         ToastAlert('toastAlert2','You have no articles',4000)
     
     }else{
     resp.reverse()
-     
-    setMyArticles(ListArticles(resp))
+    let  articles= await ListArticles(resp)
+    setMyArticles(articles)
     
     
     // resp.forEach(articleObject=>{
@@ -70,14 +70,12 @@ if(IsLoggedIn(cookies)===true){
                 
                   <div class="button1" onClick={()=>{
                         window.location.href=`whatsapp://send?text=*Trending stories*%0A%0ATap the link below for details:%0A%0A${kayasDomainUrl}/pages/pubarticles/sharemyarticles/${cookies.user.contact}`
-                    }}><span class="fa fa-whatsapp"></span> Share all articles through WhatsApp</div>
+                    }}><span class="fa fa-whatsapp"></span> Share all</div>
                   
                 </div>
                     </div>
                     <div class="col-md-3"></div>
                 </div>
-                
-                
                 
                 
                 <div class="row">{myArticles}</div>
